@@ -23,8 +23,8 @@ class Member(models.Model):
     first_name = models.TextField()
     last_name = models.TextField()
     email = models.EmailField(null=True)
-    level = models.PositiveIntegerField(default=1)
-    score = models.PositiveIntegerField(default=0)
+    level = models.PositiveSmallIntegerField(default=1)
+    score = models.PositiveSmallIntegerField(default=0)
     friends = models.ManyToManyField('self')
 
     profile_picture = models.ForeignKey(ProfilePicture, on_delete=models.CASCADE, null=True)
@@ -36,22 +36,30 @@ class Member(models.Model):
 class Type(models.Model):
     is_custom = models.BooleanField(default=False)
     name = models.TextField()
-    duration = models.PositiveIntegerField(null=True)
+    duration = models.PositiveSmallIntegerField(null=True)
+    helpful_links = models.TextField(null=True)
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.duration)
 
 
 class Habit(models.Model):
+    class PrioChoices(models.IntegerChoices):
+        LOW = 1, 'low'
+        MEDIUM = 2, 'medium'
+        HIGH = 3, 'high'
+
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField(null=True)
     name = models.TextField()
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
     interval = models.PositiveSmallIntegerField(null=True)
+    priority = models.PositiveSmallIntegerField(choices=PrioChoices.choices)
 
     def __str__(self):
         return '%s (since %s)' % (self.name, self.start_date)
+
 
 class Message(models.Model):
     message = models.TextField()
