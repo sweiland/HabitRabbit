@@ -20,6 +20,7 @@ import { MessageListComponent } from './message-list/message-list.component';
 import { MessageFormComponent } from './message-form/message-form.component';
 import { ProfilePictureListComponent } from './profile-picture-list/profile-picture-list.component';
 import { ProfilePictureFormComponent } from './profile-picture-form/profile-picture-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ProfilePictureFormComponent } from './profile-picture-form/profile-pict
     ProfilePictureFormComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
