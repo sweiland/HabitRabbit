@@ -47,6 +47,11 @@ urlpatterns = [
     path('profilepicture/<int:pk>/get', views.profilepicture_form_get),
     path('profilepicture/<int:pk>/update', views.profilepicture_form_update),
     path('profilepicture/<int:pk>/delete', views.profilepicture_delete),
+    path('user/list', views.user_list),
+    path('user/create', views.user_form_create),
+    path('user/<int:pk>/get', views.user_form_get),
+    path('user/<int:pk>/update', views.user_form_update),
+    path('user/<int:pk>/delete', views.user_delete),
 
     url(r'^api-token-auth/', obtain_jwt_token),
 ]

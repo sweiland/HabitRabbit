@@ -37,6 +37,7 @@ const routes: Routes = [
   {path: 'type-list', component: TypeListComponent, canActivate: [AuthGuard]},
   {path: 'user-list', component: UserListComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
 
 ];
 

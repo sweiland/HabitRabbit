@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from HabitRabbit.models import Member, Habit, Type, ProfilePicture, Message
+from HabitRabbit.models import Member, Habit, Type, ProfilePicture, Message, User
 
 
 class MemberSerializer(serializers.ModelSerializer):
@@ -37,4 +37,9 @@ class ProfilePictureSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
+        fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
         fields = '__all__'

@@ -3,9 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
-from HabitRabbit.models import Member, Habit, Type, Message, ProfilePicture
+from HabitRabbit.models import Member, Habit, Type, Message, ProfilePicture, User
 from HabitRabbit.serializers import MemberSerializer, HabitSerializer, TypeSerializer, MessageSerializer, \
-    ProfilePictureSerializer
+    ProfilePictureSerializer, UserSerializer
 
 
 # GETs for all
@@ -14,6 +14,14 @@ from HabitRabbit.serializers import MemberSerializer, HabitSerializer, TypeSeria
 def member_list(request):
     members = Member.objects.all()
     serializer = MemberSerializer(members, many=True)
+    return Response(serializer.data)
+
+
+@swagger_auto_schema(method='GET', responses={200: UserSerializer(many=True)})
+@api_view(['GET'])
+def user_list(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
 
@@ -59,6 +67,18 @@ def member_form_get(request, pk):
         return Response({'error': 'Member does not exist.'}, status=404)
 
     serializer = MemberSerializer(member)
+    return Response(serializer.data)
+
+
+@swagger_auto_schema(method='GET', responses={200: UserSerializer()})
+@api_view(['GET'])
+def user_form_get(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+
+    serializer = UserSerializer(user)
     return Response(serializer.data)
 
 
@@ -113,6 +133,17 @@ def profilepicture_form_get(request, pk):
 def member_form_create(request):
     data = JSONParser().parse(request)
     serializer = MemberSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+
+@swagger_auto_schema(method='POST', request_body=UserSerializer, responses={200: UserSerializer()})
+@api_view(['POST'])
+def user_form_create(request):
+    data = JSONParser().parse(request)
+    serializer = UserSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
@@ -174,6 +205,22 @@ def member_form_update(request, pk):
 
     data = JSONParser().parse(request)
     serializer = MemberSerializer(member, data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+
+@swagger_auto_schema(method='PATCH', request_body=UserSerializer, responses={200: UserSerializer()})
+@api_view(['PATCH'])
+def user_form_update(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+
+    data = JSONParser().parse(request)
+    serializer = UserSerializer(user, data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
@@ -253,6 +300,20 @@ def member_delete(request, pk):
         return Response({'error': 'Member does not exist.'}, status=404)
     member.delete()
     return Response(status=204)
+
+
+@api_view(['DELETE'])
+def user_delete(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+    user.is_active = False
+    serializer = UserSerializer(user, data=user.__dict__)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=204)
+    return Response(serializer.errors, status=400)
 
 
 @api_view(['DELETE'])

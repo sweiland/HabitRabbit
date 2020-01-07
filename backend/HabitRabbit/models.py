@@ -1,5 +1,8 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
+
+from backend import settings
 
 
 class ProfilePicture(models.Model):
@@ -19,10 +22,19 @@ class ProfilePicture(models.Model):
         return self.color
 
 
-class Member(models.Model):
+class User(AbstractUser):
+    username = models.TextField()
     first_name = models.TextField()
     last_name = models.TextField()
-    email = models.EmailField(null=True)
+    email = models.EmailField(unique=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+
+    def __str__(self):
+        return self.username
+
+class Member(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile', null=True)
     level = models.PositiveSmallIntegerField(default=1)
     score = models.PositiveSmallIntegerField(default=0)
     friends = models.ManyToManyField('self')
