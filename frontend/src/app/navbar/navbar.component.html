@@ -1,1 +1,5 @@
-<p>navbar works!</p>
+<button [matMenuTriggerFor]="menu" mat-button>Menu</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+</mat-menu>
