@@ -37,6 +37,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatFaqModule} from '@angular-material-extensions/faq';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFaqModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
