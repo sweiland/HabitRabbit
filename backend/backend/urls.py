@@ -13,8 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
+from rest_framework_jwt.views import obtain_jwt_token
 
 from HabitRabbit import views
 
@@ -45,4 +47,6 @@ urlpatterns = [
     path('profilepicture/<int:pk>/get', views.profilepicture_form_get),
     path('profilepicture/<int:pk>/update', views.profilepicture_form_update),
     path('profilepicture/<int:pk>/delete', views.profilepicture_delete),
+
+    url(r'^api-token-auth/', obtain_jwt_token),
 ]
