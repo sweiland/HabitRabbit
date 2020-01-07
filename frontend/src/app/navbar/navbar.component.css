@@ -12,4 +12,8 @@
   z-index: 1;
 }
 
+.spacer {
+  flex: 1 1 auto;
+}
+
 /*# sourceMappingURL=navbar.component.css.map */
