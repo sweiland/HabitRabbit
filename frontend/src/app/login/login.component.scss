@@ -4,8 +4,8 @@
 
 .shipping-card {
   min-width: 120px;
-  width: 40%;
-  margin: 20px auto;
+  width: 25%;
+  margin: 25px auto;
   position: absolute;
   top: 30%;
   left: 50%;
@@ -34,3 +34,19 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.mat-raised-button {
+  color: #ffac4e;
+  left: 1%;
+  width: 48%;
+
+}
+
+.mat-card-header {
+  margin-left: -1em;
+}
+
+.signup {
+  float: right;
+}
+
