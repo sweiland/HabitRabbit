@@ -1,4 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 import { HabitFormComponent } from './habit-form.component';
 
@@ -8,9 +15,17 @@ describe('HabitFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HabitFormComponent ]
-    })
-    .compileComponents();
+      declarations: [ HabitFormComponent ],
+      imports: [
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatInputModule,
+        MatRadioModule,
+        MatSelectModule,
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +34,7 @@ describe('HabitFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should compile', () => {
     expect(component).toBeTruthy();
   });
 });
