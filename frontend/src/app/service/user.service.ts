@@ -46,7 +46,7 @@ export class UserService {
   }
 
   register(user: any) {
-    // code here
+    return this.http.post('/api/user/create', user);
   }
 
 
