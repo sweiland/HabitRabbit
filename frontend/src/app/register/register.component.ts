@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   registerForm3;
   registerFormFinal;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
   }
 
   passwordMatchValidator(control: AbstractControl) {
@@ -57,9 +58,8 @@ export class RegisterComponent implements OnInit {
       last_name: this.registerForm2.value.last_name,
       password: this.registerForm3.value.password,
     });
-    console.log('submit');
     this.userService.register(this.registerFormFinal.value).subscribe(() => {
-      alert('sent out successfully');
+      this.router.navigate(['/login']);
     });
   }
 
