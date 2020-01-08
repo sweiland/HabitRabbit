@@ -45,5 +45,9 @@ export class UserService {
     return permission in permissions;
   }
 
+  register(user: any) {
+    // code here
+  }
+
 
 }

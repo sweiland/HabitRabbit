@@ -21,6 +21,8 @@ import {UserListComponent} from './user-list/user-list.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
   {path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard]},
@@ -36,8 +38,6 @@ const routes: Routes = [
   {path: 'type-form', component: TypeFormComponent, canActivate: [AuthGuard]},
   {path: 'type-list', component: TypeListComponent, canActivate: [AuthGuard]},
   {path: 'user-list', component: UserListComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
 
 ];
 

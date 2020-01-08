@@ -1,1 +1,36 @@
-<p>register works!</p>
+<div class="register-background">
+  <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" novalidate>
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+        <mat-card-subtitle>Log in here!</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input formControlName="email" matInput placeholder="Email">
+              <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input formControlName="password" matInput placeholder="Password" type=password>
+              <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button color="primary" mat-raised-button type="submit">Submit</button>
+        <a href="/login" color="secondary" mat-raised-button type="submit" class="signup">Cancel</a>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
