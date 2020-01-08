@@ -23,7 +23,7 @@ class ProfilePicture(models.Model):
 
 
 class User(AbstractUser):
-    username = models.TextField()
+    username = models.TextField(unique=True)
     first_name = models.TextField()
     last_name = models.TextField()
     email = models.EmailField(unique=True)
