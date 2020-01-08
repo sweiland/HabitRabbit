@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HabitRabbit.apps.HabitrabbitConfig',
-    'rest_framework'
+    'rest_framework',
+    'annoying'
 ]
 
 MIDDLEWARE = [
