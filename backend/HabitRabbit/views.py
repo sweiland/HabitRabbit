@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from HabitRabbit.models import Member, Habit, Type, Message, ProfilePicture, User
 from HabitRabbit.serializers import MemberSerializer, HabitSerializer, TypeSerializer, MessageSerializer, \
-    ProfilePictureSerializer, UserSerializer
+    ProfilePictureSerializer, UserSerializer, EmailSerializer
 
 
 # GETs for all
@@ -360,3 +360,18 @@ def profilepicture_delete(request, pk):
 
     profilepicture.delete()
     return Response(status=204)
+
+
+
+#Purpose built views
+@swagger_auto_schema(method='GET', responses={200: EmailSerializer()})
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_email_from_username(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+
+    serializer = EmailSerializer(user)
+    return Response(serializer.data)
