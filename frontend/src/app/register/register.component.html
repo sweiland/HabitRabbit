@@ -1,4 +1,4 @@
-<mat-vertical-stepper linear="true" #stepper>
+<mat-vertical-stepper linear="false" #stepper>
   <mat-step [stepControl]="registerForm">
     <form [formGroup]="registerForm">
       <ng-template matStepLabel>Fill out your name</ng-template>
@@ -18,7 +18,7 @@
         Username is required
       </mat-error>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext type="submit">Next</button>
       </div>
     </form>
   </mat-step>
@@ -38,22 +38,25 @@
         Last Name is required
       </mat-error>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button matStepperNext type="submit">Next</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="registerForm3">
-    <form [formGroup]="registerForm3">
+    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm3">
       <ng-template matStepLabel>Fill out your address</ng-template>
       <mat-form-field>
-        <input matInput type="password" placeholder="Password" formControlName="password" required>
+        <input minlength="8"  matInput type="password" placeholder="Password" formControlName="password" required>
       </mat-form-field>
       <mat-error *ngIf="registerForm3.controls['password'].hasError('required')">
         Password is required
       </mat-error>
+      <mat-error *ngIf="registerForm3.controls['password'].hasError('minlength')">
+        Password has to be 8 characters long
+      </mat-error>
       <mat-form-field>
-        <input matInput type="password_check" placeholder="Repeat Password" formControlName="password_check" required>
+        <input matInput type="password" placeholder="Repeat Password" formControlName="password_check" required>
       </mat-form-field>
       <mat-error *ngIf="registerForm3.controls['password_check'].hasError('required')">
         Confirm password is required
@@ -62,8 +65,8 @@
         Passwords have to match.
       </mat-error>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button type="submit">Submit</button>
       </div>
     </form>
   </mat-step>

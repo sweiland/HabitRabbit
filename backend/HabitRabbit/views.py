@@ -1,6 +1,7 @@
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import JSONParser
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from HabitRabbit.models import Member, Habit, Type, Message, ProfilePicture, User
@@ -141,6 +142,7 @@ def member_form_create(request):
 
 @swagger_auto_schema(method='POST', request_body=UserSerializer, responses={200: UserSerializer()})
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def user_form_create(request):
     data = JSONParser().parse(request)
     serializer = UserSerializer(data=data)

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
 
 @Component({
@@ -9,12 +9,13 @@ import {UserService} from '../service/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
-  }
-
   registerForm;
   registerForm2;
   registerForm3;
+  registerFormFinal;
+
+  constructor(private fb: FormBuilder, private userService: UserService) {
+  }
 
   passwordMatchValidator(control: AbstractControl) {
     const password: string = control.get('password').value; // get password from our password form control
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
     // compare is the password math
     if (password !== confirmPassword) {
       // if they don't match, set an error in our confirmPassword form control
-      control.get('password_check').setErrors({ pw_check: true });
+      control.get('password_check').setErrors({pw_check: true});
     }
   }
 
@@ -36,13 +37,30 @@ export class RegisterComponent implements OnInit {
       last_name: ['', Validators.required],
     });
     this.registerForm3 = this.fb.group({
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       password_check: ['', Validators.required],
     }, {validator: this.passwordMatchValidator});
+    this.registerFormFinal = this.fb.group({
+      email: [''],
+      username: [''],
+      first_name: [''],
+      last_name: [''],
+      password: [''],
+    });
   }
 
   onSubmit() {
-    this.userService.login(this.registerForm.value);
+    this.registerFormFinal.patchValue({
+      email: this.registerForm.value.email,
+      username: this.registerForm.value.username,
+      first_name: this.registerForm2.value.first_name,
+      last_name: this.registerForm2.value.last_name,
+      password: this.registerForm3.value.password,
+    });
+    console.log('submit');
+    this.userService.register(this.registerFormFinal.value).subscribe(() => {
+      alert('sent out successfully');
+    });
   }
 
 }
