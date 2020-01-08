@@ -70,3 +70,15 @@ class EmailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email']
+
+
+class UserNumberSerializer(serializers.ModelSerializer):
+    number = serializers.SerializerMethodField()
+    count = 0
+
+    class Meta:
+        model = User
+        fields = ['number']
+
+    def get_number(self, obj):
+        return obj.count()

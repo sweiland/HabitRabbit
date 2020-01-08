@@ -10,6 +10,7 @@ import {User} from '../user';
 })
 export class LoginComponent implements OnInit {
   loginForm: any;
+  usernumber;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
   }
@@ -19,6 +20,11 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
+    this.userService.getNumberOfUsers().subscribe((res: User) => {
+        this.usernumber = res.number;
+      }
+    );
+
   }
 
   onSubmit() {

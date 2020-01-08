@@ -53,4 +53,8 @@ export class UserService {
   getEmail(email: string) {
     return this.http.get('/api/email/' + email + '/get');
   }
+
+  getNumberOfUsers() {
+    return this.http.get('/api/users/number');
+  }
 }

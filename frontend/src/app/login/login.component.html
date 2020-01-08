@@ -29,8 +29,11 @@
       </mat-card-content>
       <mat-card-actions>
         <button color="primary" mat-raised-button type="submit">Login</button>
-        <a color="secondary" mat-raised-button type="button" href="/register" class="signup">Sign Up</a>
+        <a class="signup" color="secondary" href="/register" mat-raised-button type="button">Sign Up</a>
       </mat-card-actions>
+      <p>
+        Registered Users: {{usernumber}}
+      </p>
     </mat-card>
   </form>
 </div>
