@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from './service/user.service';
+import {User} from './user';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ export class AppComponent implements OnInit {
   title = 'frontend';
 
   isLoggedIn = false;
+  user;
 
   constructor(private userService: UserService) {
   }
@@ -17,6 +19,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.userService.isLoggedIn.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
+    });
+    this.userService.getUser().subscribe((res) => {
+      this.user = res;
     });
   }
 }

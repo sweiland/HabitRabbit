@@ -327,3 +327,15 @@ def get_number_of_users(request):
 
     serializer = UserNumberSerializer(user)
     return Response(serializer.data)
+
+
+@swagger_auto_schema(method='GET', responses={200: UserSerializer()})
+@api_view(['GET'])
+def get_user_from_email(request, email):
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+
+    serializer = UserSerializer(user)
+    return Response(serializer.data)

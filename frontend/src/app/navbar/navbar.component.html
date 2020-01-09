@@ -3,6 +3,39 @@
     <mat-toolbar color="primary">
       <span>HabitRabbit</span>
       <span class="spacer"></span>
+      <button mat-button [matMenuTriggerFor]="habitMenu">Habit</button>
+      <mat-menu #habitMenu="matMenu">
+        <button mat-menu-item routerLink="habit-list">Habit List</button>
+        <button mat-menu-item routerLink="habit-form">Create Habit</button>
+      </mat-menu>
+      <span class="spacer"></span>
+      <button mat-button [matMenuTriggerFor]="userMenu">User</button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="user-list">User List</button>
+        <button mat-menu-item routerLink="user-form">Create User</button>
+      </mat-menu>
+      <span class="spacer"></span>
+      <button mat-button [matMenuTriggerFor]="messageMenu">Message</button>
+      <mat-menu #messageMenu="matMenu">
+        <button mat-menu-item routerLink="message-list">Message List</button>
+        <button mat-menu-item routerLink="message-form">Create Message</button>
+      </mat-menu>
+      <span class="spacer"></span>
+      <button mat-button [matMenuTriggerFor]="typeMenu">Type</button>
+      <mat-menu #typeMenu="matMenu">
+        <button mat-menu-item routerLink="type-list">Type List</button>
+        <button mat-menu-item routerLink="type-form">Create Type</button>
+      </mat-menu>
+      <span class="spacer"></span>
+      <button mat-button [matMenuTriggerFor]="profilePictureMenu">ProfilePicture</button>
+      <mat-menu #profilePictureMenu="matMenu">
+        <button mat-menu-item routerLink="profile-picture-list">ProfilePicture List</button>
+        <button mat-menu-item routerLink="profile-picture-form">Create ProfilePicture</button>
+      </mat-menu>
+      <span class="spacer"></span>
+      <span class="spacer"></span>
+      <button mat-button routerLink="dashboard">{{username}}</button>
+      <span class="spacer"></span>
       <app-logout></app-logout>
     </mat-toolbar>
   </mat-sidenav-content>

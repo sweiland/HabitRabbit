@@ -45,6 +45,12 @@ export class UserService {
     return permission in permissions;
   }
 
+  getUser() {
+    const token = localStorage.getItem(this.accessTokenLocalStorageKey);
+    const username = this.jwtHelperService.decodeToken(token).username;
+    return this.http.get('api/user/' + username + '/get');
+  }
+
   register(user: any) {
     return this.http.post('/api/user/create', user);
   }

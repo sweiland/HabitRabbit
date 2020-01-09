@@ -45,6 +45,7 @@ urlpatterns = [
     path('user/list', views.user_list),
     path('user/create', views.user_form_create),
     path('user/<int:pk>/get', views.user_form_get),
+    path('user/<str:email>/get', views.get_user_from_email),
     path('user/<int:pk>/update', views.user_form_update),
     path('user/<int:pk>/delete', views.user_delete),
     path('email/<str:username>/get', views.get_email_from_username),
