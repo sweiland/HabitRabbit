@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from HabitRabbit.models import Habit, Type, ProfilePicture, Message, User
+from HabitRabbit.models import Habit, Type, ProfilePicture, Message, User, FAQ
 
 
 class HabitSerializer(serializers.ModelSerializer):
@@ -76,3 +76,9 @@ class UserNumberSerializer(serializers.ModelSerializer):
 
     def get_number(self, obj):
         return obj.count()
+
+
+class FaqSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FAQ
+        fields = '__all__'

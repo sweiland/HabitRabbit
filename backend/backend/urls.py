@@ -48,6 +48,10 @@ urlpatterns = [
     path('user/<str:email>/get', views.get_user_from_email),
     path('user/<int:pk>/update', views.user_form_update),
     path('user/<int:pk>/delete', views.user_delete),
+    path('faq/list', views.get_faq),
+    path('faq/create', views.add_faq),
+    path('faq/<int:pk>/update', views.update_faq),
+    path('faq/<int:pk>/delete', views.remove_faq),
     path('email/<str:username>/get', views.get_email_from_username),
     path('users/number', views.get_number_of_users),
 

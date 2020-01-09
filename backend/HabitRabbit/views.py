@@ -4,9 +4,9 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from HabitRabbit.models import Habit, Type, Message, ProfilePicture, User
+from HabitRabbit.models import Habit, Type, Message, ProfilePicture, User, FAQ
 from HabitRabbit.serializers import HabitSerializer, TypeSerializer, MessageSerializer, \
-    ProfilePictureSerializer, UserSerializer, EmailSerializer, UserNumberSerializer
+    ProfilePictureSerializer, UserSerializer, EmailSerializer, UserNumberSerializer, FaqSerializer
 
 
 # GETs for all
@@ -47,6 +47,14 @@ def message_list(request):
 def profilepicture_list(request):
     profilepictures = ProfilePicture.objects.all()
     serializer = ProfilePictureSerializer(profilepictures, many=True)
+    return Response(serializer.data)
+
+
+@swagger_auto_schema(method='GET', responses={200: FaqSerializer(many=True)})
+@api_view(['GET'])
+def get_faq(request):
+    faq = FAQ.objects.all()
+    serializer = FaqSerializer(faq, many=True)
     return Response(serializer.data)
 
 
@@ -165,6 +173,17 @@ def profilepicture_create(request):
     return Response(serializer.errors, status=400)
 
 
+@swagger_auto_schema(method='POST', request_body=FaqSerializer, responses={200: FaqSerializer()})
+@api_view(['POST'])
+def add_faq(request):
+    data = JSONParser().parse(request)
+    serializer = FaqSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+
 # PATCHs
 @swagger_auto_schema(method='PATCH', request_body=UserSerializer, responses={200: UserSerializer()})
 @api_view(['PATCH'])
@@ -246,6 +265,22 @@ def profilepicture_form_update(request, pk):
     return Response(serializer.errors, status=400)
 
 
+@swagger_auto_schema(method='PATCH', request_body=FaqSerializer, responses={200: FaqSerializer()})
+@api_view(['PATCH'])
+def update_faq(request, pk):
+    try:
+        faq = FAQ.objects.get(pk=pk)
+    except FAQ.DoesNotExist:
+        return Response({'error': 'FAQ does not exist.'}, status=404)
+
+    data = JSONParser().parse(request)
+    serializer = FaqSerializer(faq, data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+
 # DELETEs
 @api_view(['DELETE'])
 def user_delete(request, pk):
@@ -277,7 +312,7 @@ def type_delete(request, pk):
     try:
         type = Type.objects.get(pk=pk)
     except Type.DoesNotExist:
-        return Response({'error': 'Habit does not exist.'}, status=404)
+        return Response({'error': 'Type does not exist.'}, status=404)
 
     type.delete()
     return Response(status=204)
@@ -288,7 +323,7 @@ def message_delete(request, pk):
     try:
         message = Message.objects.get(pk=pk)
     except Message.DoesNotExist:
-        return Response({'error': 'Habit does not exist.'}, status=404)
+        return Response({'error': 'Message does not exist.'}, status=404)
 
     message.delete()
     return Response(status=204)
@@ -299,9 +334,20 @@ def profilepicture_delete(request, pk):
     try:
         profilepicture = ProfilePicture.objects.get(pk=pk)
     except ProfilePicture.DoesNotExist:
-        return Response({'error': 'Habit does not exist.'}, status=404)
+        return Response({'error': 'Profile Picture does not exist.'}, status=404)
 
     profilepicture.delete()
+    return Response(status=204)
+
+
+@api_view(['DELETE'])
+def remove_faq(request, pk):
+    try:
+        faq = FAQ.objects.get(pk=pk)
+    except FAQ.DoesNotExist:
+        return Response({'error': 'FAQ does not exist.'}, status=404)
+
+    faq.delete()
     return Response(status=204)
 
 

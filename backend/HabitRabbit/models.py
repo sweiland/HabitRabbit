@@ -71,3 +71,10 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
+class FAQ(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+
+    def __str__(self):
+        return "%s: %s" % (self.question, self.answer)

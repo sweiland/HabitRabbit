@@ -1,0 +1,106 @@
+[
+  {
+    "model": "HabitRabbit.profilepicture",
+    "pk": 1,
+    "fields": {
+      "color": "v",
+      "picture": ""
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 1,
+    "fields": {
+      "is_custom": false,
+      "name": "Daily Habit",
+      "duration": null,
+      "helpful_links": null
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 1,
+    "fields": {
+      "message": "Great job, keep going!",
+      "type": 1
+    }
+  },
+  {
+    "model": "HabitRabbit.faq",
+    "pk": 1,
+    "fields": {
+      "question": "How is HabitRabbit different from other Habit Building Applications?",
+      "answer": "We employ cutting-edge gamification technologies to keep you engaged - all without microtransactions!"
+    }
+  },
+  {
+    "model": "HabitRabbit.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$JCNTmujp9X1M$aDvrvEvQrYdwIADdXoyOlbgnMXyazwlBNA2AC+CcnO4=",
+      "last_login": null,
+      "is_superuser": true,
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-01-09T08:57:46.908Z",
+      "username": "sweiland",
+      "first_name": "Sebastian",
+      "last_name": "Weiland",
+      "email": "hello@sweiland.at",
+      "level": 1,
+      "score": 0,
+      "profile_picture": null,
+      "groups": [],
+      "user_permissions": [],
+      "friends": []
+    }
+  },
+  {
+    "model": "HabitRabbit.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$YhCHL7uNcTt4$2m63QSTEVUK8vUjyf2tngNlsnxeAjibAD6hPqayYPPQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-01-09T10:45:30.644Z",
+      "username": "anothercodeartist",
+      "first_name": "Peter",
+      "last_name": "S.",
+      "email": "peter.s@fhj.at",
+      "level": 1,
+      "score": 0,
+      "profile_picture": null,
+      "groups": [],
+      "user_permissions": [],
+      "friends": []
+    }
+  },
+  {
+    "model": "HabitRabbit.habit",
+    "pk": 1,
+    "fields": {
+      "start_date": "2020-01-01T00:00:00Z",
+      "end_date": "2020-01-25T23:59:59.999Z",
+      "name": "Quit Procrastinating",
+      "member": 1,
+      "type": null,
+      "interval": null,
+      "priority": 2
+    }
+  },
+  {
+    "model": "HabitRabbit.habit",
+    "pk": 2,
+    "fields": {
+      "start_date": "2020-01-09T10:43:34.535Z",
+      "end_date": null,
+      "name": "Pick Up Yoga",
+      "member": 1,
+      "type": null,
+      "interval": null,
+      "priority": 1
+    }
+  }
+]
