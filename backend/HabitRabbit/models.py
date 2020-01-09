@@ -20,17 +20,6 @@ class ProfilePicture(models.Model):
         return self.color
 
 
-class Member(models.Model):
-    level = models.PositiveSmallIntegerField(default=1)
-    score = models.PositiveSmallIntegerField(default=0)
-    # friends = models.ManyToManyField('self', null=True)
-
-    # profile_picture = models.ForeignKey(ProfilePicture, on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return 'Score: %s, Level: %s' % (self.score, self.level)
-
-
 class User(AbstractUser):
     username = models.TextField(unique=True)
     first_name = models.TextField()

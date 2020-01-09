@@ -1,13 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from HabitRabbit.models import Member, Habit, Type, ProfilePicture, Message, User
-
-
-class MemberSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Member
-        fields = '__all__'
+from HabitRabbit.models import Habit, Type, ProfilePicture, Message, User
 
 
 class HabitSerializer(serializers.ModelSerializer):

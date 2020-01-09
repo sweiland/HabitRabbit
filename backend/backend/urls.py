@@ -22,11 +22,6 @@ from HabitRabbit import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('member/list', views.member_list),
-    path('member/create', views.member_form_create),
-    path('member/<int:pk>/get', views.member_form_get),
-    path('member/<int:pk>/update', views.member_form_update),
-    path('member/<int:pk>/delete', views.member_delete),
     path('habit/list', views.habit_list),
     path('habit/create', views.habit_form_create),
     path('habit/<int:pk>/get', views.habit_form_get),

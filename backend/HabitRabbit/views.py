@@ -4,20 +4,12 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from HabitRabbit.models import Member, Habit, Type, Message, ProfilePicture, User
-from HabitRabbit.serializers import MemberSerializer, HabitSerializer, TypeSerializer, MessageSerializer, \
+from HabitRabbit.models import Habit, Type, Message, ProfilePicture, User
+from HabitRabbit.serializers import HabitSerializer, TypeSerializer, MessageSerializer, \
     ProfilePictureSerializer, UserSerializer, EmailSerializer, UserNumberSerializer
 
 
 # GETs for all
-@swagger_auto_schema(method='GET', responses={200: MemberSerializer(many=True)})
-@api_view(['GET'])
-def member_list(request):
-    members = Member.objects.all()
-    serializer = MemberSerializer(members, many=True)
-    return Response(serializer.data)
-
-
 @swagger_auto_schema(method='GET', responses={200: UserSerializer(many=True)})
 @api_view(['GET'])
 def user_list(request):
@@ -59,18 +51,6 @@ def profilepicture_list(request):
 
 
 # GETs for specific
-@swagger_auto_schema(method='GET', responses={200: MemberSerializer()})
-@api_view(['GET'])
-def member_form_get(request, pk):
-    try:
-        member = Member.objects.get(pk=pk)
-    except Member.DoesNotExist:
-        return Response({'error': 'Member does not exist.'}, status=404)
-
-    serializer = MemberSerializer(member)
-    return Response(serializer.data)
-
-
 @swagger_auto_schema(method='GET', responses={200: UserSerializer()})
 @api_view(['GET'])
 def user_form_get(request, pk):
@@ -129,17 +109,6 @@ def profilepicture_form_get(request, pk):
 
 
 # POSTs
-@swagger_auto_schema(method='POST', request_body=MemberSerializer, responses={200: MemberSerializer()})
-@api_view(['POST'])
-def member_form_create(request):
-    data = JSONParser().parse(request)
-    serializer = MemberSerializer(data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
-
-
 @swagger_auto_schema(method='POST', request_body=UserSerializer, responses={200: UserSerializer()})
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -197,22 +166,6 @@ def profilepicture_create(request):
 
 
 # PATCHs
-@swagger_auto_schema(method='PATCH', request_body=MemberSerializer, responses={200: MemberSerializer()})
-@api_view(['PATCH'])
-def member_form_update(request, pk):
-    try:
-        member = Member.objects.get(pk=pk)
-    except Member.DoesNotExist:
-        return Response({'error': 'Member does not exist.'}, status=404)
-
-    data = JSONParser().parse(request)
-    serializer = MemberSerializer(member, data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=400)
-
-
 @swagger_auto_schema(method='PATCH', request_body=UserSerializer, responses={200: UserSerializer()})
 @api_view(['PATCH'])
 def user_form_update(request, pk):
@@ -295,16 +248,6 @@ def profilepicture_form_update(request, pk):
 
 # DELETEs
 @api_view(['DELETE'])
-def member_delete(request, pk):
-    try:
-        member = Member.objects.get(pk=pk)
-    except Member.DoesNotExist:
-        return Response({'error': 'Member does not exist.'}, status=404)
-    member.delete()
-    return Response(status=204)
-
-
-@api_view(['DELETE'])
 def user_delete(request, pk):
     try:
         user = User.objects.get(pk=pk)
@@ -362,8 +305,7 @@ def profilepicture_delete(request, pk):
     return Response(status=204)
 
 
-
-#Purpose built views
+# Purpose built views
 @swagger_auto_schema(method='GET', responses={200: EmailSerializer()})
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -375,6 +317,7 @@ def get_email_from_username(request, username):
 
     serializer = EmailSerializer(user)
     return Response(serializer.data)
+
 
 @swagger_auto_schema(method='GET', responses={200: UserNumberSerializer()})
 @api_view(['GET'])
