@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -6,7 +6,8 @@ import {HttpClient} from '@angular/common/http';
 })
 export class HabitService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAll() {
     return this.http.get('/api/habit/list');
@@ -14,5 +15,9 @@ export class HabitService {
 
   deleteHabit(id: number) {
     return this.http.delete('/api/habit/' + id + '/delete');
+  }
+
+  saveHabit(habit: any) {
+    return this.http.post('/api/habit/create', habit);
   }
 }

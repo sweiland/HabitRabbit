@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, ValidatorFn} from '@angular/forms';
 import * as moment from 'moment';
 import {ActivatedRoute} from '@angular/router';
+import {HabitService} from '../service/habit.service';
 
 @Component({
   selector: 'app-habit-form',
@@ -13,12 +14,15 @@ export class HabitFormComponent implements OnInit {
   memberOptions;
   typeOptions;
 
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private habitService: HabitService) {
+  }
+
   ngOnInit(): void {
     const data = this.route.snapshot.data;
     this.memberOptions = data.memberOptions;
     this.typeOptions = data.typeOptions;
     this.habitForm = this.fb.group({
-      start_date: [moment()],
+      start_date: [moment().startOf('day')],
       end_date: [null, [this.dateValidator()]],
       name: [''],
       member: [1],
@@ -27,16 +31,15 @@ export class HabitFormComponent implements OnInit {
     });
   }
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
-  }
-
   dateValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      return (control.value <= moment()) ? {dateCheck: {value: control.value}} : null;
+      console.log(control.value);
+      return (moment().startOf('day').isAfter(control.value)) ? {dateCheck: {value: control.value}} : null;
     };
   }
 
   onSubmit() {
-    alert('Thanks!');
+    this.habitService.saveHabit(this.habitForm.value).subscribe(() => {
+    });
   }
 }
