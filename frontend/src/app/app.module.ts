@@ -22,7 +22,7 @@ import {ScoreListComponent} from './score-list/score-list.component';
 import {TypeFormComponent} from './type-form/type-form.component';
 import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
-import {MatButtonModule, MatMenuModule, MatSnackBar, MatSnackBarModule, MatStepperModule} from '@angular/material';
+import {MatButtonModule, MatDatepickerModule, MatMenuModule, MatSnackBar, MatSnackBarModule, MatStepperModule} from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -41,6 +41,7 @@ import {MatFaqModule} from '@angular-material-extensions/faq';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttperrorInterceptor} from './httperror.interceptor';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -68,37 +69,39 @@ export function tokenGetter() {
     TypeListComponent,
     UserListComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    MatButtonModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    ReactiveFormsModule,
-    MatFaqModule.forRoot(),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter,
-        whitelistedDomains: ['localhost:4200']
-      }
-    }),
-    HttpClientModule,
-    MatStepperModule,
-    MatSnackBarModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatMenuModule,
+        MatButtonModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatGridListModule,
+        MatCardModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatInputModule,
+        MatSelectModule,
+        MatRadioModule,
+        ReactiveFormsModule,
+        MatFaqModule.forRoot(),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter,
+                whitelistedDomains: ['localhost:4200']
+            }
+        }),
+        HttpClientModule,
+        MatStepperModule,
+        MatSnackBarModule,
+        MatDatepickerModule,
+        MatMomentDateModule,
+    ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttperrorInterceptor,
