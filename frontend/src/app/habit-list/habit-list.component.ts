@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTable} from '@angular/material/table';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {HabitService} from '../service/habit.service';
 
 export interface HabitListItem {
@@ -9,7 +9,6 @@ export interface HabitListItem {
   start_date: Date;
   end_date: Date;
   name: string;
-  interval: number;
   priority: number;
 }
 
@@ -25,15 +24,25 @@ export class HabitListComponent implements OnInit {
   dataSource: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['name', 'start_date', 'end_date', 'priority', 'id'];
 
   constructor(private habitService: HabitService) {
   }
 
   ngOnInit() {
     this.habitService.getAll().subscribe((res) => {
-      this.dataSource = res;
-      console.log(this.dataSource);
+      // @ts-ignore
+      this.paginator.length = res.length;
+      // @ts-ignore
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  deleteHabit(id: number) {
+    this.habitService.deleteHabit(id).subscribe(() => {
     });
   }
 }
+

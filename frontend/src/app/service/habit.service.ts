@@ -11,4 +11,8 @@ export class HabitService {
   getAll() {
     return this.http.get('/api/habit/list');
   }
+
+  deleteHabit(id: number) {
+    return this.http.delete('/api/habit/' + id + '/delete');
+  }
 }
