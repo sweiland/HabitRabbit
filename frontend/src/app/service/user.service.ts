@@ -63,4 +63,8 @@ export class UserService {
   getNumberOfUsers() {
     return this.http.get('/api/users/number');
   }
+
+  getAll() {
+    return this.http.get('/api/user/list');
+  }
 }

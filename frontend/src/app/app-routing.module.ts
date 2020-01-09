@@ -17,6 +17,9 @@ import {RegisterComponent} from './register/register.component';
 import {TypeFormComponent} from './type-form/type-form.component';
 import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
+import {UserResolver} from './resolver/user.resolver';
+import {TypeResolver} from './resolver/type.resolver';
+import {User} from './user';
 
 
 const routes: Routes = [
@@ -25,7 +28,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
-  {path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard]},
+  {path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard], resolve: {memberOptions: UserResolver, typeOptions: TypeResolver}},
   {path: 'habit-form/:id', component: HabitFormComponent, canActivate: [AuthGuard]},
   {path: 'habit-list', component: HabitListComponent, canActivate: [AuthGuard]},
   {path: 'message-form', component: MessageFormComponent, canActivate: [AuthGuard]},
