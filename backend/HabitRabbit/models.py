@@ -27,7 +27,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     level = models.PositiveSmallIntegerField(default=1)
     score = models.PositiveSmallIntegerField(default=0)
-    friends = models.ManyToManyField('self', null=True)
+    friends = models.ManyToManyField('self', blank=True)
 
     profile_picture = models.ForeignKey(ProfilePicture, on_delete=models.CASCADE, null=True)
     USERNAME_FIELD = 'email'
