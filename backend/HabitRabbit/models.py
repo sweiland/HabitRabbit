@@ -1,3 +1,5 @@
+#  models.py Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
@@ -71,6 +73,7 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
 
 class FAQ(models.Model):
     question = models.TextField()

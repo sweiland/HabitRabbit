@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+#  settings.py Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+
 import datetime
 import os
 
@@ -39,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'HabitRabbit.apps.HabitrabbitConfig',
     'rest_framework',
-    'annoying'
+    'annoying',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [

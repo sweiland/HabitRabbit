@@ -1,3 +1,5 @@
+#  serializers.py Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
