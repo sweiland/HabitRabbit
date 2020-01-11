@@ -1,3 +1,7 @@
+/*
+ * httperror.interceptor.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ */
+
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Observable, throwError} from 'rxjs';

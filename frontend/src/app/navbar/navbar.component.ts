@@ -1,3 +1,7 @@
+/*
+ * navbar.component.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ */
+
 import {Component, Input} from '@angular/core';
 
 @Component({

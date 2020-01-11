@@ -1,3 +1,7 @@
+/*
+ * profile-picture.service.spec.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ */
+
 import { TestBed } from '@angular/core/testing';
 
 import { ProfilePictureService } from './profile-picture.service';

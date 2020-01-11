@@ -1,3 +1,7 @@
+/*
+ * app.e2e-spec.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ */
+
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 

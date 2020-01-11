@@ -1,3 +1,7 @@
+/*
+ * app.po.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ */
+
 import { browser, by, element } from 'protractor';
 
 export class AppPage {

@@ -1,3 +1,7 @@
+/*
+ * habit-form.component.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ */
+
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, ValidatorFn} from '@angular/forms';
 import * as moment from 'moment';
