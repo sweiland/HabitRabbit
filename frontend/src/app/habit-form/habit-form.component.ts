@@ -37,7 +37,6 @@ export class HabitFormComponent implements OnInit {
 
   dateValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      console.log(control.value);
       return (moment().startOf('day').isAfter(control.value)) ? {dateCheck: {value: control.value}} : null;
     };
   }

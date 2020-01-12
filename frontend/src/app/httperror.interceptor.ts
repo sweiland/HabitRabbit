@@ -29,6 +29,6 @@ export class HttperrorInterceptor implements HttpInterceptor {
           this.snackBar.open(errorMessage, 'Close', {duration: 3000});
           return throwError(errorMessage);
         })
-      )
+      );
   }
 }
