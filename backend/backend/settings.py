@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'HabitRabbit.apps.HabitrabbitConfig',
     'rest_framework',
-    'annoying',
     'drf_yasg'
 ]
 
