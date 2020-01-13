@@ -54,6 +54,7 @@ import {JwtModule} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttperrorInterceptor} from './httperror.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatQuillModule} from '@webacad/ng-mat-quill';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -81,40 +82,41 @@ export function tokenGetter() {
     TypeListComponent,
     UserListComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatMenuModule,
-        MatButtonModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        MatGridListModule,
-        MatCardModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatInputModule,
-        MatSelectModule,
-        MatRadioModule,
-        ReactiveFormsModule,
-        MatFaqModule.forRoot(),
-        JwtModule.forRoot({
-          config: {
-            tokenGetter,
-            whitelistedDomains: ['localhost:4200']
-          }
-        }),
-      HttpClientModule,
-      MatStepperModule,
-      MatSnackBarModule,
-      MatDatepickerModule,
-      MatMomentDateModule,
-      MatCheckboxModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatButtonModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    MatFaqModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        whitelistedDomains: ['localhost:4200']
+      }
+    }),
+    HttpClientModule,
+    MatStepperModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatCheckboxModule,
+    MatQuillModule,
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttperrorInterceptor,

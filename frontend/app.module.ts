@@ -33,6 +33,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import {MatQuillModule} from '@webacad/ng-mat-quill';
+import {QuillModule} from '@webacad/ng-quill';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import {MatListModule} from '@angular/material/list';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    QuillModule,
+    MatQuillModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
