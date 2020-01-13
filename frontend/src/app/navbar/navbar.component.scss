@@ -16,16 +16,28 @@
   z-index: 1;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.mat-toolbar.mat-button {
+  margin: 0 5% 0 5%;
 }
 
-.pointer {
+.menuspacer {
+  flex: auto;
+}
+
+.mat-devider {
+  height: 50%;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+.title {
   cursor: pointer;
+  margin-right: 5%;
 }
 
 .currentuser {
   font-size: 15px;
   color: #e5e5e5;
   font-style: italic;
+  margin-right: 1.5%;
 }
