@@ -3,7 +3,7 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TypeService} from '../service/type.service';
 import {MatSnackBar} from '@angular/material';
@@ -17,17 +17,19 @@ import {MatSnackBar} from '@angular/material';
 export class TypeFormComponent implements OnInit {
   typeForm;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private typeService: TypeService, private router: Router, private snackbar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private typeService: TypeService,
+              private router: Router, private snackbar: MatSnackBar) {
   }
 
   ngOnInit(): void {
     const data = this.route.snapshot.data;
+    const reg = '(https?://)([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.typeForm = this.fb.group({
       id: [null],
       is_custom: [true],
-      name: [''],
-      duration: [1],
-      helpful_link: [null]
+      name: ['', Validators.required],
+      duration: [1, [Validators.max(32767)]],
+      helpful_link: [null, Validators.pattern(reg)]
     });
     if (data.type) {
       this.typeForm.patchValue(data.type);
