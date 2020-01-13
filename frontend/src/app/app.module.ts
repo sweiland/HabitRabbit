@@ -26,7 +26,15 @@ import {ScoreListComponent} from './score-list/score-list.component';
 import {TypeFormComponent} from './type-form/type-form.component';
 import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
-import {MatButtonModule, MatDatepickerModule, MatMenuModule, MatSnackBar, MatSnackBarModule, MatStepperModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatMenuModule,
+  MatSnackBar,
+  MatSnackBarModule,
+  MatStepperModule
+} from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -95,16 +103,17 @@ export function tokenGetter() {
         ReactiveFormsModule,
         MatFaqModule.forRoot(),
         JwtModule.forRoot({
-            config: {
-                tokenGetter,
-                whitelistedDomains: ['localhost:4200']
-            }
+          config: {
+            tokenGetter,
+            whitelistedDomains: ['localhost:4200']
+          }
         }),
-        HttpClientModule,
-        MatStepperModule,
-        MatSnackBarModule,
-        MatDatepickerModule,
-        MatMomentDateModule,
+      HttpClientModule,
+      MatStepperModule,
+      MatSnackBarModule,
+      MatDatepickerModule,
+      MatMomentDateModule,
+      MatCheckboxModule,
     ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

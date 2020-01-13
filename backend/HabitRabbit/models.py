@@ -43,7 +43,7 @@ class Type(models.Model):
     is_custom = models.BooleanField(default=False)
     name = models.TextField()
     duration = models.PositiveSmallIntegerField(null=True)
-    helpful_links = models.TextField(null=True)
+    helpful_link = models.URLField(null=True)
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.duration)
