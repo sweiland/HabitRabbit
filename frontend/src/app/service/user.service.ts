@@ -71,4 +71,13 @@ export class UserService {
   getAll() {
     return this.http.get('/api/user/list');
   }
+
+  getAUser(id: number) {
+    return this.http.get('/api/user/' + id + '/get');
+  }
+
+  updateUser(user: any) {
+    return this.http.patch('/api/user/' + user.id + '/update', user);
+
+  }
 }
