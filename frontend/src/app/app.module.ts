@@ -29,6 +29,7 @@ import {UserListComponent} from './user-list/user-list.component';
 import {
   MatButtonModule,
   MatButtonToggleModule,
+  MatCheckboxModule,
   MatDatepickerModule,
   MatMenuModule,
   MatSnackBar,
@@ -114,6 +115,7 @@ export function tokenGetter() {
     MatDatepickerModule,
     MatMomentDateModule,
     MatButtonToggleModule,
+    MatCheckboxModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
