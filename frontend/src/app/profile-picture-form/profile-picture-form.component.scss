@@ -29,3 +29,67 @@
 .col:last-child {
   margin-right: 0;
 }
+
+.red {
+  background-color: #d4002d;
+}
+
+.green {
+  background-color: #76b82a;
+}
+
+.turquoise {
+  background-color: #00afcb;
+}
+
+.yellow {
+  background-color: #F8FF2E;
+}
+
+.orange {
+  background-color: #ec6608;
+}
+
+.violet {
+  background-color: #673AB7;
+}
+
+.blue {
+  background-color: #3876CF;
+}
+
+.black {
+  background-color: #000000;
+}
+
+.color_picker {
+  display: none;
+}
+
+
+mat-grid-tile {
+  width: 2%;
+}
+
+.colors {
+  width: 40%;
+}
+
+button {
+  width: 9.5rem;
+  height: 7rem;
+  color: transparent;
+  font-size: 1.5em;
+  background-color: transparent;
+  border: none;
+}
+
+button:hover {
+  color: white;
+  border-style: solid;
+  border-radius: -5px;
+  text-shadow: -1px 1px black;
+
+}
+
+

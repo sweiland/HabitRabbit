@@ -14,6 +14,7 @@ class ProfilePicture(models.Model):
         ORANGE = 'o', '#ec6608'
         VIOLET = 'v', '#af1280'
         BLUE = 'b', '#005ca9'
+        BLACK = 'k', '#000000'
 
     color = models.TextField(choices=ColorChoices.choices)
     picture = models.BinaryField()
