@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Resolve} from '@angular/router';
+import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import {Observable} from 'rxjs';
 import {TypeService} from '../service/type.service';
 
@@ -15,7 +15,7 @@ export class TypeResolver implements Resolve<Observable<any>> {
   constructor(private typeService: TypeService) {
   }
 
-  resolve() {
-    return this.typeService.getAll();
+  resolve(route: ActivatedRouteSnapshot) {
+    return this.typeService.getType(route.paramMap.get('id'));
   }
 }

@@ -25,14 +25,14 @@ import {MessageFormComponent} from './message-form/message-form.component';
 import {ProfilePictureListComponent} from './profile-picture-list/profile-picture-list.component';
 import {ProfilePictureFormComponent} from './profile-picture-form/profile-picture-form.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatMenuModule} from '@angular/material';
+import {MatCheckboxModule, MatMenuModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import {LayoutModule} from '@angular/cdk/layout';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,7 @@ import { MatListModule } from '@angular/material/list';
     MessageListComponent,
     MessageFormComponent,
     ProfilePictureListComponent,
-    ProfilePictureFormComponent
+    ProfilePictureFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +67,7 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
