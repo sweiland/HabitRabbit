@@ -16,4 +16,23 @@ export class TypeService {
   getAll() {
     return this.http.get('/api/type/list');
   }
+
+  deleteType(id: number) {
+    return this.http.delete('/api/type/' + id + '/delete');
+  }
+
+  saveType(type: any) {
+    return this.http.post('/api/type/create', type);
+
+  }
+
+  getType(id: string) {
+    return this.http.get('/api/type/' + id + '/get');
+
+  }
+
+  updateType(type: any) {
+    return this.http.patch('/api/type/' + type.id + '/update', type);
+
+  }
 }

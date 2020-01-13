@@ -1,104 +1,59 @@
 <!--
-  ~ type-form.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+  ~ habit-form.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
   -->
 
-<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" [formGroup]="typeForm" novalidate>
   <mat-card class="shipping-card">
     <mat-card-header>
-      <mat-card-title>Shipping Information</mat-card-title>
+      <mat-card-title>
+        <span *ngIf="!typeForm.controls.id.value">Create Type</span>
+        <span *ngIf="typeForm.controls.id.value">Update {{typeForm.controls.name.value}}</span>
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
+
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Company" formControlName="company">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="First name" formControlName="firstName">
-            <mat-error *ngIf="addressForm.controls['firstName'].hasError('required')">
-              First name is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Last name" formControlName="lastName">
-            <mat-error *ngIf="addressForm.controls['lastName'].hasError('required')">
-              Last name is <strong>required</strong>
-            </mat-error>
+            <input formControlName="name" matInput placeholder="Name" required type="text">
+            <mat-hint align="end">Name of the Type</mat-hint>
+            <mat-error *ngIf="typeForm.controls.name.hasError('required')">Name is required</mat-error>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <textarea matInput placeholder="Address" formControlName="address"></textarea>
-            <mat-error *ngIf="addressForm.controls['address'].hasError('required')">
-              Address is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row" *ngIf="!hasUnitNumber">
-        <div class="col">
-          <button mat-button type="button" (click)="hasUnitNumber = !hasUnitNumber">
-            + Add C/O, Apt, Suite, Unit
-          </button>
-        </div>
-      </div>
-      <div class="row" *ngIf="hasUnitNumber">
-        <div class="col">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Address 2" formControlName="address2"></textarea>
+            <input formControlName="duration" matInput placeholder="Duration" type="number">
+            <mat-hint align="end">Duration of the Type</mat-hint>
+            <mat-error *ngIf="typeForm.controls.duration.hasError('max')">Max duration is 32767</mat-error>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="City" formControlName="city">
-            <mat-error *ngIf="addressForm.controls['city'].hasError('required')">
-              City is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <mat-select placeholder="State" formControlName="state">
-              <mat-option *ngFor="let state of states" [value]="state.abbreviation">
-                {{ state.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="addressForm.controls['state'].hasError('required')">
-              State is <strong>required</strong>
+            <input formControlName="helpful_link" matInput placeholder="Helpful Link" type="url">
+            <mat-hint align="end">Helpful Link for the type</mat-hint>
+            <mat-error *ngIf="typeForm.controls.helpful_link.hasError('pattern')">Please enter a URL with
+              Protocol-Prefix (HTTP(s)). Ex: https://github.com/sweiland/HabitRabbit
             </mat-error>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput #postalCode maxlength="5" placeholder="Postal Code" type="number" formControlName="postalCode">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-          </mat-form-field>
+          <mat-checkbox formControlName="is_custom">Custom Type?</mat-checkbox>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-radio-group formControlName="shipping">
-            <mat-radio-button value="free">Free Shipping</mat-radio-button>
-            <mat-radio-button value="priority">Priority Shipping</mat-radio-button>
-            <mat-radio-button value="nextday">Next Day Shipping</mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </div>
+
+
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button [disabled]="!typeForm.valid" color="primary" mat-raised-button type="submit">
+        <span *ngIf="!typeForm.controls.id.value">Create</span>
+        <span *ngIf="typeForm.controls.id.value">Update</span>
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>

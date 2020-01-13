@@ -22,8 +22,8 @@ import {TypeFormComponent} from './type-form/type-form.component';
 import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {UserResolver} from './resolver/user.resolver';
+import {TypesResolver} from './resolver/types.resolver';
 import {TypeResolver} from './resolver/type.resolver';
-import {User} from './user';
 
 
 const routes: Routes = [
@@ -32,7 +32,10 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
-  {path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard], resolve: {memberOptions: UserResolver, typeOptions: TypeResolver}},
+  {
+    path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard],
+    resolve: {memberOptions: UserResolver, typeOptions: TypesResolver}
+  },
   {path: 'habit-form/:id', component: HabitFormComponent, canActivate: [AuthGuard]},
   {path: 'habit-list', component: HabitListComponent, canActivate: [AuthGuard]},
   {path: 'message-form', component: MessageFormComponent, canActivate: [AuthGuard]},
@@ -46,7 +49,7 @@ const routes: Routes = [
   {path: 'profile-picture-list', component: ProfilePictureListComponent, canActivate: [AuthGuard]},
   {path: 'score-list', component: ScoreListComponent, canActivate: [AuthGuard]},
   {path: 'type-form', component: TypeFormComponent, canActivate: [AuthGuard]},
-  {path: 'type-form/:id', component: TypeFormComponent, canActivate: [AuthGuard]},
+  {path: 'type-form/:id', component: TypeFormComponent, canActivate: [AuthGuard], resolve: {type: TypeResolver}},
   {path: 'type-list', component: TypeListComponent, canActivate: [AuthGuard]},
   {path: 'user-list', component: UserListComponent, canActivate: [AuthGuard]},
 
