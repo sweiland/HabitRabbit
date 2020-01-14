@@ -2,12 +2,54 @@
   ~ profile-picture-form.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
   -->
 <mat-card class="shipping-card">
-  <mat-card-header>
-    <mat-card-title>Choose your profile picture</mat-card-title>
-  </mat-card-header>
   <mat-card-content>
     <mat-card-title>Choose your profile picture color</mat-card-title>
     <div class="colors">
+      <mat-grid-list cols="4" rowHeight="7rem">
+        <mat-grid-tile class="red">
+          <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+            <button value="red" type="submit">RED</button>
+          </form>
+        </mat-grid-tile>
+        <mat-grid-tile class="green">
+          <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+            <button value="green" type="submit">GREEN</button>
+          </form>
+        </mat-grid-tile>
+        <mat-grid-tile class="turquoise">
+          <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+            <button value="turquoise" type="submit">TURQUOISE</button>
+          </form>
+        </mat-grid-tile>
+        <mat-grid-tile class="yellow">
+          <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+            <button value="yellow" type="submit">YELLOW</button>
+          </form>
+        </mat-grid-tile>
+        <mat-grid-tile class="orange">
+          <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+            <button value="orange" type="submit">ORANGE</button>
+          </form>
+        </mat-grid-tile>
+        <mat-grid-tile class="violet">
+          <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+            <button value="violet" type="submit">VIOLET</button>
+          </form>
+        </mat-grid-tile>
+        <mat-grid-tile class="blue">
+          <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+            <button value="blue" type="submit">BLUE</button>
+          </form>
+        </mat-grid-tile>
+        <mat-grid-tile class="black">
+          <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+            <button value="black" type="submit">BLACK</button>
+          </form>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <mat-card-title class="pictures_title">Choose your profile picture</mat-card-title>
+    <div class="pictures">
       <mat-grid-list cols="4" rowHeight="7rem">
         <mat-grid-tile class="red">
           <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">

@@ -10,10 +10,10 @@ class ProfilePicture(models.Model):
         RED = 'r', '#d4002d'
         GREEN = 'g', '#76b82a'
         TURQUOISE = 't', '#00afcb'
-        YELLOW = 'y', '#f7a600'
+        YELLOW = 'y', '#f8ff2e'
         ORANGE = 'o', '#ec6608'
-        VIOLET = 'v', '#af1280'
-        BLUE = 'b', '#005ca9'
+        VIOLET = 'v', '#673ab7'
+        BLUE = 'b', '#3876cf'
         BLACK = 'k', '#000000'
 
     color = models.TextField(choices=ColorChoices.choices)
