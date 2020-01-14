@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/core": "^8.3.22",
     "@angular-material-extensions/faq": "^3.0.4",
     "@angular/animations": "^8.2.14",
     "@angular/cdk": "^8.2.3",
