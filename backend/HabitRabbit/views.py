@@ -1,5 +1,4 @@
 #  views.py Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
-
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import JSONParser
@@ -196,9 +195,10 @@ def user_form_update(request, pk):
         return Response({'error': 'User does not exist.'}, status=404)
 
     data = JSONParser().parse(request)
-    serializer = UserSerializer(user, data=data)
+    user.set_password(data.get('password'))
+    serializer = UserSerializer(user, data=data, partial=True)
     if serializer.is_valid():
-        serializer.save()
+        user.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 
@@ -212,7 +212,7 @@ def habit_form_update(request, pk):
         return Response({'error': 'Habit does not exist.'}, status=404)
 
     data = JSONParser().parse(request)
-    serializer = HabitSerializer(habit, data=data)
+    serializer = HabitSerializer(habit, data=data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
@@ -228,7 +228,7 @@ def type_form_update(request, pk):
         return Response({'error': 'Habit does not exist.'}, status=404)
 
     data = JSONParser().parse(request)
-    serializer = TypeSerializer(type, data=data)
+    serializer = TypeSerializer(type, data=data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
@@ -244,7 +244,7 @@ def message_form_update(request, pk):
         return Response({'error': 'Habit does not exist.'}, status=404)
 
     data = JSONParser().parse(request)
-    serializer = MessageSerializer(message, data=data)
+    serializer = MessageSerializer(message, data=data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
@@ -260,7 +260,7 @@ def profilepicture_form_update(request, pk):
         return Response({'error': 'Habit does not exist.'}, status=404)
 
     data = JSONParser().parse(request)
-    serializer = ProfilePictureSerializer(profilepicture, data=data)
+    serializer = ProfilePictureSerializer(profilepicture, data=data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
@@ -276,7 +276,7 @@ def update_faq(request, pk):
         return Response({'error': 'FAQ does not exist.'}, status=404)
 
     data = JSONParser().parse(request)
-    serializer = FaqSerializer(faq, data=data)
+    serializer = FaqSerializer(faq, data=data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
