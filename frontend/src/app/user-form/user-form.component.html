@@ -1,0 +1,111 @@
+<!--
+  ~ habit-form.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+  -->
+
+<form (ngSubmit)="onSubmit()" [formGroup]="userForm" novalidate>
+  <mat-card class="shipping-card">
+
+
+    <mat-card-header>
+      <mat-card-title>
+        <span *ngIf="!userForm.controls.id.value">Create User</span>
+        <span *ngIf="userForm.controls.id.value">Update {{userForm.controls.username.value}}</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input formControlName="username" matInput placeholder="Username" required type="text">
+            <mat-hint align="end">Name of the User</mat-hint>
+            <mat-error *ngIf="userForm.controls.username.hasError('required')">Username is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input formControlName="first_name" matInput placeholder="Firstname" required type="text">
+            <mat-hint align="end">First Name of the User</mat-hint>
+            <mat-error *ngIf="userForm.controls.first_name.hasError('required')">Firstname is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input formControlName="last_name" matInput placeholder="Lastname" required type="text">
+            <mat-hint align="end">Last Name of the User</mat-hint>
+            <mat-error *ngIf="userForm.controls.last_name.hasError('required')">Lastname is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input formControlName="password" matInput minlength="8" placeholder="Password" required type="password">
+            <mat-error *ngIf="userForm.controls['password'].hasError('required')">
+              Password is required
+            </mat-error>
+            <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">
+              Password has to be 8 characters long
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="password_check" matInput placeholder="Repeat Password" required type="password">
+            <mat-error *ngIf="userForm.controls['password_check'].hasError('required')">
+              Confirm password is required
+            </mat-error>
+            <mat-error *ngIf="userForm.controls['password_check'].hasError('pw_check')">
+              Passwords have to match.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input formControlName="email" matInput placeholder="Email" required type="email">
+            <mat-hint align="end">Email of the User</mat-hint>
+            <mat-error *ngIf="userForm.controls.email.hasError('required')">Email is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input formControlName="level" matInput placeholder="Level" required type="number">
+            <mat-hint align="end">Level of the User</mat-hint>
+            <mat-error *ngIf="userForm.controls.level.hasError('max')">Max level is 32767</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input formControlName="score" matInput placeholder="Score" required type="number">
+            <mat-hint align="end">Score of the User</mat-hint>
+            <mat-error *ngIf="userForm.controls.score.hasError('max')">Max score is 32767</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-checkbox formControlName="is_superuser">Is Admin?</mat-checkbox>
+        </div>
+      </div>
+
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button [disabled]="!userForm.valid" color="primary" mat-raised-button type="submit">
+        <span *ngIf="!userForm.controls.id.value">Create</span>
+        <span *ngIf="userForm.controls.id.value">Update</span>
+      </button>
+      <button [disabled]="pressedPassword" color = "accent" mat-raised-button (click) = "changePassword()" type = "button"> Change Password
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
