@@ -34,9 +34,7 @@ export class TypeListComponent implements OnInit {
 
   ngOnInit() {
     this.typeService.getAll().subscribe((response: unknown[]) => {
-      // @ts-ignore
       this.paginator.length = response.length;
-      // @ts-ignore
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;

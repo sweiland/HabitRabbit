@@ -3,20 +3,19 @@
  */
 
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+import {Resolve} from '@angular/router';
 import {Observable} from 'rxjs';
-import {TypeService} from '../service/type.service';
 import {UserService} from '../service/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserResolver implements Resolve<Observable<any>> {
+export class UsersResolver implements Resolve<Observable<any>> {
 
   constructor(private userService: UserService) {
   }
 
-  resolve(route: ActivatedRouteSnapshot) {
-    return this.userService.getAUser(route.paramMap.get('id'));
+  resolve() {
+    return this.userService.getAll();
   }
 }
