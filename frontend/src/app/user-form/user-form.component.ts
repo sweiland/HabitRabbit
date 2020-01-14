@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-user-form',
@@ -10,7 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 export class UserFormComponent implements OnInit {
   private userForm: any;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private userService: UserService, private router: Router) {
   }
 
 
@@ -21,18 +22,23 @@ export class UserFormComponent implements OnInit {
       username: [''],
       first_name: [''],
       last_name: [''],
+      password: [''],
+      password_check: [''],
       email: [''],
       level: [1],
       score: [0],
-      is_superuser: [false]
-
+      is_superuser: [false],
+      is_staff: [false]
     });
-    if (data.type) {
-      this.userForm.patchValue(data.type);
+    if (data.user) {
+      this.userForm.patchValue(data.user);
     }
   }
 
   onSubmit() {
-    alert('Thanks!');
+    this.userForm.patchValue({is_staff: this.userForm.value.is_superuser});
+    this.userService.register(this.userForm.value).subscribe(() => {
+      this.router.navigate(['/user-list']);
+    });
   }
 }

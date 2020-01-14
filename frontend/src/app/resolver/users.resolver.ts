@@ -10,7 +10,7 @@ import {UserService} from '../service/user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserResolver implements Resolve<Observable<any>> {
+export class UsersResolver implements Resolve<Observable<any>> {
 
   constructor(private userService: UserService) {
   }
