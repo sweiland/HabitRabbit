@@ -4,6 +4,7 @@
 
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,6 @@ export class ProfilePictureService {
 
 
   getPicture(profilepicture: any) {
-    return this.http.get('/api/profilepicture/' + profilepicture.id + '/get');
+    return this.http.get('/api/profilepicture/' + profilepicture + '/get');
   }
 }
