@@ -53,7 +53,7 @@ export class UserListComponent implements OnInit {
 
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string) {
     this.userService.getAUser(id).subscribe((response) => {
       const user = response;
       // @ts-ignore

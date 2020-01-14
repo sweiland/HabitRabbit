@@ -104,6 +104,8 @@
         <span *ngIf="!userForm.controls.id.value">Create</span>
         <span *ngIf="userForm.controls.id.value">Update</span>
       </button>
+      <button [disabled]="pressedPassword" color = "accent" mat-raised-button (click) = "changePassword()" type = "button"> Change Password
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>

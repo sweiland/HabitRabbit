@@ -72,7 +72,7 @@ export class UserService {
     return this.http.get('/api/user/list');
   }
 
-  getAUser(id: number) {
+  getAUser(id: string) {
     return this.http.get('/api/user/' + id + '/get');
   }
 

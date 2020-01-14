@@ -25,6 +25,7 @@ import {UsersResolver} from './resolver/users.resolver';
 import {TypesResolver} from './resolver/types.resolver';
 import {TypeResolver} from './resolver/type.resolver';
 import {UserFormComponent} from './user-form/user-form.component';
+import {UserResolver} from './resolver/user.resolver';
 
 
 const routes: Routes = [
@@ -54,6 +55,7 @@ const routes: Routes = [
   {path: 'type-list', component: TypeListComponent, canActivate: [AuthGuard]},
   {path: 'user-list', component: UserListComponent, canActivate: [AuthGuard]},
   {path: 'user-form', component: UserFormComponent, canActivate: [AuthGuard]},
+  {path: 'user-form/:id', component: UserFormComponent, canActivate: [AuthGuard], resolve: {user: UserResolver}},
 
 
 ];
