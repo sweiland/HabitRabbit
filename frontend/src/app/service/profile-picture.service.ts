@@ -2,12 +2,19 @@
  * profile-picture.service.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
  */
 
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfilePictureService {
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
+
+
+  getPicture(profilepicture: any) {
+    return this.http.get('/api/profilepicture/' + profilepicture.id + '/get');
+  }
 }

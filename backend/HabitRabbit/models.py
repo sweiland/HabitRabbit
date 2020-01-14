@@ -14,10 +14,10 @@ class ProfilePicture(models.Model):
         ORANGE = 'o', '#ec6608'
         VIOLET = 'v', '#673ab7'
         BLUE = 'b', '#3876cf'
-        BLACK = 'k', '#000000'
+        BROWN = 'w', '#c49052'
 
-    color = models.TextField(choices=ColorChoices.choices)
-    picture = models.BinaryField()
+    color = models.TextField(choices=ColorChoices.choices, default='r')
+    picture = models.BinaryField(null=True)
 
     def __str__(self):
         return self.color

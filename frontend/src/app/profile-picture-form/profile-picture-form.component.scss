@@ -58,8 +58,8 @@
   background-color: #3876CF;
 }
 
-.black {
-  background-color: #000000;
+.brown {
+  background-color: #c49052;
 }
 
 .color_picker {
@@ -69,6 +69,12 @@
 
 mat-grid-tile {
   width: 2%;
+}
+
+mat-form-field {
+  visibility: hidden;
+  width: 0;
+  height: 0;
 }
 
 .colors {

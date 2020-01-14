@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
     if (this.user == null) {
       this.userService.getUser().subscribe((res) => {
         this.user = res;
+        console.log(res.profile_picture);
       });
     }
   }
