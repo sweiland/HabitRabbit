@@ -33,8 +33,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    const pattern = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
     this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(pattern)]],
       username: ['', Validators.required],
     });
     this.registerForm2 = this.fb.group({
@@ -51,6 +52,8 @@ export class RegisterComponent implements OnInit {
       first_name: [''],
       last_name: [''],
       password: [''],
+      is_staff: [false],
+      is_superuser: [false]
     });
   }
 
