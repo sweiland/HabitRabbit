@@ -54,6 +54,7 @@ import {JwtModule} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttperrorInterceptor} from './httperror.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {UserFormComponent} from './user-form/user-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -79,7 +80,8 @@ export function tokenGetter() {
     ScoreListComponent,
     TypeFormComponent,
     TypeListComponent,
-    UserListComponent
+    UserListComponent,
+    UserFormComponent
   ],
     imports: [
         BrowserModule,
