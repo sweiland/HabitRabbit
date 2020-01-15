@@ -28,13 +28,14 @@ export class ProfilePictureFormComponent implements OnInit {
     this.pictureForm.patchValue({color});
     const profilepicture = this.pictureForm.value;
     if (profilepicture.id) {
-      this.http.put('/api/profilepicture/' + profilepicture.id + '/update', profilepicture)
-        .subscribe(() => {
-          alert('updated successfully');
+      this.http.patch('/api/profilepicture/' + profilepicture.id + '/update', profilepicture)
+        .subscribe((res) => {
+          // this.http.patch('/api/user/1/update', {color: res.id});
         });
     } else {
       this.http.post('/api/profilepicture/create', profilepicture)
         .subscribe((response: any) => {
+          this.http.patch('/api/user/1/update', {color: response.id});
           this.router.navigate(['/profile-picture-form/' + response.id]);
         });
     }

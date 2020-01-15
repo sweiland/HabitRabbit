@@ -4,95 +4,112 @@
 <mat-card class="shipping-card">
   <mat-card-content>
     <mat-card-title>Choose your profile picture color</mat-card-title>
-    <div class="colors">
-      <mat-grid-list cols="4" rowHeight="7rem">
-        <mat-grid-tile class="red">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('r')">
-            <mat-form-field><input matInput type="text" formControlName="color"></mat-form-field>
-            <button value="red" type="submit">RED</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="green">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('GREEN')">
-            <button value="green" type="submit">GREEN</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="turquoise">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('TURQUOISE')">
-            <button value="turquoise" type="submit">TURQUOISE</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="yellow">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('YELLOW')">
-            <button value="yellow" type="submit">YELLOW</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="orange">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('ORANGE')">
-            <button value="orange" type="submit">ORANGE</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="violet">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('VIOLET')">
-            <button value="violet" type="submit">VIOLET</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="blue">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('BLUE')">
-            <button value="blue" type="submit">BLUE</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="brown">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('BROWN')">
-            <button value="brown" type="submit">BROWN</button>
-          </form>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </div>
-    <mat-card-title class="pictures_title">Choose your profile picture</mat-card-title>
-    <div class="pictures">
-      <mat-grid-list cols="4" rowHeight="7rem">
-        <mat-grid-tile class="red">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
-            <button value="red" type="submit"><img src="../../assets/Resources/profile_pictures/pp1.svg"></button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="green">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
-            <button value="green" type="submit">GREEN</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="turquoise">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
-            <button value="turquoise" type="submit">TURQUOISE</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="yellow">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
-            <button value="yellow" type="submit">YELLOW</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="orange">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
-            <button value="orange" type="submit">ORANGE</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="violet">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
-            <button value="violet" type="submit">VIOLET</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="blue">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
-            <button value="blue" type="submit">BLUE</button>
-          </form>
-        </mat-grid-tile>
-        <mat-grid-tile class="brown">
-          <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
-            <button value="brown" type="submit">BROWN</button>
-          </form>
-        </mat-grid-tile>
-      </mat-grid-list>
+    <div class="wrapper">
+      <div class="selection">
+        <div class="colors">
+          <mat-grid-list cols="4" rowHeight="7rem">
+            <mat-grid-tile class="red">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('r')">
+                <mat-form-field><input matInput type="text" formControlName="color"></mat-form-field>
+                <button value="red" type="submit">RED</button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="green">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('g')">
+                <mat-form-field><input matInput type="text" formControlName="color"></mat-form-field>
+                <button value="green" type="submit">GREEN</button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="turquoise">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('TURQUOISE')">
+                <button value="turquoise" type="submit">TURQUOISE</button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="yellow">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('YELLOW')">
+                <button value="yellow" type="submit">YELLOW</button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="orange">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('ORANGE')">
+                <button value="orange" type="submit">ORANGE</button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="violet">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('VIOLET')">
+                <button value="violet" type="submit">VIOLET</button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="blue">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('BLUE')">
+                <button value="blue" type="submit">BLUE</button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="brown">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitColor('BROWN')">
+                <button value="brown" type="submit">BROWN</button>
+              </form>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+        <mat-card-title class="pictures_title">Choose your profile picture</mat-card-title>
+        <div class="pictures">
+          <mat-grid-list cols="4" rowHeight="7rem">
+            <mat-grid-tile class="image">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
+                <button value="1" type="submit" class="imgbutton"><img
+                  src="../../assets/Resources/profile_pictures/carrot1.svg"></button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="image">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
+                <button value="2" type="submit" class="imgbutton"><img
+                  src="../../assets/Resources/profile_pictures/carrot2.svg"></button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="image">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
+                <button value="3" type="submit" class="imgbutton"><img
+                  src="../../assets/Resources/profile_pictures/carrot3.svg"></button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="image">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
+                <button value="4" type="submit" class="imgbutton"><img
+                  src="../../assets/Resources/profile_pictures/carrot4.svg"></button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="image">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
+                <button value="5" type="submit" class="imgbutton"><img
+                  src="../../assets/Resources/profile_pictures/carrot5.svg"></button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="image">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
+                <button value="6" type="submit" class="imgbutton"><img
+                  src="../../assets/Resources/profile_pictures/carrot6.svg"></button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="image">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
+                <button value="7" type="submit" class="imgbutton"><img
+                  src="../../assets/Resources/profile_pictures/carrot7.svg"></button>
+              </form>
+            </mat-grid-tile>
+            <mat-grid-tile class="image">
+              <form [formGroup]="pictureForm" novalidate (ngSubmit)="onSubmitPicture()">
+                <button value="8" type="submit" class="imgbutton"><img
+                  src="../../assets/Resources/profile_pictures/carrot8.svg"></button>
+              </form>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+      </div>
+      <div class="preview">
+        <mat-card-title>Preview</mat-card-title>
+        <div class="imagepreview"></div>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

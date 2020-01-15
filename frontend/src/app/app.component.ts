@@ -16,20 +16,7 @@ export class AppComponent implements OnInit {
   title = 'frontend';
 
   isLoggedIn = false;
-  ppColor;
-  colorPP;
   user = null;
-
-  colorNames = {
-    r: '#d4002d',
-    g: '#76b82a',
-    t: '#00afcb',
-    y: '#f8ff2e',
-    o: '#ec6608',
-    v: '#673ab7',
-    b: '#3876cf',
-    w: '#c49052',
-  };
 
   constructor(private userService: UserService, private profilePictureService: ProfilePictureService) {
   }
@@ -41,14 +28,7 @@ export class AppComponent implements OnInit {
     if (this.user == null) {
       this.userService.getUser().subscribe((res) => {
         this.user = res;
-        console.log('number' + res.profile_picture);
-        this.ppColor = this.profilePictureService.getPicture(res.profile_picture)
-          .subscribe( (response: any) => {
-            this.colorPP = response.color;
-            console.log(this.colorPP);
-          } );
       });
     }
   }
-
 }
