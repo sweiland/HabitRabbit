@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {AbstractControl, FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {MatSnackBar} from '@angular/material';
@@ -25,6 +25,7 @@ export class UserFormComponent implements OnInit {
       username: [''],
       first_name: [''],
       last_name: [''],
+      old_password: [''],
       password: [''],
       password_check: [''],
       email: [''],
@@ -32,9 +33,11 @@ export class UserFormComponent implements OnInit {
       score: [0],
       is_superuser: [false],
       is_staff: [false]
-    });
+    }, {validator: this.passwordMatchValidator});
     if (data.user) {
       this.userForm.patchValue(data.user);
+      this.userForm.patchValue({password: ''});
+      this.userForm.controls.old_password.disable();
       this.userForm.controls.password.disable();
       this.userForm.controls.password_check.disable();
     }
@@ -56,9 +59,19 @@ export class UserFormComponent implements OnInit {
   }
 
   changePassword() {
+    this.userForm.controls.old_password.enable();
     this.userForm.controls.password.enable();
     this.userForm.controls.password_check.enable();
-    this.userForm.patchValue({password: ''});
     this.pressedPassword = true;
+  }
+
+  passwordMatchValidator(control: AbstractControl) {
+    const password: string = control.get('password').value; // get password from our password form control
+    const confirmPassword: string = control.get('password_check').value; // get password from our confirmPassword form control
+    // compare is the password math
+    if (password !== confirmPassword) {
+      // if they don't match, set an error in our confirmPassword form control
+      control.get('password_check').setErrors({pw_check: true});
+    }
   }
 }

@@ -22,11 +22,13 @@ export class HttperrorInterceptor implements HttpInterceptor {
           if (error.error instanceof ErrorEvent) {
             // client-side error
             errorMessage = `Error: ${error.error.message}`;
+          } else if (error.status === 409) {
+            errorMessage = `Your old password is not correct.`;
           } else {
             // server-side error
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
           }
-          this.snackBar.open(errorMessage, 'Close', {duration: 3000});
+          this.snackBar.open(errorMessage, 'Close', {duration: 1200});
           return throwError(errorMessage);
         })
       );

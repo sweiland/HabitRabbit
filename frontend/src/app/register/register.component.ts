@@ -53,7 +53,9 @@ export class RegisterComponent implements OnInit {
       last_name: [''],
       password: [''],
       is_staff: [false],
-      is_superuser: [false]
+      is_superuser: [false],
+      level: [1],
+      score: [0]
     });
   }
 
