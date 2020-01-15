@@ -82,7 +82,7 @@
         <span *ngIf="!userForm.controls.id.value">Create</span>
         <span *ngIf="userForm.controls.id.value">Update</span>
       </button>
-      <button (click)="changePassword()" *ngIf="userForm.controls.id.value" [disabled]="pressedPassword" color="accent"
+      <button (click)="openDialog()" *ngIf="userForm.controls.id.value" [disabled]="pressedPassword" color="accent"
               mat-raised-button type="button"> Change Password
       </button>
     </mat-card-actions>
