@@ -5,7 +5,8 @@
 <form [formGroup]="habitForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
     <mat-card-header>
-      <mat-card-title>Create</mat-card-title>
+      <mat-card-title *ngIf="!habitForm.value.id">Create</mat-card-title>
+      <mat-card-title *ngIf="habitForm.value.id">Update {{habitForm.value.name}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
@@ -32,7 +33,7 @@
             <mat-datepicker #datepicker2></mat-datepicker>
             <mat-hint align="end">End Date for the journey to this habit</mat-hint>
             <mat-error *ngIf="habitForm.controls.end_date.hasError('required')">End Date is required</mat-error>
-            <mat-error *ngIf="habitForm.controls.end_date.hasError('dateCheck')">End Date must be after Start Date
+            <mat-error *ngIf="habitForm.controls.end_date.hasError('date_check')">End Date must be after Start Date
             </mat-error>
           </mat-form-field>
         </div>
@@ -53,11 +54,18 @@
             </mat-select>
             <mat-hint align="end">Add Type here</mat-hint>
           </mat-form-field>
+          <div>
+            Priority
+            <bar-rating [max]="3" [theme]="'square'" formControlName="priority" matInput></bar-rating>
+            <br/>
+          </div>
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button *ngIf="!habitForm.value.id" color="primary" mat-raised-button type="submit">Submit</button>
+      <button *ngIf="habitForm.value.id" color="primary" mat-raised-button type="submit">Update</button>
+
     </mat-card-actions>
   </mat-card>
 </form>

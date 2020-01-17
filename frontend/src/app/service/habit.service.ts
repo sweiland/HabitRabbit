@@ -24,4 +24,13 @@ export class HabitService {
   saveHabit(habit: any) {
     return this.http.post('/api/habit/create', habit);
   }
+
+  getHabit(id: string) {
+    return this.http.get('/api/habit/' + id + '/get');
+
+  }
+
+  updateHabit(habit: any) {
+    return this.http.patch('/api/habit/' + habit.id + '/update', habit);
+  }
 }
