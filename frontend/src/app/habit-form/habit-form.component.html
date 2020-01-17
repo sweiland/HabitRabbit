@@ -20,14 +20,14 @@
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field>
+          <mat-form-field class="full-width">
             <input [matDatepicker]="datepicker" formControlName="start_date" matInput placeholder="Start Date" required>
             <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #datepicker></mat-datepicker>
             <mat-hint align="end">Start Date for the journey to this habit</mat-hint>
             <mat-error *ngIf="habitForm.controls.start_date.hasError('required')">Start Date is required</mat-error>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="full-width">
             <input [matDatepicker]="datepicker2" formControlName="end_date" matInput placeholder="End Date" required>
             <mat-datepicker-toggle [for]="datepicker2" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #datepicker2></mat-datepicker>
@@ -40,15 +40,17 @@
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field>
+          <mat-form-field class="full-width">
             <mat-select formControlName="member" placeholder="Member">
+              <mat-option disabled>Member</mat-option>
               <mat-option *ngFor="let memberOption of memberOptions"
                           [value]="memberOption.id">{{memberOption.first_name + ' ' + memberOption.last_name}}</mat-option>
             </mat-select>
             <mat-hint align="end">Add Member here</mat-hint>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="full-width">
             <mat-select formControlName="type" placeholder="Type">
+              <mat-option disabled>Type</mat-option>
               <mat-option *ngFor="let typeOption of typeOptions"
                           [value]="typeOption.id">{{typeOption.name}}</mat-option>
             </mat-select>
@@ -63,7 +65,9 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button *ngIf="!habitForm.value.id" color="primary" mat-raised-button type="submit">Submit</button>
+      <button *ngIf="!habitForm.value.id" [disabled]="!habitForm.valid" color="primary" mat-raised-button type="submit">
+        Submit
+      </button>
       <button *ngIf="habitForm.value.id" color="primary" mat-raised-button type="submit">Update</button>
 
     </mat-card-actions>

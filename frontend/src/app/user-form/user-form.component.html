@@ -44,7 +44,7 @@
       </div>
       <div *ngIf="!userForm.value.id" class="row">
         <div class="col">
-          <mat-form-field>
+          <mat-form-field class="half-width">
             <input formControlName="password" matInput minlength="8" placeholder="Password" required
                    type="password">
             <mat-error *ngIf="userForm.controls['password'].hasError('required')">
@@ -54,7 +54,7 @@
               Password has to be 8 characters long
             </mat-error>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="half-width">
             <input formControlName="password_check" matInput placeholder="Repeat Password" required
                    type="password">
             <mat-error *ngIf="userForm.controls['password_check'].hasError('required')">

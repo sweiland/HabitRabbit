@@ -32,8 +32,8 @@ export class HabitFormComponent implements OnInit {
       start_date: [moment().startOf('day')],
       end_date: [null],
       name: [''],
-      member: [1],
-      type: [1],
+      member: [null],
+      type: [null],
       priority: [1]
     }, {validator: this.dateValidator});
     if (data.habit) {
