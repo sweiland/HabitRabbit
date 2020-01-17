@@ -30,6 +30,7 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatDatepickerModule,
+  MatDialogModule,
   MatMenuModule,
   MatSnackBar,
   MatSnackBarModule,
@@ -48,7 +49,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFaqModule} from '@angular-material-extensions/faq';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -84,40 +85,42 @@ export function tokenGetter() {
     UserFormComponent,
     PasswordChangeComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatMenuModule,
-        MatButtonModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        MatGridListModule,
-        MatCardModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatInputModule,
-        MatSelectModule,
-        MatRadioModule,
-        ReactiveFormsModule,
-        MatFaqModule.forRoot(),
-        JwtModule.forRoot({
-          config: {
-            tokenGetter,
-            whitelistedDomains: ['localhost:4200']
-          }
-        }),
-      HttpClientModule,
-      MatStepperModule,
-      MatSnackBarModule,
-      MatDatepickerModule,
-      MatMomentDateModule,
-      MatCheckboxModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatButtonModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    MatFaqModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        whitelistedDomains: ['localhost:4200']
+      }
+    }),
+    HttpClientModule,
+    MatStepperModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    FormsModule,
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttperrorInterceptor,

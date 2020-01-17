@@ -42,6 +42,30 @@
           </mat-form-field>
         </div>
       </div>
+      <div *ngIf="!userForm.value.id" class="row">
+        <div class="col">
+          <mat-form-field>
+            <input formControlName="password" matInput minlength="8" placeholder="Password" required
+                   type="password">
+            <mat-error *ngIf="userForm.controls['password'].hasError('required')">
+              Password is required
+            </mat-error>
+            <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">
+              Password has to be 8 characters long
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="password_check" matInput placeholder="Repeat Password" required
+                   type="password">
+            <mat-error *ngIf="userForm.controls['password_check'].hasError('required')">
+              Confirm password is required
+            </mat-error>
+            <mat-error *ngIf="userForm.controls['password_check'].hasError('pw_check')">
+              Passwords have to match.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
