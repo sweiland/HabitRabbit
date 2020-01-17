@@ -80,7 +80,7 @@ export class UserFormComponent implements OnInit {
         if (this.passwordForm.controls.password_check.hasError('pw_check')) {
           this.snackbar.open('Sorry, passwords did not match!', 'close', {duration: 1000});
         } else {
-          this.userService.updateUser(this.passwordForm.value).subscribe(() => {
+          this.userService.updatePassword(this.passwordForm.value).subscribe(() => {
             this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
             this.router.navigate(['/login']);
           });
