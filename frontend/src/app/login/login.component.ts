@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
     this.userService.getNumberOfUsers().subscribe((res: User) => {
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.loginForm.controls.email.hasError('email')) {
+    if (this.loginForm.value.email.search(/@/gi) === -1) {
       this.userService.getEmail(this.loginForm.value.email).subscribe((res: User) => {
         this.loginForm.patchValue({email: res.email});
         this.userService.login(this.loginForm.value);
