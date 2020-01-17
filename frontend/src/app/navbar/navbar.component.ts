@@ -22,6 +22,8 @@ export class NavbarComponent implements OnInit {
   colorPP;
   isLoggedIn = false;
   user = null;
+  picturesource = '';
+  pictureId;
 
   constructor(private http: HttpClient, private userService: UserService, private profilePictureService: ProfilePictureService) {
   }
@@ -34,12 +36,18 @@ export class NavbarComponent implements OnInit {
       this.userService.getUser().subscribe((res: any) => {
         this.user = res;
         console.log('number' + res.profile_picture);
-        this.ppColor = this.profilePictureService.getPicture(res.profile_picture)
-          .subscribe( (response: any) => {
-            const colorKey = response.color;
-            this.colorPP = this.getColorVal(response.color);
-            console.log(this.colorPP);
-          } );
+        if (res.profile_picture != null) {
+          this.ppColor = this.profilePictureService.getPicture(res.profile_picture)
+            .subscribe((response: any) => {
+              this.pictureId = response.id;
+              const colorKey = response.color;
+              this.colorPP = this.getColorVal(response.color);
+              console.log('resp color' + this.colorPP);
+              this.http.get('/api/profilepicture/' + this.pictureId + '/get').subscribe((res: any) => {
+                this.picturesource = '../../assets/Resources/profile_pictures/carrot' + res.picture + '.svg';
+              });
+            });
+        }
       });
     }
   }

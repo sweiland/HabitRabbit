@@ -5,7 +5,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from './service/user.service';
 import {ProfilePictureService} from './service/profile-picture.service';
-import {subscribeOn} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('wurde aufgerufen');
     this.userService.isLoggedIn.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
     });

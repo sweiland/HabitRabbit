@@ -106,43 +106,8 @@ export function tokenGetter() {
     MatSelectModule,
     MatRadioModule,
     ReactiveFormsModule,
-    MatFaqModule.forRoot(),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter,
-        whitelistedDomains: ['localhost:4200']
-      }
-    }),
-    HttpClientModule,
-    MatStepperModule,
-    MatSnackBarModule,
-    MatDatepickerModule,
-    MatMomentDateModule,
-    MatCheckboxModule,
     MatDialogModule,
     FormsModule,
-  ],
-
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatMenuModule,
-    MatButtonModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    ReactiveFormsModule,
     MatFaqModule.forRoot(),
     JwtModule.forRoot({
       config: {
