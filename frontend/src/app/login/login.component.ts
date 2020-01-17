@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.loginForm.controls.email.hasError('email')) {
+    if (this.loginForm.value.email.search(/@/gi) === -1) {
       this.userService.getEmail(this.loginForm.value.email).subscribe((res: User) => {
         this.loginForm.patchValue({email: res.email});
         this.userService.login(this.loginForm.value);
