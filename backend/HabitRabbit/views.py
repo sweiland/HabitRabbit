@@ -195,10 +195,16 @@ def user_form_update(request, pk):
         return Response({'error': 'User does not exist.'}, status=404)
 
     data = JSONParser().parse(request)
-    user.set_password(data.get('password'))
+    if data.get('old_password') is not None:
+        if user.check_password(data.get('old_password')):
+            user.set_password(data.get('password'))
+            user.save()
+            return Response(status=200)
+        else:
+            return Response({'old_password': ['Wrong password']}, status=409)
     serializer = UserSerializer(user, data=data, partial=True)
     if serializer.is_valid():
-        user.save()
+        serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 

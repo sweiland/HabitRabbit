@@ -77,7 +77,9 @@ export class UserService {
   }
 
   updateUser(user: any) {
-    return this.http.patch('/api/user/' + user.id + '/update', user);
+    if (user.password !== undefined) {
+      return this.http.patch('/api/user/' + user.id + '/update', user);
+    }
 
   }
 }
