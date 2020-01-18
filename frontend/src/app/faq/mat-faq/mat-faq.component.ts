@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {FAQService} from '../../service/faq.service';
-import {FaqItem} from '@angular-material-extensions/faq';
 import {FaqComponent} from '../faq.component';
+import {FaqItem} from '../faq.item';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -28,4 +28,7 @@ export class MatFaqComponent {
     });
   }
 
+  edit(faqItem: FaqItem) {
+    this.faqService.emitFaq(faqItem);
+  }
 }

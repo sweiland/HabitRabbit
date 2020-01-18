@@ -4,7 +4,7 @@
 
 import {Component, OnInit} from '@angular/core';
 import {FAQService} from '../service/faq.service';
-import {FaqItem} from '@angular-material-extensions/faq';
+import {FaqItem} from './faq.item';
 
 @Component({
   selector: 'app-faq',
@@ -14,6 +14,7 @@ import {FaqItem} from '@angular-material-extensions/faq';
 export class FaqComponent implements OnInit {
 
   list: FaqItem[] = [];
+  faqItem: FaqItem;
 
   constructor(private faqService: FAQService) {
   }

@@ -2,5 +2,5 @@
   ~ faq.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
   -->
 
-<mat-faq-admin [title]="'Admin'" (onFAQItemAdded)="onNewFaqItem($event)"></mat-faq-admin>
+<mat-faq-admin (FAQItemAdded)="onNewFaqItem($event)" [title]="'Admin'"></mat-faq-admin>
 <mat-faq [faqList]="list"></mat-faq>
