@@ -40,8 +40,8 @@
       <button mat-button routerLink="faq">FAQ</button>
       <span class="spacer"></span>
       <span class="spacer"></span>
-      <div [ngStyle]="{'background-color': colorPP}" class="pp_color">
-        <img [src]="picturesource" class="profilepic">
+      <div *ngIf="pictureId" [ngStyle]="{'background-color': colorPP}" class="pp_color">
+        <img *ngIf="imageExists == true" [src]="picturesource" class="profilepic">
       </div>
       <button mat-button routerLink="dashboard">{{username}}</button>
       <span class="spacer"></span>

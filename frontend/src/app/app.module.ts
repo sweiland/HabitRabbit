@@ -57,6 +57,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttperrorInterceptor} from './httperror.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {PasswordChangeComponent, UserFormComponent} from './user-form/user-form.component';
+import {BarRatingModule} from 'ngx-bar-rating';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -122,6 +123,9 @@ export function tokenGetter() {
     MatMomentDateModule,
     MatButtonToggleModule,
     MatCheckboxModule,
+    MatDialogModule,
+    FormsModule,
+    BarRatingModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

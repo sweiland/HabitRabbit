@@ -1,206 +1,43 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg
-    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:cc="http://creativecommons.org/ns#"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-    xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:ns1="http://sozi.baierouge.fr"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    id="svg3197"
-    sodipodi:docname="Morcov.svg"
-    viewBox="0 0 341 352"
-    version="1.1"
-    inkscape:version="0.48.1 "
-  >
-  <sodipodi:namedview
-      id="base"
-      bordercolor="#666666"
-      inkscape:pageshadow="2"
-      inkscape:window-y="-4"
-      pagecolor="#ffffff"
-      inkscape:window-height="744"
-      inkscape:window-maximized="1"
-      inkscape:zoom="1.4"
-      inkscape:window-x="-4"
-      showgrid="false"
-      borderopacity="1.0"
-      inkscape:current-layer="layer1"
-      inkscape:cx="206.82762"
-      inkscape:cy="181.84011"
-      inkscape:window-width="1280"
-      inkscape:pageopacity="0.0"
-      inkscape:document-units="px"
-  />
-  <g
-      id="layer1"
-      inkscape:label="Livello 1"
-      inkscape:groupmode="layer"
-      transform="translate(0 -700.36)"
-    >
-    <g
-        id="g4041"
-        transform="translate(-8.4286 26.429)"
-      >
-      <path
-          id="path3205"
-          d="m203.98 895.06c-37.283 11.63-107.01 32.134-113.47 17.607-5.1555-11.594 50.945-43.793 91.837-63.514 15.338-7.3971 37.906 40.831 21.632 45.907z"
-          sodipodi:nodetypes="ssss"
-          style="fill:#ffb400"
-          inkscape:connector-curvature="0"
-      />
-      <path
-          id="path4031"
-          d="m115.55 906.66c-4.9031-3.4385-7.2256-9.9539-8.6726-13.535l12.004-8.9001c-4.7765 7.2296-5.5863 18.33-3.3315 22.436z"
-          sodipodi:nodetypes="cccc"
-          style="fill:#f0990a"
-          inkscape:connector-curvature="0"
-      />
-      <path
-          id="path3205-5"
-          d="m188.22 856.51c15.338-7.3971 37.906 40.831 21.632 45.907-37.283 11.63-107.01 32.134-113.47 17.607-2.5777-5.7971 10.159-16.745 28.651-28.71"
-          sodipodi:nodetypes="cssc"
-          style="stroke-linejoin:round;stroke-dashoffset:1.1;stroke:#000000;stroke-linecap:round;stroke-width:3.7095;fill:none"
-          inkscape:connector-curvature="0"
-      />
-      <path
-          id="path3996"
-          d="m150.98 890.83c-6.844-5.6334-9.8771-8.7095-8.7025-20.875l14.419-7.9392c-13.257 12.289-9.7932 19.936-5.7169 28.814z"
-          sodipodi:nodetypes="cccc"
-          style="fill:#f0990a"
-          inkscape:connector-curvature="0"
-      />
-      <path
-          id="path4000"
-          style="fill:#f0990a"
-          d="m184.64 169.32c-0.26623 11.77 15.328 22.455 20.179 24.464l-4.4643 1.9643c-5.1918-1.9587-18.854-17.577-15.714-26.429z"
-          sodipodi:nodetypes="cccc"
-          transform="translate(0 700.36)"
-          inkscape:connector-curvature="0"
-      />
-      <path
-          id="path4002"
-          d="m177.66 893.28c-6.2283-2.4867-13.048-18.898-13.581-24.881-1.04 4.6185 3.9224 20.435 7.7509 24.493z"
-          sodipodi:nodetypes="cccc"
-          style="fill:#f0990a"
-          inkscape:connector-curvature="0"
-      />
-      <path
-          id="path3994"
-          d="m203.67 864.14c-5.3562 3.4097-3.0065 8.7493 1.795 6.3159 10.228-5.1836 34.448-18.353 34.448-18.353l8.7713 20.772 7.6322-19.618s28.247 23.356 28.449 21.581c0.2026-1.7742-12.879-44.606-12.879-44.606l-11.619-5.2809 33.841-0.44912-30.327-39.769-13.451 26.502-10.251-14.111 5.0707 18.552-22.161 11.488 22.629 3.303 6.4079 6.8426-29.451-3.3632 13.626 6.5885s-18.763 14.84-32.531 23.604z"
-          sodipodi:nodetypes="sscccsccccccccccccs"
-          style="fill:#a1e27b"
-          inkscape:connector-curvature="0"
-      />
-      <path
-          id="path4004-6"
-          sodipodi:nodetypes="cccscccc"
-          style="stroke-linejoin:round;stroke:#2d8b1e;stroke-linecap:round;stroke-width:2.6;fill:none"
-          inkscape:connector-curvature="0"
-          d="m230.78 849.45 8.7713 20.772 7.6322-19.618s28.247 23.356 28.449 21.582c0.2026-1.7742-12.879-44.606-12.879-44.606l-11.619-5.2809 33.841-0.44912-30.327-39.769"
-      />
-      <path
-          id="path4033"
-          d="m133.93 895.58c-1.323 7.895 0.64212 10.718 5.7143 16.786l9.6429-2.8571c-8.9425-0.81938-13.048-6.4756-15.357-13.929z"
-          sodipodi:nodetypes="cccc"
-          style="fill:#f0990a"
-          inkscape:connector-curvature="0"
-      />
-    </g
-    >
-  </g
-  >
-  <metadata
-    >
-    <rdf:RDF
-      >
-      <cc:Work
-        >
-        <dc:format
-          >image/svg+xml</dc:format
-        >
-        <dc:type
-            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
-        />
-        <cc:license
-            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
-        />
-        <dc:publisher
-          >
-          <cc:Agent
-              rdf:about="http://openclipart.org/"
-            >
-            <dc:title
-              >Openclipart</dc:title
-            >
-          </cc:Agent
-          >
-        </dc:publisher
-        >
-        <dc:title
-          >Vintage Carrot</dc:title
-        >
-        <dc:date
-          >2012-02-14T03:42:20</dc:date
-        >
-        <dc:description
-        />
-        <dc:source
-          >https://openclipart.org/detail/168206/vintage-carrot-by-ddrdevotchka</dc:source
-        >
-        <dc:creator
-          >
-          <cc:Agent
-            >
-            <dc:title
-              >DDRDevotchka</dc:title
-            >
-          </cc:Agent
-          >
-        </dc:creator
-        >
-        <dc:subject
-          >
-          <rdf:Bag
-            >
-            <rdf:li
-              >carrot</rdf:li
-            >
-            <rdf:li
-              >cartoon</rdf:li
-            >
-            <rdf:li
-              >food</rdf:li
-            >
-            <rdf:li
-              >vegetable</rdf:li
-            >
-          </rdf:Bag
-          >
-        </dc:subject
-        >
-      </cc:Work
-      >
-      <cc:License
-          rdf:about="http://creativecommons.org/licenses/publicdomain/"
-        >
-        <cc:permits
-            rdf:resource="http://creativecommons.org/ns#Reproduction"
-        />
-        <cc:permits
-            rdf:resource="http://creativecommons.org/ns#Distribution"
-        />
-        <cc:permits
-            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
-        />
-      </cc:License
-      >
-    </rdf:RDF
-    >
-  </metadata
-  >
-</svg
->
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg height="1280.000000pt" preserveAspectRatio="xMidYMid meet"
+     version="1.0" viewBox="0 0 1064.000000 1280.000000" width="1064.000000pt"
+     xmlns="http://www.w3.org/2000/svg">
+  <metadata>
+    Created by potrace 1.15, written by Peter Selinger 2001-2017
+  </metadata>
+  <g fill="#000000"
+     stroke="none" transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)">
+    <path d="M4445 12794 c-582 -45 -1088 -170 -1610 -396 -447 -193 -693 -357
+-1006 -668 -239 -237 -393 -447 -538 -729 -205 -400 -316 -803 -373 -1351 -15
+-149 -16 -777 -1 -922 21 -198 -14 -639 -83 -1056 -86 -528 -198 -958 -419
+-1617 -117 -349 -184 -579 -243 -835 -187 -809 -222 -1524 -96 -1970 13 -47
+47 -132 75 -189 45 -90 65 -119 148 -204 258 -266 536 -424 834 -472 419 -68
+830 125 1164 547 229 289 385 680 463 1162 19 113 49 381 50 432 l0 20 128
+-19 c70 -11 128 -21 130 -22 2 -2 -6 -38 -17 -81 -89 -355 -120 -784 -77
+-1099 31 -229 105 -480 201 -683 25 -52 44 -96 42 -98 -1 -1 -74 -51 -162
+-109 -424 -285 -744 -543 -1030 -829 -286 -286 -442 -511 -515 -741 -30 -95
+-38 -271 -16 -375 54 -257 239 -426 523 -475 170 -30 293 -18 588 56 713 178
+1199 396 1525 682 283 249 447 572 467 925 l6 102 66 -7 c81 -10 253 -10 301
+-2 l35 7 1 -142 c1 -176 20 -252 104 -421 71 -143 131 -225 265 -364 270 -280
+650 -509 1089 -656 508 -171 967 -191 1305 -56 174 70 291 237 291 416 0 171
+-162 574 -337 840 -155 234 -385 483 -623 675 -58 47 -106 90 -105 95 0 6 25
+31 56 57 105 87 183 210 234 368 51 157 46 404 -10 571 -90 264 -259 428 -490
+476 l-80 17 3 200 c4 209 -9 446 -34 625 -8 58 -14 110 -14 117 0 8 19 15 48
+19 371 48 572 91 780 167 46 16 86 28 88 25 3 -2 18 -71 35 -153 55 -275 114
+-475 216 -734 271 -685 700 -1200 1162 -1395 248 -105 483 -106 782 -4 379
+129 667 431 788 826 162 528 77 1182 -249 1928 -116 267 -255 527 -570 1070
+-447 769 -804 1729 -1039 2790 -62 283 -91 440 -91 503 0 157 -54 477 -116
+687 -172 585 -508 1062 -1074 1525 -299 245 -416 327 -619 439 -423 235 -1040
+418 -1626 486 -133 15 -617 28 -730 19z m2849 -5951 c7 -229 22 -439 41 -603
+7 -63 10 -119 5 -124 -5 -4 -107 -6 -227 -3 -185 4 -237 9 -340 31 -136 29
+-313 85 -445 141 l-87 37 -22 66 c-12 37 -39 102 -60 144 -22 43 -39 80 -39
+82 0 2 19 7 43 11 23 4 111 27 196 51 84 24 159 44 167 44 27 0 473 183 609
+249 77 38 143 70 146 70 3 1 9 -88 13 -196z m-4191 -178 c191 -35 401 -54 619
+-57 104 -2 188 -5 188 -7 0 -2 -17 -31 -39 -65 -51 -81 -94 -169 -116 -234
+-15 -47 -22 -55 -65 -77 -69 -35 -231 -98 -332 -129 -152 -47 -519 -119 -532
+-105 -2 2 -9 123 -15 269 -6 146 -14 313 -17 372 l-6 107 90 -24 c49 -14 151
+-36 225 -50z"/>
+  </g>
+</svg>
