@@ -28,8 +28,10 @@ import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {
   MatButtonModule,
+  MatButtonToggleModule,
   MatCheckboxModule,
   MatDatepickerModule,
+  MatDialogModule,
   MatMenuModule,
   MatSnackBar,
   MatSnackBarModule,
@@ -48,13 +50,14 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFaqModule} from '@angular-material-extensions/faq';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttperrorInterceptor} from './httperror.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
-import {UserFormComponent} from './user-form/user-form.component';
+import {PasswordChangeComponent, UserFormComponent} from './user-form/user-form.component';
+import {BarRatingModule} from 'ngx-bar-rating';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -81,49 +84,58 @@ export function tokenGetter() {
     TypeFormComponent,
     TypeListComponent,
     UserListComponent,
-    UserFormComponent
+    UserFormComponent,
+    PasswordChangeComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatMenuModule,
-        MatButtonModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        MatGridListModule,
-        MatCardModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatInputModule,
-        MatSelectModule,
-        MatRadioModule,
-        ReactiveFormsModule,
-        MatFaqModule.forRoot(),
-        JwtModule.forRoot({
-          config: {
-            tokenGetter,
-            whitelistedDomains: ['localhost:4200']
-          }
-        }),
-      HttpClientModule,
-      MatStepperModule,
-      MatSnackBarModule,
-      MatDatepickerModule,
-      MatMomentDateModule,
-      MatCheckboxModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatButtonModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    FormsModule,
+    MatFaqModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        whitelistedDomains: ['localhost:4200']
+      }
+    }),
+    HttpClientModule,
+    MatStepperModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    FormsModule,
+    BarRatingModule,
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttperrorInterceptor,
     multi: true,
     deps: [MatSnackBar]
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [PasswordChangeComponent],
+  exports: [PasswordChangeComponent]
 })
 export class AppModule {
 }

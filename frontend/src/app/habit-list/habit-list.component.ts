@@ -46,6 +46,7 @@ export class HabitListComponent implements OnInit {
 
   deleteHabit(id: number) {
     this.habitService.deleteHabit(id).subscribe(() => {
+      this.ngOnInit();
     });
   }
 }

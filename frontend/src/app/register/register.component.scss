@@ -24,3 +24,18 @@
 .signup {
   float: right;
 }
+
+
+.shipping-card {
+  min-width: 120px;
+  margin: 25px auto;
+  width: 50%;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/Resources/login/loginpage.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

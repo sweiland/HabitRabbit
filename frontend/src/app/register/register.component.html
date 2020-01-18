@@ -1,79 +1,87 @@
 <!--
   ~ register.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
   -->
+<div class="bg">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-vertical-stepper #stepper linear="true">
+        <mat-step [stepControl]="registerForm">
+          <form [formGroup]="registerForm">
+            <ng-template matStepLabel>Fill out your name</ng-template>
+            <mat-form-field>
+              <input formControlName="email" matInput placeholder="Email" required type="email">
+              <mat-error
+                *ngIf="registerForm.controls['email'].hasError('email') || registerForm.controls.email.hasError('pattern')">
+                This does not look like an Email!
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                Email is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="username" matInput placeholder="Username" required type="text">
+              <mat-error *ngIf="registerForm.controls['username'].hasError('required')">
+                Username is required
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext type="submit">Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="registerForm2">
+          <form [formGroup]="registerForm2">
+            <ng-template matStepLabel>Fill out your Name</ng-template>
+            <mat-form-field>
+              <input formControlName="first_name" matInput placeholder="First Name" required type="text">
+              <mat-error *ngIf="registerForm2.controls['first_name'].hasError('required')">
+                First Name is required
+              </mat-error>
+            </mat-form-field>
 
-<mat-vertical-stepper linear="true" #stepper>
-  <mat-step [stepControl]="registerForm">
-    <form [formGroup]="registerForm">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field>
-        <input matInput type="email" placeholder="Email" formControlName="email" required>
-        <mat-error
-          *ngIf="registerForm.controls['email'].hasError('email') || registerForm.controls.email.hasError('pattern')">
-          This does not look like an Email!
-        </mat-error>
-        <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
-          Email is required
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" placeholder="Username" formControlName="username" required>
-        <mat-error *ngIf="registerForm.controls['username'].hasError('required')">
-          Username is required
-        </mat-error>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext type="submit">Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="registerForm2">
-    <form [formGroup]="registerForm2">
-      <ng-template matStepLabel>Fill out your Name</ng-template>
-      <mat-form-field>
-        <input matInput type="text" placeholder="First Name" formControlName="first_name" required>
-        <mat-error *ngIf="registerForm2.controls['first_name'].hasError('required')">
-          First Name is required
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field>
-        <input matInput type="text" placeholder="Last Name" formControlName="last_name" required>
-        <mat-error *ngIf="registerForm2.controls['last_name'].hasError('required')">
-          Last Name is required
-        </mat-error>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious type="button">Back</button>
-        <button mat-button matStepperNext type="submit">Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="registerForm3">
-    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm3">
-      <ng-template matStepLabel>Fill out your password</ng-template>
-      <mat-form-field>
-        <input minlength="8" matInput type="password" placeholder="Password" formControlName="password" required>
-        <mat-error *ngIf="registerForm3.controls['password'].hasError('required')">
-          Password is required
-        </mat-error>
-        <mat-error *ngIf="registerForm3.controls['password'].hasError('minlength')">
-          Password has to be 8 characters long
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="password" placeholder="Repeat Password" formControlName="password_check" required>
-        <mat-error *ngIf="registerForm3.controls['password_check'].hasError('required')">
-          Confirm password is required
-        </mat-error>
-        <mat-error *ngIf="registerForm3.controls['password_check'].hasError('pw_check')">
-          Passwords have to match.
-        </mat-error>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious type="button">Back</button>
-        <button mat-button type="submit">Submit</button>
-      </div>
-    </form>
-  </mat-step>
-</mat-vertical-stepper>
+            <mat-form-field>
+              <input formControlName="last_name" matInput placeholder="Last Name" required type="text">
+              <mat-error *ngIf="registerForm2.controls['last_name'].hasError('required')">
+                Last Name is required
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="submit">Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="registerForm3">
+          <form (ngSubmit)="onSubmit()" [formGroup]="registerForm3">
+            <ng-template matStepLabel>Fill out your password</ng-template>
+            <mat-form-field>
+              <input formControlName="password" matInput minlength="8" placeholder="Password" required type="password">
+              <mat-error *ngIf="registerForm3.controls['password'].hasError('required')">
+                Password is required
+              </mat-error>
+              <mat-error *ngIf="registerForm3.controls['password'].hasError('minlength')">
+                Password has to be 8 characters long
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input formControlName="password_check" matInput placeholder="Repeat Password" required type="password">
+              <mat-error *ngIf="registerForm3.controls['password_check'].hasError('required')">
+                Confirm password is required
+              </mat-error>
+              <mat-error *ngIf="registerForm3.controls['password_check'].hasError('pw_check')">
+                Passwords have to match.
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button type="submit">Submit</button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-vertical-stepper>
+    </mat-card-content>
+  </mat-card>
+</div>

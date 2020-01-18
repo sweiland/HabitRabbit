@@ -80,4 +80,11 @@ export class UserService {
     return this.http.patch('/api/user/' + user.id + '/update', user);
 
   }
+
+  updatePassword(user: any) {
+    if (user.password !== undefined) {
+      return this.http.patch('/api/user/' + user.id + '/update', user);
+    }
+
+  }
 }

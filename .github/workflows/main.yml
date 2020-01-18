@@ -3,10 +3,11 @@ name: Dependabot Auto Merge
 on: [push]
 
 jobs:
-  build:
-
+  auto-merge:
+    name: Auto merge
     runs-on: ubuntu-latest
-
     steps:
-    - name: Dependabot auto merge
-      uses: ridedott/dependabot-auto-merge-action@v1.0.10
+      - name: Auto merge
+        uses: ridedott/dependabot-auto-merge-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

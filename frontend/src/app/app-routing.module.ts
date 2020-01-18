@@ -26,6 +26,7 @@ import {TypesResolver} from './resolver/types.resolver';
 import {TypeResolver} from './resolver/type.resolver';
 import {UserFormComponent} from './user-form/user-form.component';
 import {UserResolver} from './resolver/user.resolver';
+import {HabitResolver} from './resolver/habit.resolver';
 
 
 const routes: Routes = [
@@ -38,7 +39,12 @@ const routes: Routes = [
     path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard],
     resolve: {memberOptions: UsersResolver, typeOptions: TypesResolver}
   },
-  {path: 'habit-form/:id', component: HabitFormComponent, canActivate: [AuthGuard]},
+  {
+    path: 'habit-form/:id', component: HabitFormComponent, canActivate: [AuthGuard], resolve: {
+      habit: HabitResolver,
+      memberOptions: UsersResolver, typeOptions: TypesResolver
+    }
+  },
   {path: 'habit-list', component: HabitListComponent, canActivate: [AuthGuard]},
   {path: 'message-form', component: MessageFormComponent, canActivate: [AuthGuard]},
   {path: 'message-form/:id', component: MessageFormComponent, canActivate: [AuthGuard]},
@@ -56,7 +62,6 @@ const routes: Routes = [
   {path: 'user-list', component: UserListComponent, canActivate: [AuthGuard]},
   {path: 'user-form', component: UserFormComponent, canActivate: [AuthGuard]},
   {path: 'user-form/:id', component: UserFormComponent, canActivate: [AuthGuard], resolve: {user: UserResolver}},
-
 
 ];
 

@@ -4,6 +4,7 @@
 
 import {Component, OnInit} from '@angular/core';
 import {UserService} from './service/user.service';
+import {ProfilePictureService} from './service/profile-picture.service';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +17,11 @@ export class AppComponent implements OnInit {
   isLoggedIn = false;
   user = null;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private profilePictureService: ProfilePictureService) {
   }
 
   ngOnInit() {
+    console.log('wurde aufgerufen');
     this.userService.isLoggedIn.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
     });
