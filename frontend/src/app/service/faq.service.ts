@@ -26,4 +26,8 @@ export class FAQService {
   emitFaq(faq: FaqItem) {
     return this.emitter.emit(faq);
   }
+
+  updateFAQ(faqItem: FaqItem) {
+    return this.http.patch('/api/faq/' + faqItem.id + '/update', faqItem);
+  }
 }

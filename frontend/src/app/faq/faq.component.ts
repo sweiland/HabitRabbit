@@ -20,9 +20,15 @@ export class FaqComponent implements OnInit {
   }
 
   onNewFaqItem(faqItem: FaqItem) {
-    this.faqService.saveFAQ(faqItem).subscribe(() => {
-      this.ngOnInit();
-    });
+    if (!faqItem.id) {
+      this.faqService.saveFAQ(faqItem).subscribe(() => {
+        this.ngOnInit();
+      });
+    } else {
+      this.faqService.updateFAQ(faqItem).subscribe(() => {
+        this.ngOnInit();
+      });
+    }
   }
 
   ngOnInit() {

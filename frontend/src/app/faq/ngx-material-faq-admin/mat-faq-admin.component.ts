@@ -13,6 +13,7 @@ export class MatFaqAdminComponent implements OnInit {
   title = 'Admin';
   @Output()
   FAQItemAdded: EventEmitter<FaqItem> = new EventEmitter<FaqItem>();
+  id: string;
   question: string;
   answer: string;
 
@@ -24,16 +25,28 @@ export class MatFaqAdminComponent implements OnInit {
   }
 
   add(): void {
-    const faqItem: FaqItem = {
-      question: this.question,
-      answer: this.answer
-    };
-    this.FAQItemAdded.emit(faqItem);
+    if (this.id) {
+      const faqItem: FaqItem = {
+        id: this.id,
+        question: this.question,
+        answer: this.answer
+      };
+      console.log(faqItem);
+      this.FAQItemAdded.emit(faqItem);
+    } else {
+      const faqItem: FaqItem = {
+        question: this.question,
+        answer: this.answer
+      };
+      console.log(faqItem);
+      this.FAQItemAdded.emit(faqItem);
+    }
     this.reset();
   }
 
   ngOnInit(): void {
     this.faqService.emitter.subscribe((res: FaqItem) => {
+      this.id = res.id;
       this.question = res.question;
       this.answer = res.answer;
     });
