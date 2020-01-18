@@ -21,7 +21,7 @@ export class MatFaqAdminComponent implements OnInit {
   }
 
   reset() {
-    this.question = this.answer = undefined;
+    this.question = this.answer = this.id = undefined;
   }
 
   add(): void {

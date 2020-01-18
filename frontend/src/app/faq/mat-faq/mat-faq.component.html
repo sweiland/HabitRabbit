@@ -4,7 +4,11 @@
   <mat-expansion-panel *ngFor="let faqItem of faqList">
     <mat-expansion-panel-header>{{faqItem.question}}</mat-expansion-panel-header>
     <p>{{faqItem.answer}}</p>
-    <button mat-mini-fab (click)="deleteFaq(faqItem.id)" color="warn">Delete</button>
-    <button (click)="edit(faqItem)" color="primary" mat-mini-fab>Edit</button>
+    <button (click)="deleteFaq(faqItem.id)" color="warn" mat-mini-fab>
+      <mat-icon>remove</mat-icon>
+    </button>
+    <button (click)="edit(faqItem)" color="primary" mat-mini-fab>
+      <mat-icon>edit</mat-icon>
+    </button>
   </mat-expansion-panel>
 </mat-accordion>
