@@ -1,1 +1,10 @@
-{"version":3,"sourceRoot":"","sources":["register.component.scss"],"names":[],"mappings":"AAAA;AAAA;AAAA;AAIA;EACE;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;;;AAIF;EACE;;;AAGF;EACE","file":"register.component.css"}
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "register.component.scss"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;AAAA;AAIA;EACE;;;AAGF;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAGF;EACE;;;AAGF;EACE;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;;;AAGF;EACE;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;;;AAIF;EACE;;;AAGF;EACE",
+  "file": "register.component.css"
+}
