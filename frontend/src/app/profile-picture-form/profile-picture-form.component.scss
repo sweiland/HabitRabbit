@@ -2,6 +2,8 @@
  * profile-picture-form.component.scss Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
  */
 
+$hover-color: #c6538c;
+
 .full-width {
   width: 100%;
 }
@@ -29,3 +31,128 @@
 .col:last-child {
   margin-right: 0;
 }
+
+.red {
+  background-color: #d4002d;
+}
+
+.green {
+  background-color: #76b82a;
+}
+
+.turquoise {
+  background-color: #00afcb;
+}
+
+.yellow {
+  background-color: #F8FF2E;
+}
+
+.orange {
+  background-color: #ec6608;
+}
+
+.violet {
+  background-color: #673AB7;
+}
+
+.blue {
+  background-color: #3876CF;
+}
+
+.brown {
+  background-color: #c49052;
+}
+
+.color_picker {
+  display: none;
+}
+
+
+mat-grid-tile {
+  width: 2%;
+}
+
+mat-form-field {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.colors {
+   width: 80%;
+ }
+
+.pictures {
+  width: 80%;
+}
+
+.pictures_title {
+  padding-top: 5%;
+}
+
+button {
+  width: 9.5rem;
+  height: 7rem;
+  color: transparent;
+  font-size: 1.5em;
+  background-color: transparent;
+  border: none;
+}
+
+button:hover {
+  color: white;
+  text-shadow: -1px 1px black;
+  cursor: pointer;
+}
+
+
+.wrapper {
+  display: flex;
+}
+
+.selection {
+  width: 50%;
+  height: 50%;
+  border-right: 5px solid black;;
+}
+
+.preview {
+  padding-left: 2%;
+  width: 50%;
+}
+
+.imagepreview {
+  border-style: solid;
+  border-radius: 10px;
+  width: 60%;
+  height: 60%;
+  margin-left: 20%;
+  margin-top: 10%;
+}
+
+.picturepreview {
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+button {
+  padding: 1rem;
+}
+
+.image {
+  border-radius: 2px;
+  border-style: solid;
+
+}
+
+.colorV {
+  border-radius: 2px;
+  border-style: solid;
+}
+

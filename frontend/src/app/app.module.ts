@@ -28,6 +28,7 @@ import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {
   MatButtonModule,
+  MatButtonToggleModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatDialogModule,
@@ -106,6 +107,8 @@ export function tokenGetter() {
     MatSelectModule,
     MatRadioModule,
     ReactiveFormsModule,
+    MatDialogModule,
+    FormsModule,
     MatFaqModule.forRoot(),
     JwtModule.forRoot({
       config: {
@@ -118,6 +121,7 @@ export function tokenGetter() {
     MatSnackBarModule,
     MatDatepickerModule,
     MatMomentDateModule,
+    MatButtonToggleModule,
     MatCheckboxModule,
     MatDialogModule,
     FormsModule,
