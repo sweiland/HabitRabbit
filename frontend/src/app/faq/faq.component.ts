@@ -3,8 +3,8 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {FaqItem} from '@angular-material-extensions/faq';
 import {FAQService} from '../service/faq.service';
+import {FaqItem} from '@angular-material-extensions/faq';
 
 @Component({
   selector: 'app-faq',
@@ -28,7 +28,7 @@ export class FaqComponent implements OnInit {
     this.list = [];
     this.faqService.getFAQs().subscribe((res: FaqItem[]) => {
       res.forEach((i) => {
-        this.list.push({question: i.question, answer: i.answer});
+        this.list.push({id: i.id, question: i.question, answer: i.answer});
       });
     });
   }

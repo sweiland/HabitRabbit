@@ -11,7 +11,7 @@ import {LogoutComponent} from './logout/logout.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfilePageComponent} from './profile-page/profile-page.component';
 import {ScoreListComponent} from './score-list/score-list.component';
-import {FaqComponent} from './faq/faq.component';
+import {FaqComponent} from './mat-faq/mat-faq.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {HabitFormComponent} from './habit-form/habit-form.component';
 import {ProfileFormComponent} from './profile-form/profile-form.component';

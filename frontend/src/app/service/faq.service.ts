@@ -17,4 +17,8 @@ export class FAQService {
   saveFAQ(faqItem: FaqItem) {
     return this.http.post('/api/faq/create', faqItem);
   }
+
+  deleteFaq(id: string) {
+    return this.http.delete('/api/faq/' + id + '/delete');
+  }
 }
