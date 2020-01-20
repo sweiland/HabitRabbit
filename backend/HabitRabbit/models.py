@@ -16,7 +16,7 @@ class ProfilePicture(models.Model):
         BLUE = 'b', '#3876cf'
         BROWN = 'w', '#c49052'
 
-    color = models.TextField(choices=ColorChoices.choices, default='r')
+    color = models.TextField(choices=ColorChoices.choices, null=True)
     picture = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
