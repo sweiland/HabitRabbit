@@ -5,8 +5,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, ValidatorFn} from '@angular/forms';
 import * as moment from 'moment';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../service/message.service';
+import {Message} from '../message';
+import {HttpClient} from '@angular/common/http';
+import {TypeService} from '../service/type.service';
 
 @Component({
   selector: 'app-message-form',
@@ -18,7 +21,8 @@ export class MessageFormComponent implements OnInit {
   memberOptions;
   typeOptions;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private messageService: MessageService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private messageService: MessageService,
+              private router: Router, private http: HttpClient, private typeService: TypeService) {
   }
 
   ngOnInit(): void {
@@ -26,13 +30,39 @@ export class MessageFormComponent implements OnInit {
     this.memberOptions = data.memberOptions;
     this.typeOptions = data.typeOptions;
     this.messageForm = this.fb.group({
+      id: [null],
+      title: [''],
       message: [''],
       type: [[]],
     });
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.http.get('/api/message/' + id + '/get')
+        .subscribe((response: Message) => {
+          const message = JSON.parse(response.message);
+          this.messageForm.patchValue(response);
+          this.messageForm.patchValue({message});
+        });
+    }
   }
 
   onSubmit() {
-    this.messageService.saveMessage(this.messageForm.value).subscribe(() => {
-    });
+    const message = this.messageForm.value;
+    message.message = JSON.stringify(this.messageForm.value.message);
+    if (message.id) {
+      this.messageService.updateMessage(message)
+        .subscribe(() => {
+          this.router.navigate(['/message-list/']);
+          alert('updated successfully');
+        });
+    } else {
+      this.messageService.saveMessage(message)
+        .subscribe((response: any) => {
+          this.router.navigate(['/message-list/']);
+          alert('created successfully');
+        });
+    }
   }
+
+
 }
