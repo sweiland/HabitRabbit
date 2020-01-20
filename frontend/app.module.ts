@@ -11,7 +11,7 @@ import {LogoutComponent} from './logout/logout.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfilePageComponent} from './profile-page/profile-page.component';
 import {ScoreListComponent} from './score-list/score-list.component';
-import {FaqComponent} from './faq/faq.component';
+import {FaqComponent} from './mat-faq/mat-faq.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {HabitFormComponent} from './habit-form/habit-form.component';
 import {ProfileFormComponent} from './profile-form/profile-form.component';
@@ -33,6 +33,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import {PasswordChangeComponent} from './src/app/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import {MatListModule} from '@angular/material/list';
     MessageListComponent,
     MessageFormComponent,
     ProfilePictureListComponent,
-    ProfilePictureFormComponent,
+    ProfilePictureFormComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +71,7 @@ import {MatListModule} from '@angular/material/list';
     MatCheckboxModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

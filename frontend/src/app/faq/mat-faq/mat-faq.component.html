@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">{{title | uppercase}}</mat-toolbar>
+<mat-accordion [displayMode]="displayMode" [multi]="multi"
+               class="faq-container">
+  <mat-expansion-panel *ngFor="let faqItem of faqList">
+    <mat-expansion-panel-header>{{faqItem.question}}</mat-expansion-panel-header>
+    <p>{{faqItem.answer}}</p>
+    <button (click)="deleteFaq(faqItem.id)" color="warn" mat-mini-fab>
+      <mat-icon>remove</mat-icon>
+    </button>
+    <button (click)="edit(faqItem)" color="primary" mat-mini-fab>
+      <mat-icon>edit</mat-icon>
+    </button>
+  </mat-expansion-panel>
+</mat-accordion>

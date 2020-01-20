@@ -42,10 +42,11 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div *ngIf="!userForm.value.id" class="row">
         <div class="col">
-          <mat-form-field>
-            <input formControlName="password" matInput minlength="8" placeholder="Password" required type="password">
+          <mat-form-field class="half-width">
+            <input formControlName="password" matInput minlength="8" placeholder="Password" required
+                   type="password">
             <mat-error *ngIf="userForm.controls['password'].hasError('required')">
               Password is required
             </mat-error>
@@ -53,8 +54,9 @@
               Password has to be 8 characters long
             </mat-error>
           </mat-form-field>
-          <mat-form-field>
-            <input formControlName="password_check" matInput placeholder="Repeat Password" required type="password">
+          <mat-form-field class="half-width">
+            <input formControlName="password_check" matInput placeholder="Repeat Password" required
+                   type="password">
             <mat-error *ngIf="userForm.controls['password_check'].hasError('required')">
               Confirm password is required
             </mat-error>
@@ -104,7 +106,8 @@
         <span *ngIf="!userForm.controls.id.value">Create</span>
         <span *ngIf="userForm.controls.id.value">Update</span>
       </button>
-      <button [disabled]="pressedPassword" color = "accent" mat-raised-button (click) = "changePassword()" type = "button"> Change Password
+      <button (click)="openDialog()" *ngIf="userForm.controls.id.value" [disabled]="pressedPassword" color="accent"
+              mat-raised-button type="button"> Change Password
       </button>
     </mat-card-actions>
   </mat-card>
