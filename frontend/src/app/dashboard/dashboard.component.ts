@@ -4,9 +4,10 @@
 
 import {Component, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
-import {Breakpoints, BreakpointObserver} from '@angular/cdk/layout';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {HabitService} from '../service/habit.service';
 import * as moment from 'moment';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,8 +15,9 @@ import * as moment from 'moment';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  ID = this.userService.getID();
   habits: any[];
+
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
@@ -37,12 +39,15 @@ export class DashboardComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private habitService: HabitService) {
+  constructor(private breakpointObserver: BreakpointObserver, private habitService: HabitService, private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.habitService.getAll().subscribe((res: any) => {
-      this.habits = res;
+    this.habitService.getAll().subscribe((res: any[]) => {
+      this.habits = res.filter(e => {
+        return e.member_id === this.ID ? e : null;
+      });
+      this.clickedToday(this.habits);
     });
   }
 
@@ -57,5 +62,24 @@ export class DashboardComponent implements OnInit {
 
   isNumber(num: number) {
     return !isNaN(num);
+  }
+
+  logActive(id: string) {
+    this.userService.logActive(this.ID);
+    this.habitService.updateHabit({
+      id,
+      last_click: moment().startOf('day')
+    }).subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
+  clickedToday(habit: any[]): any[] {
+    return habit.map((x) => {
+      this.habitService.getHabit(x.id).subscribe((res: any) => {
+        x.today = (moment(res.last_click).startOf('day').isSame(moment().startOf('day')));
+        return x;
+      });
+    });
   }
 }

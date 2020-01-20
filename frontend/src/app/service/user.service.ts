@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {User} from '../user';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,11 @@ export class UserService {
     return this.http.get('api/user/' + username + '/get');
   }
 
+  getID() {
+    const token = localStorage.getItem(this.accessTokenLocalStorageKey);
+    return this.jwtHelperService.decodeToken(token).user_id;
+  }
+
   register(user: any) {
     return this.http.post('/api/user/create', user);
   }
@@ -86,5 +92,13 @@ export class UserService {
       return this.http.patch('/api/user/' + user.id + '/update', user);
     }
 
+  }
+
+  logActive(ID: number) {
+    return this.getUser().subscribe((res: User) => {
+      return this.http.patch('/api/user/' + ID + '/update', {
+        streak: res.streak + 1
+      });
+    });
   }
 }

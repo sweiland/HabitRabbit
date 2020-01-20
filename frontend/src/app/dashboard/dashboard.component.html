@@ -29,7 +29,7 @@
               <span *ngIf="isNumber(progress(habit.id).left)">Only {{progress(habit.id).left}} days left!</span>
               <br/>
               <code class="timeframe">{{(habit.start_date | date)}}</code>
-              <code class="timeframe" *ngIf="habit.end_date !== null">{{' ➡️ ' + (habit.end_date | date)}}</code>
+              <code *ngIf="habit.end_date !== null" class="timeframe">{{' ➡️ ' + (habit.end_date | date)}}</code>
             </mat-card-subtitle>
             <mat-card-content>
               <div *ngIf="isNumber(progress(habit.id).percentage)" class="progress">
@@ -42,6 +42,8 @@
                                     matTooltipPosition="below"
                                     mode="determinate"></mat-progress-bar>
                   <button #tooltip="matTooltip"
+                          (click)="logActive(habit.id)"
+                          [disabled]="habit.today"
                           aria-label="Button that displays a tooltip that hides when scrolled out of the container"
                           color="primary"
                           mat-fab
