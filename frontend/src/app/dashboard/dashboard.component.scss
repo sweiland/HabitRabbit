@@ -13,6 +13,7 @@
   right: 15px;
   bottom: 15px;
   background-color: #ece6f5;
+  overflow: scroll;
 }
 
 .more-button {
@@ -21,6 +22,29 @@
   right: 10px;
 }
 
-.dashboard-card-content {
-  text-align: center;
+.example-card {
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.mat-progress-bar {
+  padding-top: 15px;
+  margin-right: 15px;
+  height: 30px;
+}
+
+.mat-tooltip {
+  font-size: 24px !important;
+}
+
+.timeframe {
+  font-size: small;
+}
+
+.mat-card-subtitle {
+  font-size: large;
 }

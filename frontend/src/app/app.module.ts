@@ -32,10 +32,10 @@ import {
   MatCheckboxModule,
   MatDatepickerModule,
   MatDialogModule, MatExpansionModule,
-  MatMenuModule,
+  MatMenuModule, MatProgressBarModule,
   MatSnackBar,
   MatSnackBarModule,
-  MatStepperModule
+  MatStepperModule, MatTooltipModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -132,7 +132,9 @@ export function tokenGetter() {
     BarRatingModule,
     CommonModule,
     FlexLayoutModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatTooltipModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
