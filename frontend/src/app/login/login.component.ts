@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {User} from '../user';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: any;
   usernumber;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private snackbar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
       this.userService.getEmail(this.loginForm.value.email).subscribe((res: User) => {
         this.loginForm.patchValue({email: res.email});
         this.userService.login(this.loginForm.value);
-      }, () => alert('no such user found'));
+      }, () => this.snackbar.open('Wrong Username or Password!', 'close', {duration: 1000}));
     } else {
       this.userService.login(this.loginForm.value);
     }

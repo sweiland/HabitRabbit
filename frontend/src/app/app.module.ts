@@ -28,9 +28,10 @@ import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {
   MatButtonModule,
+  MatButtonToggleModule,
   MatCheckboxModule,
   MatDatepickerModule,
-  MatDialogModule,
+  MatDialogModule, MatExpansionModule,
   MatMenuModule,
   MatSnackBar,
   MatSnackBarModule,
@@ -50,12 +51,16 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatFaqModule} from '@angular-material-extensions/faq';
 import {JwtModule} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttperrorInterceptor} from './httperror.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {PasswordChangeComponent, UserFormComponent} from './user-form/user-form.component';
+import {BarRatingModule} from 'ngx-bar-rating';
+import {MatFaqComponent} from './faq/mat-faq/mat-faq.component';
+import {MatFaqAdminComponent} from './faq/ngx-material-faq-admin/mat-faq-admin.component';
+import { CommonModule } from '@angular/common';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -83,7 +88,9 @@ export function tokenGetter() {
     TypeListComponent,
     UserListComponent,
     UserFormComponent,
-    PasswordChangeComponent
+    PasswordChangeComponent,
+    MatFaqAdminComponent,
+    MatFaqComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +112,8 @@ export function tokenGetter() {
     MatSelectModule,
     MatRadioModule,
     ReactiveFormsModule,
-    MatFaqModule.forRoot(),
+    MatDialogModule,
+    FormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,
@@ -117,9 +125,14 @@ export function tokenGetter() {
     MatSnackBarModule,
     MatDatepickerModule,
     MatMomentDateModule,
+    MatButtonToggleModule,
     MatCheckboxModule,
     MatDialogModule,
     FormsModule,
+    BarRatingModule,
+    CommonModule,
+    FlexLayoutModule,
+    MatExpansionModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
