@@ -4,145 +4,144 @@
 <mat-card class="shipping-card">
   <mat-card-content>
     <mat-card-title>Choose your profile picture color</mat-card-title>
-    <div class="wrapper">
-      <div class="selection">
-        <div class="colors">
-          <mat-grid-list cols="4" rowHeight="7rem">
-            <mat-grid-tile class="colorV red">
-              <form (ngSubmit)="onSubmitColor('r')" [formGroup]="colorForm" novalidate>
-                <mat-form-field><input matInput type="text" formControlName="color"></mat-form-field>
-                <button value="red" type="submit">RED</button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="colorV green">
-              <form (ngSubmit)="onSubmitColor('g')" [formGroup]="colorForm" novalidate>
-                <mat-form-field><input matInput type="text" formControlName="color"></mat-form-field>
-                <button value="green" type="submit">GREEN</button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="colorV turquoise">
-              <form (ngSubmit)="onSubmitColor('t')" [formGroup]="colorForm" novalidate>
-                <button value="turquoise" type="submit">TURQUOISE</button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="colorV yellow">
-              <form (ngSubmit)="onSubmitColor('y')" [formGroup]="colorForm" novalidate>
-                <button value="yellow" type="submit">YELLOW</button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="colorV orange">
-              <form (ngSubmit)="onSubmitColor('o')" [formGroup]="colorForm" novalidate>
-                <button value="orange" type="submit">ORANGE</button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="colorV violet">
-              <form (ngSubmit)="onSubmitColor('v')" [formGroup]="colorForm" novalidate>
-                <button value="violet" type="submit">VIOLET</button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="colorV blue">
-              <form (ngSubmit)="onSubmitColor('b')" [formGroup]="colorForm" novalidate>
-                <button value="blue" type="submit">BLUE</button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="colorV brown">
-              <form (ngSubmit)="onSubmitColor('w')" [formGroup]="colorForm" novalidate>
-                <button value="brown" type="submit">BROWN</button>
-              </form>
-            </mat-grid-tile>
-          </mat-grid-list>
-        </div>
-        <mat-card-title class="pictures_title">Choose your profile picture</mat-card-title>
-        <div class="pictures">
-          <mat-grid-list cols="4" rowHeight="7rem">
-            <mat-grid-tile class="image">
-              <form (ngSubmit)="onSubmitPicture(1)" [formGroup]="pictureForm" novalidate>
-                <button (mouseenter)="hoverActive=1" (mouseleave)="hoverActive=0"
-                        [ngStyle]="{'background-color': hoverActive == 1 ? colorPP : colorFF }"
-                        class="imgbutton1"
-                        type="submit"
-                        value="1"><img
-                  src="../../assets/Resources/profile_pictures/carrot1.svg"></button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="image">
-              <form (ngSubmit)="onSubmitPicture(2)" [formGroup]="pictureForm" novalidate>
-                <button (mouseenter)="hoverActive=2" (mouseleave)="hoverActive=0"
-                        [ngStyle]="{'background-color': hoverActive == 2 ? colorPP : colorFF }"
-                        class="imgbutton2"
-                        type="submit"
-                        value="2"><img
-                  src="../../assets/Resources/profile_pictures/carrot2.svg"></button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="image">
-              <form (ngSubmit)="onSubmitPicture(3)" [formGroup]="pictureForm" novalidate>
-                <button (mouseenter)="hoverActive=3" (mouseleave)="hoverActive=0"
-                        [ngStyle]="{'background-color': hoverActive == 3? colorPP : colorFF }"
-                        class="imgbutton3"
-                        type="submit"
-                        value="3"><img
-                  src="../../assets/Resources/profile_pictures/carrot3.svg"></button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="image">
-              <form (ngSubmit)="onSubmitPicture(4)" [formGroup]="pictureForm" novalidate>
-                <button (mouseenter)="hoverActive=4" (mouseleave)="hoverActive=0"
-                        [ngStyle]="{'background-color': hoverActive == 4? colorPP : colorFF }"
-                        class="imgbutton4"
-                        type="submit"
-                        value="4"><img
-                  src="../../assets/Resources/profile_pictures/carrot4.svg"></button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="image">
-              <form (ngSubmit)="onSubmitPicture(5)" [formGroup]="pictureForm" novalidate>
-                <button (mouseenter)="hoverActive=5" (mouseleave)="hoverActive=0"
-                        [ngStyle]="{'background-color': hoverActive == 5? colorPP : colorFF }"
-                        class="imgbutton5"
-                        type="submit"
-                        value="5"><img
-                  src="../../assets/Resources/profile_pictures/carrot5.svg"></button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="image">
-              <form (ngSubmit)="onSubmitPicture(6)" [formGroup]="pictureForm" novalidate>
-                <button (mouseenter)="hoverActive=6" (mouseleave)="hoverActive=0"
-                        [ngStyle]="{'background-color': hoverActive == 6? colorPP : colorFF }"
-                        class="imgbutton6"
-                        type="submit"
-                        value="6"><img
-                  src="../../assets/Resources/profile_pictures/carrot6.svg"></button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="image">
-              <form (ngSubmit)="onSubmitPicture(7)" [formGroup]="pictureForm" novalidate>
-                <button (mouseenter)="hoverActive=7" (mouseleave)="hoverActive=0"
-                        [ngStyle]="{'background-color': hoverActive == 7? colorPP : colorFF }"
-                        class="imgbutton7"
-                        type="submit"
-                        value="7"><img
-                  src="../../assets/Resources/profile_pictures/carrot7.svg"></button>
-              </form>
-            </mat-grid-tile>
-            <mat-grid-tile class="image">
-              <form (ngSubmit)="onSubmitPicture(8)" [formGroup]="pictureForm" novalidate>
-                <button (mouseenter)="hoverActive=8" (mouseleave)="hoverActive=0"
-                        [ngStyle]="{'background-color': hoverActive == 8? colorPP : colorFF }"
-                        class="imgbutton8"
-                        type="submit"
-                        value="8"><img
-                  src="../../assets/Resources/profile_pictures/carrot8.svg"></button>
-              </form>
-            </mat-grid-tile>
-          </mat-grid-list>
-        </div>
+    <div class="selection">
+      <div class="colors">
+        <mat-grid-list cols="4" rowHeight="12rem">
+          <mat-grid-tile class="colorV yellow">
+            <form (ngSubmit)="onSubmitColor('y')" [formGroup]="colorForm" novalidate>
+              <button type="submit" value="yellow">YELLOW</button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile class="colorV orange">
+            <form (ngSubmit)="onSubmitColor('o')" [formGroup]="colorForm" novalidate>
+              <button type="submit" value="orange">ORANGE</button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile class="colorV red">
+            <form (ngSubmit)="onSubmitColor('r')" [formGroup]="colorForm" novalidate>
+              <mat-form-field><input formControlName="color" matInput type="text"></mat-form-field>
+              <button type="submit" value="red">RED</button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile class="colorV blue">
+            <form (ngSubmit)="onSubmitColor('b')" [formGroup]="colorForm" novalidate>
+              <button type="submit" value="blue">BLUE</button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile class="colorV brown">
+            <form (ngSubmit)="onSubmitColor('w')" [formGroup]="colorForm" novalidate>
+              <button type="submit" value="brown">BROWN</button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile class="colorV green">
+            <form (ngSubmit)="onSubmitColor('g')" [formGroup]="colorForm" novalidate>
+              <mat-form-field><input formControlName="color" matInput type="text"></mat-form-field>
+              <button type="submit" value="green">GREEN</button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile class="colorV turquoise">
+            <form (ngSubmit)="onSubmitColor('t')" [formGroup]="colorForm" novalidate>
+              <button type="submit" value="turquoise">TURQUOISE</button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile class="colorV violet">
+            <form (ngSubmit)="onSubmitColor('v')" [formGroup]="colorForm" novalidate>
+              <button type="submit" value="violet">VIOLET</button>
+            </form>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
-      <div class="preview">
-        <mat-card-title>Preview</mat-card-title>
-        <div [ngStyle]="{'background-color': colorPP}" class="imagepreview">
-          <img [ngStyle]="{'content': 'url('+ picturesource +')'}" class="picturepreview">
-        </div>
+      <mat-card-title class="pictures_title">Choose your profile picture</mat-card-title>
+      <div class="pictures">
+        <mat-grid-list cols="4" rowHeight="12rem">
+          <mat-grid-tile (mouseenter)="hoverActive=1" (mouseleave)="hoverActive=0"
+                         [ngStyle]="{'background-color': hoverActive == 1 ? colorPP : colorFF }"
+                         class="image imgbutton1"
+                         type="submit"
+                         value="1">
+            <form (ngSubmit)="onSubmitPicture(1)" [formGroup]="pictureForm" novalidate>
+              <button><img
+                src="../../assets/Resources/profile_pictures/carrot1.svg"></button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile (mouseenter)="hoverActive=2" (mouseleave)="hoverActive=0"
+                         [ngStyle]="{'background-color': hoverActive == 2 ? colorPP : colorFF }"
+                         class="image imgbutton2"
+                         type="submit"
+                         value="2">
+            <form (ngSubmit)="onSubmitPicture(2)" [formGroup]="pictureForm" novalidate>
+              <button><img
+                src="../../assets/Resources/profile_pictures/carrot2.svg"></button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile (mouseenter)="hoverActive=3" (mouseleave)="hoverActive=0"
+                         [ngStyle]="{'background-color': hoverActive == 3? colorPP : colorFF }"
+                         class="image imgbutton3"
+                         type="submit"
+                         value="3">
+            <form (ngSubmit)="onSubmitPicture(3)" [formGroup]="pictureForm" novalidate>
+              <button><img
+                src="../../assets/Resources/profile_pictures/carrot3.svg"></button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile (mouseenter)="hoverActive=4" (mouseleave)="hoverActive=0"
+                         [ngStyle]="{'background-color': hoverActive == 4? colorPP : colorFF }"
+                         class="image imgbutton4"
+                         type="submit"
+                         value="4">
+            <form (ngSubmit)="onSubmitPicture(4)" [formGroup]="pictureForm" novalidate>
+              <button><img
+                src="../../assets/Resources/profile_pictures/carrot4.svg"></button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile (mouseenter)="hoverActive=5" (mouseleave)="hoverActive=0"
+                         [ngStyle]="{'background-color': hoverActive == 5? colorPP : colorFF }"
+                         class="image imgbutton5"
+                         type="submit"
+                         value="5">
+            <form (ngSubmit)="onSubmitPicture(5)" [formGroup]="pictureForm" novalidate>
+              <button><img
+                src="../../assets/Resources/profile_pictures/carrot5.svg"></button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile (mouseenter)="hoverActive=6" (mouseleave)="hoverActive=0"
+                         [ngStyle]="{'background-color': hoverActive == 6? colorPP : colorFF }"
+                         class="image imgbutton6"
+                         type="submit"
+                         value="6">
+            <form (ngSubmit)="onSubmitPicture(6)" [formGroup]="pictureForm" novalidate>
+              <button><img
+                src="../../assets/Resources/profile_pictures/carrot6.svg"></button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile (mouseenter)="hoverActive=7" (mouseleave)="hoverActive=0"
+                         [ngStyle]="{'background-color': hoverActive == 7? colorPP : colorFF }"
+                         class="image imgbutton7"
+                         type="submit"
+                         value="7">
+            <form (ngSubmit)="onSubmitPicture(7)" [formGroup]="pictureForm" novalidate>
+              <button><img
+                src="../../assets/Resources/profile_pictures/carrot7.svg"></button>
+            </form>
+          </mat-grid-tile>
+          <mat-grid-tile (mouseenter)="hoverActive=8" (mouseleave)="hoverActive=0"
+                         [ngStyle]="{'background-color': hoverActive == 8? colorPP : colorFF }"
+                         class="image imgbutton8"
+                         type="submit"
+                         value="8">
+            <form (ngSubmit)="onSubmitPicture(8)" [formGroup]="pictureForm" novalidate>
+              <button><img
+                src="../../assets/Resources/profile_pictures/carrot8.svg"></button>
+            </form>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <div class="deleteS">
+        <button (click)="onDeleteColor()" (mouseenter)="hoverActive=9" (mouseleave)="hoverActive=0"
+                [ngStyle]="{'background-color': hoverActive == 9? colorPP : violet }"
+                class="delete"
+                type="submit" value="8">Delete
+        </button>
       </div>
     </div>
   </mat-card-content>
