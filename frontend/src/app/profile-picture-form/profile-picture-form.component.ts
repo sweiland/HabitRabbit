@@ -59,7 +59,7 @@ export class ProfilePictureFormComponent implements OnInit {
     const profilepicture = this.colorForm.value;
     this.http.get('api/user/' + this.currentId + '/get')
       .subscribe((res: any) => {
-        if (this.pictureId != null) {
+        if (this.pictureId !== null) {
           this.http.patch('/api/profilepicture/' + this.pictureId + '/update', {color: colorValue})
             .subscribe((resp: any) => {
             });
@@ -90,7 +90,7 @@ export class ProfilePictureFormComponent implements OnInit {
     const profilepicture = this.pictureForm.value;
     this.http.get('api/user/' + this.currentId + '/get')
       .subscribe((res: any) => {
-        if (this.pictureId != null) {
+        if (this.pictureId !== null) {
           this.profilePictureService.getPicture(this.pictureId).subscribe((resp: any) => {
             this.currentColor = resp.color;
             console.log(resp.color);
