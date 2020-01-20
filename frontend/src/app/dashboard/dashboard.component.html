@@ -8,20 +8,47 @@
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
+          <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-        </mat-card-content>
+        <mat-card *ngIf="card.title == 'User'" class="userCard">
+          <mat-card-header>
+            <mat-card-title *ngIf="card.title == 'User'">
+              Level: {{level}}
+              <div class="score">Score: {{score}}x🥕</div>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div *ngIf="card.title == 'User'" class="userStatsWrapper">
+              <div *ngIf="card.title == 'User'" [ngStyle]="{'background-color': profileColor}" class="profileContainer">
+                <img [src]="profileImage" class="profilePicture">
+                <div [ngStyle]="{'background-color': profileColor, 'opacity': 0.8}" class="changePicture">
+                  <button class="buttonPicture" routerLink="../profile-picture-form"></button>
+                  Change Profile Picture
+                </div>
+              </div>
+              <div class="userStats">
+                <div class="stat">Username:
+                  <div [ngStyle]="{'color': profileColor}" class="statValue">{{username}}</div>
+                </div>
+                <div class="stat">First Name:
+                  <div class="statValue">{{firstname}}</div>
+                </div>
+                <div class="stat">Last Name:
+                  <div class="statValue">{{lastname}}</div>
+                </div>
+                <div class="stat">E-Mail:
+                  <div class="statValue">{{email}}</div>
+                </div>
+                <div class="stat userButtons">
+                  <button class="userButton" color="primary" mat-raised-button type="submit">Edit</button>
+                  <button (click)="openDialog()" class="userButton" color="primary" mat-raised-button
+                          type="submit">Change PW
+                  </button>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

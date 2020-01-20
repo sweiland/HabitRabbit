@@ -8,7 +8,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DashboardComponent} from './dashboard/dashboard.component';
+import {DashboardComponent, PasswordChangeComponentDash} from './dashboard/dashboard.component';
 import {FaqComponent} from './faq/faq.component';
 import {HabitFormComponent} from './habit-form/habit-form.component';
 import {HabitListComponent} from './habit-list/habit-list.component';
@@ -31,7 +31,8 @@ import {
   MatButtonToggleModule,
   MatCheckboxModule,
   MatDatepickerModule,
-  MatDialogModule, MatExpansionModule,
+  MatDialogModule,
+  MatExpansionModule,
   MatMenuModule,
   MatSnackBar,
   MatSnackBarModule,
@@ -59,7 +60,7 @@ import {PasswordChangeComponent, UserFormComponent} from './user-form/user-form.
 import {BarRatingModule} from 'ngx-bar-rating';
 import {MatFaqComponent} from './faq/mat-faq/mat-faq.component';
 import {MatFaqAdminComponent} from './faq/ngx-material-faq-admin/mat-faq-admin.component';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 export function tokenGetter() {
@@ -90,7 +91,8 @@ export function tokenGetter() {
     UserFormComponent,
     PasswordChangeComponent,
     MatFaqAdminComponent,
-    MatFaqComponent
+    MatFaqComponent,
+    PasswordChangeComponentDash
   ],
   imports: [
     BrowserModule,
@@ -141,8 +143,8 @@ export function tokenGetter() {
     deps: [MatSnackBar]
   }],
   bootstrap: [AppComponent],
-  entryComponents: [PasswordChangeComponent],
-  exports: [PasswordChangeComponent]
+  entryComponents: [PasswordChangeComponent, PasswordChangeComponentDash],
+  exports: [PasswordChangeComponent, PasswordChangeComponentDash]
 })
 export class AppModule {
 }
