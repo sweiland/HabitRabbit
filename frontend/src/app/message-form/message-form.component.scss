@@ -6,9 +6,10 @@
   width: 100%;
 }
 
-.shipping-card {
+.message-card {
   min-width: 120px;
   margin: 20px auto;
+  width: 50%;
 }
 
 .mat-radio-button {
@@ -28,4 +29,8 @@
 
 .col:last-child {
   margin-right: 0;
+}
+
+.widthclass ::ng-deep {
+  width: 100%;
 }

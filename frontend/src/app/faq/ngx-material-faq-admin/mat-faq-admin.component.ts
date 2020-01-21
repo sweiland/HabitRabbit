@@ -53,4 +53,8 @@ export class MatFaqAdminComponent implements OnInit {
 
   }
 
+  disableCheck() {
+    return !this.answer || !this.question;
+  }
+
 }

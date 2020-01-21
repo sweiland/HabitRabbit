@@ -55,6 +55,7 @@ import {JwtModule} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttperrorInterceptor} from './httperror.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatQuillModule} from '@webacad/ng-mat-quill';
 import {PasswordChangeComponent, UserFormComponent} from './user-form/user-form.component';
 import {BarRatingModule} from 'ngx-bar-rating';
 import {MatFaqComponent} from './faq/mat-faq/mat-faq.component';
@@ -132,7 +133,8 @@ export function tokenGetter() {
     BarRatingModule,
     CommonModule,
     FlexLayoutModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatQuillModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

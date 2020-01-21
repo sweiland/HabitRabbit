@@ -4,12 +4,14 @@
 
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfilePictureService {
+
+  currentColor;
+  currentPicture;
 
   constructor(private http: HttpClient) {
   }
@@ -17,5 +19,10 @@ export class ProfilePictureService {
 
   getPicture(profilepicture: any) {
     return this.http.get('/api/profilepicture/' + profilepicture + '/get');
+  }
+
+  getColor(id: number) {
+    return this.http.get('api/profilepicture/' + id + '/get').subscribe(() => {
+    });
   }
 }

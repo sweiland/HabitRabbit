@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {ProfilePictureService} from '../service/profile-picture.service';
+import {NavbarService} from '../service/navbar.service';
 
 @Component({
   selector: 'app-profile-picture-form',
@@ -21,24 +22,27 @@ export class ProfilePictureFormComponent implements OnInit {
   currentId;
   currentColor;
   pictureId;
-  colorPP = '#000000';
+  colorPP;
   colorFF = '#ffffff';
+  violet = '#673ab7';
   picturesource;
   hoverActive;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private userService: UserService,
-              private profilePictureService: ProfilePictureService) {
+              private profilePictureService: ProfilePictureService, private navbar: NavbarService) {
   }
 
   ngOnInit() {
     this.userService.getUser().subscribe((res: any) => {
       this.currentId = res.id;
       this.pictureId = res.profile_picture;
-      this.http.get('api/profilepicture/' + this.pictureId + '/get')
-        .subscribe((response: any) => {
-          this.colorPP = this.getColorVal(response.color);
-          this.picturesource = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
-        });
+      if (this.pictureId) {
+        this.http.get('api/profilepicture/' + this.pictureId + '/get')
+          .subscribe((response: any) => {
+            this.colorPP = this.getColorVal(response.color);
+            this.picturesource = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
+          });
+      }
       console.log('id=' + res.id);
       console.log('id=' + res.profile_picture);
     });
@@ -55,19 +59,27 @@ export class ProfilePictureFormComponent implements OnInit {
     const profilepicture = this.colorForm.value;
     this.http.get('api/user/' + this.currentId + '/get')
       .subscribe((res: any) => {
-        if (this.pictureId != null) {
+        if (this.pictureId !== null) {
           this.http.patch('/api/profilepicture/' + this.pictureId + '/update', {color: colorValue})
             .subscribe((resp: any) => {
             });
           this.colorPP = this.getColorVal(colorValue);
+          this.changeColor();
+          console.log('colorchange');
         } else {
-          this.http.post('/api/profilepicture/create', profilepicture)
+          this.http.post('/api/profilepicture/create', {color: colorValue})
             .subscribe((response: any) => {
               this.http.patch('/api/user/' + this.currentId + '/update', {profile_picture: response.id}).subscribe(() => {
               });
+              console.log(colorValue, response.id, response);
               this.router.navigate(['/profile-picture-form/' + response.id]);
               console.log('patched' + profilepicture.color);
+              console.log(colorValue, this.colorPP);
               this.colorPP = this.getColorVal(colorValue);
+              this.changeColor();
+              if (this.pictureId) {
+                this.enablePicture();
+              }
             });
         }
       });
@@ -78,54 +90,81 @@ export class ProfilePictureFormComponent implements OnInit {
     const profilepicture = this.pictureForm.value;
     this.http.get('api/user/' + this.currentId + '/get')
       .subscribe((res: any) => {
-        if (this.pictureId != null) {
+        if (this.pictureId !== null) {
           this.profilePictureService.getPicture(this.pictureId).subscribe((resp: any) => {
             this.currentColor = resp.color;
             console.log(resp.color);
             this.http.patch('/api/profilepicture/' + this.pictureId + '/update', {color: this.currentColor, picture: image})
-              .subscribe(() => {
+              .subscribe((boop: any) => {
+                this.picturesource = '../../assets/Resources/profile_pictures/carrot' + image + '.svg';
+                this.changePicture();
+                console.log('here');
               });
-            this.picturesource = '../../assets/Resources/profile_pictures/carrot' + resp.picture + '.svg';
-            this.ngOnInit();
-            console.log(this.currentColor, image);
           });
         } else {
-          this.http.post('/api/profilepicture/create', profilepicture)
+          this.http.post('/api/profilepicture/create', {picture: image})
             .subscribe((response: any) => {
               this.http.patch('/api/user/' + this.currentId + '/update', {profile_picture: response.id}).subscribe(() => {
               });
-              this.picturesource = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
-              this.ngOnInit();
+              this.picturesource = '../../assets/Resources/profile_pictures/carrot' + image + '.svg';
               this.router.navigate(['/profile-picture-form/' + response.id]);
+              this.enablePicture();
+              this.changePicture();
+              console.log('what');
             });
         }
       });
   }
 
+  onDeleteColor() {
+    this.http.patch('api/user/' + this.currentId + '/update', {profile_picture: null}).subscribe(() => {
+      this.navbar.showPicture.emit(null);
+      this.navbar.changeColor.emit(null);
+      this.navbar.changePicture.emit(null);
+      this.navbar.disablePicture.emit(false);
+      this.pictureId = null;
+    });
+  }
+
+  enablePicture() {
+    this.navbar.showPicture.emit(this.currentId);
+    this.navbar.disablePicture.emit(true);
+  }
+
+  changeColor() {
+    this.navbar.showPicture.emit(this.currentId);
+    this.navbar.changeColor.emit(this.colorPP);
+  }
+
+  changePicture() {
+    this.navbar.changePicture.emit(this.picturesource);
+    console.log('changedpicture');
+  }
+
   getColorVal(letter: string) {
     if (letter === 'r') {
-      return '#d4002d';
+      return '#ff1744';
     }
     if (letter === 'g') {
-      return '#76b82a';
+      return '#00e676';
     }
     if (letter === 't') {
-      return '#00afcb';
+      return '#00e5ff';
     }
     if (letter === 'y') {
-      return '#f8ff2e';
+      return '#ffea00';
     }
     if (letter === 'o') {
-      return '#ec6608';
+      return '#ff9100';
     }
     if (letter === 'v') {
-      return '#673ab7';
+      return '#2979ff';
     }
     if (letter === 'b') {
-      return '#3876cf';
+      return '#b388ff';
     }
     if (letter === 'w') {
-      return '#c49052';
+      return '#d4e157';
     }
   }
 }
