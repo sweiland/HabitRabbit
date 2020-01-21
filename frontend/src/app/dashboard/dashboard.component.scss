@@ -33,10 +33,11 @@
 }
 
 .profileContainer {
-  position: absolute;
-  top: 20%;
-  width: 15rem;
-  height: 15rem;
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+  left: 2.5rem;
+  top: 1rem;
   border-radius: 400px 400px 400px 400px;
   border-style: solid;
   background-color: green;
@@ -56,12 +57,12 @@
 .changePicture {
   position: absolute;
   padding-top: 6px;
-  padding-bottom: 26px;
-  left: 8px;
-  right: 8px;
+  padding-bottom: 0px;
+  left: 5px;
+  right: 5px;
   bottom: 0px;
   color: black;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border-top: 3px solid black;
   visibility: hidden;
 }
@@ -87,48 +88,52 @@
 
 .userStatsWrapper {
   position: relative;
-  top: 4rem;
 }
 
 .userStats {
-  width: 23rem;
-  position: absolute;
+  width: 28rem;
+  position: relative;
   right: 0px;
-  border-left: black 5px solid;
+  left: 4em;
+  padding-left: 20px;
+  border-left: black 3px solid;
   float: right;
 }
 
 .stat {
-  position: relative;
-  left: 30px;
   text-align: left;
   font-weight: bold;
   font-size: 1.2em;
-  margin-bottom: 40px;
+  margin-top: 1em;
+  margin-bottom: 10px;
+  width:200px;
+}
+
+.statfirst {
+  float: left;
+}
+
+.statsecond {
+  float:right;
+  padding-right: 2em;
 }
 
 .statValue {
   position: relative;
   width: 300px;
-  left: 65px;
-  top: 15px;
-  font-size: 1.3em;
+  left: 30px;
+  font-weight: lighter;
+  font-size: 1.0em;
   margin-right: 3em;
 }
 
 .userCard {
   top: 0px;
-  height: 90%;
+  height: 14rem;
 }
 
 .userButton {
   width: 130px;
-  margin-right: 50px;
-}
-
-.userButtons {
-  position: relative;
-  top: 40px;
 }
 
 .row {
@@ -143,4 +148,14 @@
 
 .col:last-child {
   margin-right: 0;
+}
+
+.test {
+  left: 0px;
+  top:0px;
+  width: 130px;
+}
+
+.userThird {
+  background-color: #673AB7;
 }

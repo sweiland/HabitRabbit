@@ -27,25 +27,38 @@
                 </div>
               </div>
               <div class="userStats">
-                <div class="stat">Username:
-                  <div [ngStyle]="{'color': profileColor}" class="statValue">{{username}}</div>
+                <div class="userFirst">
+                  <div class="stat statfirst">Username:
+                    <div [ngStyle]="{'color': profileColor}" class="statValue">{{username}}</div>
+                  </div>
+                  <div class="stat statsecond">First Name:
+                    <div class="statValue">{{firstname}}</div>
+                  </div>
                 </div>
-                <div class="stat">First Name:
-                  <div class="statValue">{{firstname}}</div>
+                <div class="userSecond">
+                  <div class="stat statfirst">Last Name:
+                    <div class="statValue">{{lastname}}</div>
+                  </div>
+                  <div class="stat statsecond">E-Mail:
+                    <div class="statValue">{{email}}</div>
+                  </div>
                 </div>
-                <div class="stat">Last Name:
-                  <div class="statValue">{{lastname}}</div>
-                </div>
-                <div class="stat">E-Mail:
-                  <div class="statValue">{{email}}</div>
-                </div>
-                <div class="stat userButtons">
-                  <button (click)="openDialogUser()" class="userButton" color="primary" mat-raised-button type="submit">
-                    Edit
-                  </button>
-                  <button (click)="openDialog(userId)" class="userButton" color="primary" mat-raised-button
-                          type="submit">Change PW
-                  </button>
+                <div class="userThird">
+                  <div class="stat statfirst">
+                    <div class="statValue test">
+                      <button (click)="openDialogUser()"
+                              class="userButton" color="primary"
+                              mat-raised-button type="submit">Edit
+                    </button>
+                    </div>
+                  </div>
+                  <div class="stat statsecond">
+                    <div class="statValue">
+                      <button (click)="openDialog()"
+                              class="userButton" color="accent"
+                              mat-raised-button type="submit">Change PW
+                    </button></div>
+                  </div>
                 </div>
               </div>
             </div>

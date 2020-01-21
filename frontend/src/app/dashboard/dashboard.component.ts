@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
     map(({matches}) => {
       if (matches) {
         return [
-          {title: 'User', cols: 1, rows: 2},
+          {title: 'User', cols: 1, rows: 1},
           {title: 'Card 2', cols: 1, rows: 1},
           {title: 'Card 3', cols: 1, rows: 1},
           {title: 'Card 4', cols: 1, rows: 1}
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
       }
 
       return [
-        {title: 'User', cols: 1, rows: 2},
+        {title: 'User', cols: 1, rows: 1},
         {title: 'Card 2', cols: 1, rows: 1},
         {title: 'Card 3', cols: 1, rows: 1},
         {title: 'Card 4', cols: 1, rows: 1}
@@ -123,7 +123,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openDialogUser(id: number): void {
+  openDialogUser(): void {
     const data = this.route.snapshot.data;
     this.userDataForm = this.fb.group({
       id: [this.userId],
