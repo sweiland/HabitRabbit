@@ -55,8 +55,8 @@
                 </div>
               </div>
             </mat-card-content>
-            <mat-card-actions>
-              <button mat-raised-button (click)="openHabitDialog(habit)" color="primary">Edit</button>
+            <mat-card-actions *ngIf="habitsEditable">
+              <button (click)="openHabitDialog(habit)" color="primary" mat-raised-button>Edit</button>
             </mat-card-actions>
           </mat-card>
         </mat-card-content>

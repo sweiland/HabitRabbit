@@ -8,7 +8,7 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {HabitService} from '../service/habit.service';
 import * as moment from 'moment';
 import {UserService} from '../service/user.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 
 @Component({
@@ -17,11 +17,11 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
   ID = this.userService.getID();
   habits: any[];
   habitsEditable: boolean;
   typeOptions: any[];
-
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   );
 
   constructor(private breakpointObserver: BreakpointObserver, private habitService: HabitService, private userService: UserService,
-              private route: ActivatedRoute, public dialog: MatDialog, private snackbar: MatSnackBar) {
+              private route: ActivatedRoute, public dialog: MatDialog, private snackbar: MatSnackBar, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -100,8 +100,8 @@ export class DashboardComponent implements OnInit {
       if (result) {
         this.habitService.updateHabit(result).subscribe(() => {
           this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
+          location.reload();
         });
-        this.ngOnInit();
       }
     });
   }

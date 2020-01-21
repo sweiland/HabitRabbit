@@ -34,7 +34,13 @@ const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], resolve: {habits: HabitUserResolver, typeOptions: TypesResolver}},
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    resolve: {habits: HabitUserResolver, typeOptions: TypesResolver},
+    runGuardsAndResolvers: 'always'
+  },
   {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
   {
     path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard],
