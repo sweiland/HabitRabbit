@@ -31,14 +31,12 @@ export class MatFaqAdminComponent implements OnInit {
         question: this.question,
         answer: this.answer
       };
-      console.log(faqItem);
       this.FAQItemAdded.emit(faqItem);
     } else {
       const faqItem: FaqItem = {
         question: this.question,
         answer: this.answer
       };
-      console.log(faqItem);
       this.FAQItemAdded.emit(faqItem);
     }
     this.reset();

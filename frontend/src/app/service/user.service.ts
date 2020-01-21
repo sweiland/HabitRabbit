@@ -21,7 +21,6 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService) {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token) {
-      console.log('Token expiration date: ' + this.jwtHelperService.getTokenExpirationDate(token));
       const tokenValid = !this.jwtHelperService.isTokenExpired(token);
       this.isLoggedIn.next(tokenValid);
     }
