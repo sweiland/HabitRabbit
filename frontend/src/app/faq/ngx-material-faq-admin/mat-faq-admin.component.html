@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">{{title}}</mat-toolbar>
+<mat-card>
+  <mat-card-content fxLayout="column">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>The question</mat-label>
+      <input [(ngModel)]="question" matInput>
+      <mat-hint>Add here the question of your clients</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>The answer</mat-label>
+      <textarea [(ngModel)]="answer" matInput></textarea>
+      <mat-hint>Please type an appropriate answer here to the above question</mat-hint>
+    </mat-form-field>
+  </mat-card-content>
+
+  <mat-card-actions fxLayoutAlign="end">
+    <button (click)="add()" color="primary" [disabled]="disableCheck()" mat-fab>
+      <mat-icon *ngIf="!id">add</mat-icon>
+      <mat-icon *ngIf="id">check</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

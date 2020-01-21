@@ -2,96 +2,169 @@
  * profile-picture-form.component.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
  */
 
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {UserService} from '../service/user.service';
+import {ProfilePictureService} from '../service/profile-picture.service';
+import {NavbarService} from '../service/navbar.service';
 
 @Component({
   selector: 'app-profile-picture-form',
   templateUrl: './profile-picture-form.component.html',
   styleUrls: ['./profile-picture-form.component.scss']
 })
-export class ProfilePictureFormComponent {
-  addressForm = this.fb.group({
-    company: null,
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
-    ],
-    shipping: ['free', Validators.required]
-  });
+export class ProfilePictureFormComponent implements OnInit {
 
-  hasUnitNumber = false;
+  colorForm;
+  pictureForm;
+  currentId;
+  currentColor;
+  pictureId;
+  colorPP;
+  colorFF = '#ffffff';
+  violet = '#673ab7';
+  picturesource;
+  hoverActive;
 
-  states = [
-    {name: 'Alabama', abbreviation: 'AL'},
-    {name: 'Alaska', abbreviation: 'AK'},
-    {name: 'American Samoa', abbreviation: 'AS'},
-    {name: 'Arizona', abbreviation: 'AZ'},
-    {name: 'Arkansas', abbreviation: 'AR'},
-    {name: 'California', abbreviation: 'CA'},
-    {name: 'Colorado', abbreviation: 'CO'},
-    {name: 'Connecticut', abbreviation: 'CT'},
-    {name: 'Delaware', abbreviation: 'DE'},
-    {name: 'District Of Columbia', abbreviation: 'DC'},
-    {name: 'Federated States Of Micronesia', abbreviation: 'FM'},
-    {name: 'Florida', abbreviation: 'FL'},
-    {name: 'Georgia', abbreviation: 'GA'},
-    {name: 'Guam', abbreviation: 'GU'},
-    {name: 'Hawaii', abbreviation: 'HI'},
-    {name: 'Idaho', abbreviation: 'ID'},
-    {name: 'Illinois', abbreviation: 'IL'},
-    {name: 'Indiana', abbreviation: 'IN'},
-    {name: 'Iowa', abbreviation: 'IA'},
-    {name: 'Kansas', abbreviation: 'KS'},
-    {name: 'Kentucky', abbreviation: 'KY'},
-    {name: 'Louisiana', abbreviation: 'LA'},
-    {name: 'Maine', abbreviation: 'ME'},
-    {name: 'Marshall Islands', abbreviation: 'MH'},
-    {name: 'Maryland', abbreviation: 'MD'},
-    {name: 'Massachusetts', abbreviation: 'MA'},
-    {name: 'Michigan', abbreviation: 'MI'},
-    {name: 'Minnesota', abbreviation: 'MN'},
-    {name: 'Mississippi', abbreviation: 'MS'},
-    {name: 'Missouri', abbreviation: 'MO'},
-    {name: 'Montana', abbreviation: 'MT'},
-    {name: 'Nebraska', abbreviation: 'NE'},
-    {name: 'Nevada', abbreviation: 'NV'},
-    {name: 'New Hampshire', abbreviation: 'NH'},
-    {name: 'New Jersey', abbreviation: 'NJ'},
-    {name: 'New Mexico', abbreviation: 'NM'},
-    {name: 'New York', abbreviation: 'NY'},
-    {name: 'North Carolina', abbreviation: 'NC'},
-    {name: 'North Dakota', abbreviation: 'ND'},
-    {name: 'Northern Mariana Islands', abbreviation: 'MP'},
-    {name: 'Ohio', abbreviation: 'OH'},
-    {name: 'Oklahoma', abbreviation: 'OK'},
-    {name: 'Oregon', abbreviation: 'OR'},
-    {name: 'Palau', abbreviation: 'PW'},
-    {name: 'Pennsylvania', abbreviation: 'PA'},
-    {name: 'Puerto Rico', abbreviation: 'PR'},
-    {name: 'Rhode Island', abbreviation: 'RI'},
-    {name: 'South Carolina', abbreviation: 'SC'},
-    {name: 'South Dakota', abbreviation: 'SD'},
-    {name: 'Tennessee', abbreviation: 'TN'},
-    {name: 'Texas', abbreviation: 'TX'},
-    {name: 'Utah', abbreviation: 'UT'},
-    {name: 'Vermont', abbreviation: 'VT'},
-    {name: 'Virgin Islands', abbreviation: 'VI'},
-    {name: 'Virginia', abbreviation: 'VA'},
-    {name: 'Washington', abbreviation: 'WA'},
-    {name: 'West Virginia', abbreviation: 'WV'},
-    {name: 'Wisconsin', abbreviation: 'WI'},
-    {name: 'Wyoming', abbreviation: 'WY'}
-  ];
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private userService: UserService,
+              private profilePictureService: ProfilePictureService, private navbar: NavbarService) {
+  }
 
-  constructor(private fb: FormBuilder) {}
+  ngOnInit() {
+    this.userService.getUser().subscribe((res: any) => {
+      this.currentId = res.id;
+      this.pictureId = res.profile_picture;
+      if (this.pictureId) {
+        this.http.get('api/profilepicture/' + this.pictureId + '/get')
+          .subscribe((response: any) => {
+            this.colorPP = this.getColorVal(response.color);
+            this.picturesource = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
+          });
+      }
+      console.log('id=' + res.id);
+      console.log('id=' + res.profile_picture);
+    });
+    this.colorForm = this.fb.group({
+      color: [null]
+    });
+    this.pictureForm = this.fb.group({
+      picture: [null]
+    });
+  }
 
-  onSubmit() {
-    alert('Thanks!');
+  onSubmitColor(colorValue: string) {
+    this.colorForm.patchValue({colorValue});
+    const profilepicture = this.colorForm.value;
+    this.http.get('api/user/' + this.currentId + '/get')
+      .subscribe((res: any) => {
+        if (this.pictureId !== null) {
+          this.http.patch('/api/profilepicture/' + this.pictureId + '/update', {color: colorValue})
+            .subscribe((resp: any) => {
+            });
+          this.colorPP = this.getColorVal(colorValue);
+          this.changeColor();
+          console.log('colorchange');
+        } else {
+          this.http.post('/api/profilepicture/create', {color: colorValue})
+            .subscribe((response: any) => {
+              this.http.patch('/api/user/' + this.currentId + '/update', {profile_picture: response.id}).subscribe(() => {
+              });
+              console.log(colorValue, response.id, response);
+              this.router.navigate(['/profile-picture-form/' + response.id]);
+              console.log('patched' + profilepicture.color);
+              console.log(colorValue, this.colorPP);
+              this.colorPP = this.getColorVal(colorValue);
+              this.changeColor();
+              if (this.pictureId) {
+                this.enablePicture();
+              }
+            });
+        }
+      });
+  }
+
+  onSubmitPicture(image: number) {
+    this.pictureForm.patchValue(image);
+    const profilepicture = this.pictureForm.value;
+    this.http.get('api/user/' + this.currentId + '/get')
+      .subscribe((res: any) => {
+        if (this.pictureId !== null) {
+          this.profilePictureService.getPicture(this.pictureId).subscribe((resp: any) => {
+            this.currentColor = resp.color;
+            console.log(resp.color);
+            this.http.patch('/api/profilepicture/' + this.pictureId + '/update', {color: this.currentColor, picture: image})
+              .subscribe((boop: any) => {
+                this.picturesource = '../../assets/Resources/profile_pictures/carrot' + image + '.svg';
+                this.changePicture();
+                console.log('here');
+              });
+          });
+        } else {
+          this.http.post('/api/profilepicture/create', {picture: image})
+            .subscribe((response: any) => {
+              this.http.patch('/api/user/' + this.currentId + '/update', {profile_picture: response.id}).subscribe(() => {
+              });
+              this.picturesource = '../../assets/Resources/profile_pictures/carrot' + image + '.svg';
+              this.router.navigate(['/profile-picture-form/' + response.id]);
+              this.enablePicture();
+              this.changePicture();
+              console.log('what');
+            });
+        }
+      });
+  }
+
+  onDeleteColor() {
+    this.http.patch('api/user/' + this.currentId + '/update', {profile_picture: null}).subscribe(() => {
+      this.navbar.showPicture.emit(null);
+      this.navbar.changeColor.emit(null);
+      this.navbar.changePicture.emit(null);
+      this.navbar.disablePicture.emit(false);
+      this.pictureId = null;
+    });
+  }
+
+  enablePicture() {
+    this.navbar.showPicture.emit(this.currentId);
+    this.navbar.disablePicture.emit(true);
+  }
+
+  changeColor() {
+    this.navbar.showPicture.emit(this.currentId);
+    this.navbar.changeColor.emit(this.colorPP);
+  }
+
+  changePicture() {
+    this.navbar.changePicture.emit(this.picturesource);
+    console.log('changedpicture');
+  }
+
+  getColorVal(letter: string) {
+    if (letter === 'r') {
+      return '#ff1744';
+    }
+    if (letter === 'g') {
+      return '#00e676';
+    }
+    if (letter === 't') {
+      return '#00e5ff';
+    }
+    if (letter === 'y') {
+      return '#ffea00';
+    }
+    if (letter === 'o') {
+      return '#ff9100';
+    }
+    if (letter === 'v') {
+      return '#2979ff';
+    }
+    if (letter === 'b') {
+      return '#b388ff';
+    }
+    if (letter === 'w') {
+      return '#d4e157';
+    }
   }
 }

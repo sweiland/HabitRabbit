@@ -28,8 +28,8 @@ class Migration(migrations.Migration):
             name='ProfilePicture',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('color', models.TextField(choices=[('r', '#d4002d'), ('g', '#76b82a'), ('t', '#00afcb'), ('y', '#f7a600'), ('o', '#ec6608'), ('v', '#af1280'), ('b', '#005ca9')])),
-                ('picture', models.BinaryField()),
+                ('color', models.TextField(choices=[('r', '#d4002d'), ('g', '#76b82a'), ('t', '#00afcb'), ('y', '#f8ff2e'), ('o', '#ec6608'), ('v', '#673ab7'), ('b', '#3876cf'), ('w', '#c49052')], default='r')),
+                ('picture', models.PositiveSmallIntegerField(null=True)),
             ],
         ),
         migrations.CreateModel(

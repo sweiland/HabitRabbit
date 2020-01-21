@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "color": "v",
-      "picture": ""
+      "picture": 1
     }
   },
   {
@@ -49,7 +49,7 @@
       "email": "hello@sweiland.at",
       "level": 1,
       "score": 0,
-      "profile_picture": null,
+      "profile_picture": 1,
       "groups": [],
       "user_permissions": [],
       "friends": []
@@ -71,7 +71,7 @@
       "email": "peter.s@fhj.at",
       "level": 1,
       "score": 0,
-      "profile_picture": null,
+      "profile_picture": 1,
       "groups": [],
       "user_permissions": [],
       "friends": []
@@ -102,5 +102,22 @@
       "interval": null,
       "priority": 1
     }
+  },
+  {
+    "model": "HabitRabbit.faq",
+    "pk": 1,
+    "fields": {
+      "question": "What does FAQ stand for?",
+      "answer": "Frequently Asked Questions, so you came to the right place."
+    }
+  },
+  {
+    "model": "HabitRabbit.faq",
+    "pk": 2,
+    "fields": {
+      "question": "What is this application about?",
+      "answer": "HabitRabbit\u2122 is a revolutionary online habit building tool, based on state-of-the-art gamification technologies, designed to help its users build new, positive habits easily and quickly."
+    }
   }
 ]
+

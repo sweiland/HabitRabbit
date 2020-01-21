@@ -10,13 +10,14 @@ class ProfilePicture(models.Model):
         RED = 'r', '#d4002d'
         GREEN = 'g', '#76b82a'
         TURQUOISE = 't', '#00afcb'
-        YELLOW = 'y', '#f7a600'
+        YELLOW = 'y', '#f8ff2e'
         ORANGE = 'o', '#ec6608'
-        VIOLET = 'v', '#af1280'
-        BLUE = 'b', '#005ca9'
+        VIOLET = 'v', '#673ab7'
+        BLUE = 'b', '#3876cf'
+        BROWN = 'w', '#c49052'
 
-    color = models.TextField(choices=ColorChoices.choices)
-    picture = models.BinaryField()
+    color = models.TextField(choices=ColorChoices.choices, null=True)
+    picture = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
         return self.color
@@ -42,8 +43,8 @@ class User(AbstractUser):
 class Type(models.Model):
     is_custom = models.BooleanField(default=False)
     name = models.TextField()
-    duration = models.PositiveSmallIntegerField(null=True)
-    helpful_link = models.URLField(null=True)
+    duration = models.PositiveSmallIntegerField(null=True, blank=True)
+    helpful_link = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.duration)
@@ -56,11 +57,11 @@ class Habit(models.Model):
         HIGH = 3, 'high'
 
     start_date = models.DateTimeField(default=timezone.now)
-    end_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(null=True, blank=True)
     name = models.TextField()
     member = models.ForeignKey(User, on_delete=models.CASCADE)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
-    interval = models.PositiveSmallIntegerField(null=True)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True, blank=True)
+    interval = models.PositiveSmallIntegerField(null=True, blank=True)
     priority = models.PositiveSmallIntegerField(choices=PrioChoices.choices)
 
     def __str__(self):
