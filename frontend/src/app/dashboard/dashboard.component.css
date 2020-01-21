@@ -44,4 +44,14 @@
   font-size: small;
 }
 
+footer {
+  background-color: white;
+  height: 30px;
+  font-size: larger;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
 /*# sourceMappingURL=dashboard.component.css.map */
