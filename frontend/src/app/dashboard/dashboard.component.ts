@@ -8,6 +8,7 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {HabitService} from '../service/habit.service';
 import * as moment from 'moment';
 import {UserService} from '../service/user.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,25 +40,15 @@ export class DashboardComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private habitService: HabitService, private userService: UserService) {
+  constructor(private breakpointObserver: BreakpointObserver, private habitService: HabitService, private userService: UserService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.habitService.getAll().subscribe((res: any[]) => {
-      this.habits = res.filter(e => {
-        return e.member_id === this.ID ? e : null;
-      });
-      this.clickedToday(this.habits);
-    });
-  }
-
-  progress(id: number) {
-    const habit = this.habits.find(e => e.id === id);
-    const duration = moment(habit.end_date).startOf('day').diff(moment(habit.start_date).startOf('day'), 'days');
-    const done = moment(habit.start_date).startOf('day').diff(moment().startOf('day'), 'days') * -1;
-    const left = moment(habit.end_date).startOf('day').diff(moment().startOf('day'), 'days');
-    const percentage = done / duration * 100;
-    return {duration, left, done, percentage};
+    const data = this.route.snapshot.data;
+    if (data.habits) {
+      this.habits = data.habits;
+    }
   }
 
   isNumber(num: number) {
@@ -70,16 +61,13 @@ export class DashboardComponent implements OnInit {
       id,
       last_click: moment().startOf('day')
     }).subscribe(() => {
-      this.ngOnInit();
-    });
-  }
-
-  clickedToday(habit: any[]): any[] {
-    return habit.map((x) => {
-      this.habitService.getHabit(x.id).subscribe((res: any) => {
-        x.today = (moment(res.last_click).startOf('day').isSame(moment().startOf('day')));
+      this.habits.filter((x) => {
+        return x.id === id;
+      }).map((x) => {
+        x.today = true;
         return x;
       });
+      this.ngOnInit();
     });
   }
 }

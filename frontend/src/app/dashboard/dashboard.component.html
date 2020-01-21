@@ -25,18 +25,18 @@
         <mat-card-content *ngIf="card.title === 'Active Habits'" class="dashboard-card-content">
           <mat-card *ngFor="let habit of habits" class="example-card">
             <mat-card-title>{{habit.name}}</mat-card-title>
-            <mat-card-subtitle>You've been going for {{progress(habit.id).done}} days!
-              <span *ngIf="isNumber(progress(habit.id).left)">Only {{progress(habit.id).left}} days left!</span>
+            <mat-card-subtitle>You've been going for {{habit.done}} days!
+              <span *ngIf="isNumber(habit.left)">Only {{habit.left}} days left!</span>
               <br/>
               <code class="timeframe">{{(habit.start_date | date)}}</code>
               <code *ngIf="habit.end_date !== null" class="timeframe">{{' ➡️ ' + (habit.end_date | date)}}</code>
             </mat-card-subtitle>
             <mat-card-content>
-              <div *ngIf="isNumber(progress(habit.id).percentage)" class="progress">
+              <div *ngIf="isNumber(habit.percentage)" class="progress">
                 <div class="row">
                   <mat-progress-bar #tooltip="matTooltip"
-                                    [matTooltip]="'(' + progress(habit.id).percentage + '%)'"
-                                    [value]="progress(habit.id).percentage"
+                                    [matTooltip]="'(' + habit.percentage + '%)'"
+                                    [value]="habit.percentage"
                                     aria-label="Button that displays a tooltip that hides when scrolled out of the container"
                                     matTooltipHideDelay="100"
                                     matTooltipPosition="below"
