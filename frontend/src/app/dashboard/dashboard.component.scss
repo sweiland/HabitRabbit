@@ -13,8 +13,8 @@
   right: 15px;
   bottom: 15px;
   background-color: #ece6f5;
-  overflow: scroll;
-  // background-color: #f5f5f5;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .score {
@@ -22,6 +22,12 @@
   float: right;
   top: 17px;
   right: 25px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
 }
 
 .example-card {
