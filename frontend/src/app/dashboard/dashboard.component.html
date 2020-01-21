@@ -14,8 +14,8 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
+              <button (click)="enableEdit()" mat-menu-item><span *ngIf="!habitsEditable">Enable Edit Mode</span><span
+                *ngIf="habitsEditable">Disable Edit Mode</span></button>
             </mat-menu>
           </mat-card-title>
         </mat-card-header>
@@ -55,6 +55,9 @@
                 </div>
               </div>
             </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button (click)="openHabitDialog(habit)" color="primary">Edit</button>
+            </mat-card-actions>
           </mat-card>
         </mat-card-content>
       </mat-card>

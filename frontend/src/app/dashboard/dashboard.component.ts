@@ -2,13 +2,14 @@
  * dashboard.component.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {HabitService} from '../service/habit.service';
 import * as moment from 'moment';
 import {UserService} from '../service/user.service';
 import {ActivatedRoute} from '@angular/router';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,8 @@ import {ActivatedRoute} from '@angular/router';
 export class DashboardComponent implements OnInit {
   ID = this.userService.getID();
   habits: any[];
+  habitsEditable: boolean;
+  typeOptions: any[];
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -41,13 +44,16 @@ export class DashboardComponent implements OnInit {
   );
 
   constructor(private breakpointObserver: BreakpointObserver, private habitService: HabitService, private userService: UserService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute, public dialog: MatDialog, private snackbar: MatSnackBar) {
   }
 
   ngOnInit(): void {
     const data = this.route.snapshot.data;
     if (data.habits) {
       this.habits = data.habits;
+    }
+    if (data.typeOptions) {
+      this.typeOptions = data.typeOptions;
     }
   }
 
@@ -69,5 +75,65 @@ export class DashboardComponent implements OnInit {
       });
       this.ngOnInit();
     });
+  }
+
+  enableEdit() {
+    this.habitsEditable = !this.habitsEditable;
+  }
+
+  openHabitDialog(habit: any) {
+    const dialogRef = this.dialog.open(DashboardHabitEditComponent, {
+      width: '500px',
+      data: {
+        id: habit.id,
+        start_date: habit.start_date,
+        end_date: habit.end_date,
+        name: habit.name,
+        interval: habit.interval,
+        priority: habit.priority,
+        type: habit.type,
+        typeOptions: this.typeOptions
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.habitService.updateHabit(result).subscribe(() => {
+          this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
+        });
+        this.ngOnInit();
+      }
+    });
+  }
+}
+
+export interface HabitDialogData {
+  id: number;
+  start_date: string;
+  end_date: string;
+  name: string;
+  interval: number;
+  priority: number;
+  typeOptions: any;
+  type: number;
+}
+
+@Component({
+  selector: 'app-dashboard-habitedit.component',
+  templateUrl: 'dashboard-habitedit.component.html',
+})
+export class DashboardHabitEditComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<DashboardHabitEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: HabitDialogData) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  disableCheck() {
+    return false;
   }
 }

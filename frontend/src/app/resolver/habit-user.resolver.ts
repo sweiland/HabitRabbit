@@ -35,7 +35,7 @@ export class HabitUserResolver implements Resolve<Observable<any>> {
       const duration = moment(x.end_date).startOf('day').diff(moment(x.start_date).startOf('day'), 'days');
       const done = moment(x.start_date).startOf('day').diff(moment().startOf('day'), 'days') * -1;
       x.left = moment(x.end_date).startOf('day').diff(moment().startOf('day'), 'days');
-      x.percentage = done / duration * 100;
+      x.percentage = (done / duration * 100).toFixed(0);
       x.duration = duration;
       x.done = done;
       return x;

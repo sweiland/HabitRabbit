@@ -35,7 +35,8 @@
     "rxjs": "^6.5.4",
     "sass": "^1.25.0",
     "tslib": "^1.10.0",
-    "zone.js": "^0.10.2"
+    "zone.js": "^0.10.2",
+    "ngx-bar-rating-odilo": "^1.1.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.803.23",

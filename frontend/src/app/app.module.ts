@@ -8,7 +8,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DashboardComponent} from './dashboard/dashboard.component';
+import {DashboardComponent, DashboardHabitEditComponent} from './dashboard/dashboard.component';
 import {FaqComponent} from './faq/faq.component';
 import {HabitFormComponent} from './habit-form/habit-form.component';
 import {HabitListComponent} from './habit-list/habit-list.component';
@@ -31,11 +31,14 @@ import {
   MatButtonToggleModule,
   MatCheckboxModule,
   MatDatepickerModule,
-  MatDialogModule, MatExpansionModule,
-  MatMenuModule, MatProgressBarModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatMenuModule,
+  MatProgressBarModule,
   MatSnackBar,
   MatSnackBarModule,
-  MatStepperModule, MatTooltipModule
+  MatStepperModule,
+  MatTooltipModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -57,10 +60,10 @@ import {HttperrorInterceptor} from './httperror.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MatQuillModule} from '@webacad/ng-mat-quill';
 import {PasswordChangeComponent, UserFormComponent} from './user-form/user-form.component';
-import {BarRatingModule} from 'ngx-bar-rating';
+import {BarRatingModule} from 'ngx-bar-rating-odilo';
 import {MatFaqComponent} from './faq/mat-faq/mat-faq.component';
 import {MatFaqAdminComponent} from './faq/ngx-material-faq-admin/mat-faq-admin.component';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 export function tokenGetter() {
@@ -91,7 +94,8 @@ export function tokenGetter() {
     UserFormComponent,
     PasswordChangeComponent,
     MatFaqAdminComponent,
-    MatFaqComponent
+    MatFaqComponent,
+    DashboardHabitEditComponent
   ],
   imports: [
     BrowserModule,
@@ -145,8 +149,8 @@ export function tokenGetter() {
     deps: [MatSnackBar]
   }],
   bootstrap: [AppComponent],
-  entryComponents: [PasswordChangeComponent],
-  exports: [PasswordChangeComponent]
+  entryComponents: [PasswordChangeComponent, DashboardHabitEditComponent],
+  exports: [PasswordChangeComponent, DashboardHabitEditComponent]
 })
 export class AppModule {
 }
