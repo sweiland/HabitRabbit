@@ -13,6 +13,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
 import {HttpClient} from '@angular/common/http';
 import {ProfilePictureService} from '../service/profile-picture.service';
 import {AbstractControl, FormBuilder} from '@angular/forms';
+import {User} from '../user';
 
 
 @Component({
@@ -91,52 +92,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openDialog(): void {
-    const data = this.route.snapshot.data;
-    this.passwordForm = this.fb.group({
-      id: [this.userId],
-      old_password: [''],
-      password: [''],
-      password_check: ['']
-    }, {validator: this.passwordMatchValidator});
-    if (data.user) {
-      this.userForm.patchValue(data.user);
-      this.passwordForm.patchValue(data.user);
-      this.passwordForm.patchValue({password: ''});
-      this.userForm.patchValue({password: ''});
-      this.userForm.controls.password.disable();
-      this.userForm.controls.password_check.disable();
-    }
-
-    const dialogRef = this.dialog.open(PasswordChangeComponentDash, {
-      width: '250px',
-      data: {password: this.password, password_check: this.password_check, old_password: this.old_password}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.passwordForm.patchValue(result);
-        if (this.passwordForm.controls.password_check.hasError('pw_check')) {
-          this.snackbar.open('Sorry, passwords did not match!', 'close', {duration: 1000});
-        } else {
-          this.userService.updatePassword(this.passwordForm.value).subscribe(() => {
-            this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
-            this.router.navigate(['/login']);
-          });
-        }
-      }
-    });
-  }
-
-  passwordMatchValidator(control: AbstractControl) {
-    const password = control.get('password').value; // get password from our password form control
-    const confirmPassword = control.get('password_check').value; // get password from our confirmPassword form control
-    // compare is the password math
-    if (password !== confirmPassword) {
-      control.get('password_check').setErrors({pw_check: true});
-    }
-  }
-
 
   isNumber(num: number) {
     return !isNaN(num);
@@ -176,6 +131,43 @@ export class DashboardComponent implements OnInit {
         typeOptions: this.typeOptions
       }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.habitService.updateHabit(result).subscribe(() => {
+          this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
+          location.reload();
+        });
+      }
+    });
+  }
+
+  openDialog(): void {
+    const data = this.route.snapshot.data;
+    this.passwordForm = this.fb.group({
+      id: [this.userId],
+      old_password: [''],
+      password: [''],
+      password_check: ['']
+    }, {validator: this.passwordMatchValidator});
+
+    const dialogRef = this.dialog.open(PasswordChangeComponentDash, {
+      width: '250px',
+      data: {password: this.password, password_check: this.password_check, old_password: this.old_password}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.passwordForm.patchValue(result);
+        if (this.passwordForm.controls.password_check.hasError('pw_check')) {
+          this.snackbar.open('Sorry, passwords did not match!', 'close', {duration: 1000});
+        } else {
+          this.userService.updatePassword(this.passwordForm.value).subscribe(() => {
+            this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
+            this.router.navigate(['/login']);
+          });
+        }
+      }
+    });
   }
 
   openDialogUser(): void {
@@ -200,13 +192,29 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.habitService.updateHabit(result).subscribe(() => {
-          this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
-          location.reload();
-        });
+        this.userDataForm.patchValue(result);
+        if (this.userDataForm.controls.email.hasError('email_check')) {
+          this.snackbar.open('Sorry, wrong email pattern', 'close', {duration: 1000});
+        } else {
+          this.userService.updateUser(this.userDataForm.value).subscribe(() => {
+            this.snackbar.open('You need to log in again!', 'close', {duration: 1000});
+            this.userService.logout();
+          });
+        }
       }
     });
   }
+
+  passwordMatchValidator(control: AbstractControl) {
+    const password: string = control.get('password').value; // get password from our password form control
+    const confirmPassword: string = control.get('password_check').value; // get password from our confirmPassword form control
+    // compare is the password math
+    if (password !== confirmPassword) {
+      // if they don't match, set an error in our confirmPassword form control
+      control.get('password_check').setErrors({pw_check: true});
+    }
+  }
+
 }
 
 export interface HabitDialogData {
