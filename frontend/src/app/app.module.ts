@@ -8,7 +8,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DashboardComponent, PasswordChangeComponentDash} from './dashboard/dashboard.component';
+import {DashboardComponent, PasswordChangeComponentDash, UserDataChangeComponent} from './dashboard/dashboard.component';
 import {FaqComponent} from './faq/faq.component';
 import {HabitFormComponent} from './habit-form/habit-form.component';
 import {HabitListComponent} from './habit-list/habit-list.component';
@@ -92,7 +92,8 @@ export function tokenGetter() {
     PasswordChangeComponent,
     MatFaqAdminComponent,
     MatFaqComponent,
-    PasswordChangeComponentDash
+    PasswordChangeComponentDash,
+    UserDataChangeComponent
   ],
   imports: [
     BrowserModule,
@@ -143,8 +144,8 @@ export function tokenGetter() {
     deps: [MatSnackBar]
   }],
   bootstrap: [AppComponent],
-  entryComponents: [PasswordChangeComponent, PasswordChangeComponentDash],
-  exports: [PasswordChangeComponent, PasswordChangeComponentDash]
+  entryComponents: [PasswordChangeComponent, PasswordChangeComponentDash, UserDataChangeComponent],
+  exports: [PasswordChangeComponent, PasswordChangeComponentDash, UserDataChangeComponent]
 })
 export class AppModule {
 }

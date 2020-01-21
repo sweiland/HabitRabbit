@@ -57,6 +57,12 @@ export class DashboardComponent implements OnInit {
   private old_password: string;
   private passwordForm: any;
 
+  private usernameValue: string;
+  private firstnameValue: string;
+  private lastnameValue: string;
+  private emailValue: string;
+  private userDataForm: any;
+
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
               private profilePictureService: ProfilePictureService, private snackbar: MatSnackBar, private router: Router,
@@ -117,6 +123,41 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  openDialogUser(id: number): void {
+    const data = this.route.snapshot.data;
+    this.userDataForm = this.fb.group({
+      id: [this.userId],
+      username: [''],
+      first_name: [''],
+      last_name: [''],
+      email: ['']
+    });
+    if (data.user) {
+      this.userForm.patchValue(data.user);
+      this.userForm.controls.password.disable();
+      this.userForm.controls.password_check.disable();
+    }
+
+    const dialogRef = this.dialog.open(UserDataChangeComponent, {
+      width: '250px',
+      data: {username: this.username, first_name: this.firstname, last_name: this.lastname, email: this.email}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userDataForm.patchValue(result);
+        if (this.userDataForm.controls.email.hasError('email_check')) {
+          this.snackbar.open('Sorry, wrong email pattern', 'close', {duration: 1000});
+        } else {
+          this.userService.updateUser(this.userDataForm.value).subscribe(() => {
+            this.snackbar.open('You need to log in again!', 'close', {duration: 1000});
+            this.userService.logout();
+          });
+        }
+      }
+    });
+  }
+
   passwordMatchValidator(control: AbstractControl) {
     const password: string = control.get('password').value; // get password from our password form control
     const confirmPassword: string = control.get('password_check').value; // get password from our confirmPassword form control
@@ -153,6 +194,36 @@ export class PasswordChangeComponentDash {
   disableCheck() {
     return (!this.data.password || !this.data.old_password || !this.data.password_check || this.data.password.length < 8 ||
       this.data.password_check.length < 8 || this.data.old_password.length < 8);
+  }
+}
+
+export interface UserData {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
+@Component({
+  selector: 'app-user-info.component',
+  templateUrl: 'user-info.component.html',
+})
+// tslint:disable-next-line:component-class-suffix
+export class UserDataChangeComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<UserDataChangeComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: UserData) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  disableCheck2() {
+    const emailValidator = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+    const valid = !(this.data.username && this.data.first_name && this.data.last_name && emailValidator.test(this.data.email));
+    return valid;
   }
 }
 

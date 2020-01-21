@@ -40,8 +40,10 @@
                   <div class="statValue">{{email}}</div>
                 </div>
                 <div class="stat userButtons">
-                  <button class="userButton" color="primary" mat-raised-button type="submit">Edit</button>
-                  <button (click)="openDialog()" class="userButton" color="primary" mat-raised-button
+                  <button (click)="openDialogUser()" class="userButton" color="primary" mat-raised-button type="submit">
+                    Edit
+                  </button>
+                  <button (click)="openDialog(userId)" class="userButton" color="primary" mat-raised-button
                           type="submit">Change PW
                   </button>
                 </div>

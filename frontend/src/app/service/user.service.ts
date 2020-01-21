@@ -51,8 +51,8 @@ export class UserService {
 
   getUser() {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
-    const username = this.jwtHelperService.decodeToken(token).username;
-    return this.http.get('api/user/' + username + '/get');
+    const userID = this.jwtHelperService.decodeToken(token).user_id;
+    return this.http.get('api/user/' + userID + '/get');
   }
 
   register(user: any) {
