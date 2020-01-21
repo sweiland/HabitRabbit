@@ -8,7 +8,12 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DashboardComponent, PasswordChangeComponentDash, UserDataChangeComponent} from './dashboard/dashboard.component';
+import {
+  DashboardComponent,
+  DashboardHabitEditComponent,
+  PasswordChangeComponentDash,
+  UserDataChangeComponent
+} from './dashboard/dashboard.component';
 import {FaqComponent} from './faq/faq.component';
 import {HabitFormComponent} from './habit-form/habit-form.component';
 import {HabitListComponent} from './habit-list/habit-list.component';
@@ -34,9 +39,11 @@ import {
   MatDialogModule,
   MatExpansionModule,
   MatMenuModule,
+  MatProgressBarModule,
   MatSnackBar,
   MatSnackBarModule,
-  MatStepperModule
+  MatStepperModule,
+  MatTooltipModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -56,8 +63,9 @@ import {JwtModule} from '@auth0/angular-jwt';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttperrorInterceptor} from './httperror.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatQuillModule} from '@webacad/ng-mat-quill';
 import {PasswordChangeComponent, UserFormComponent} from './user-form/user-form.component';
-import {BarRatingModule} from 'ngx-bar-rating';
+import {BarRatingModule} from 'ngx-bar-rating-odilo';
 import {MatFaqComponent} from './faq/mat-faq/mat-faq.component';
 import {MatFaqAdminComponent} from './faq/ngx-material-faq-admin/mat-faq-admin.component';
 import {CommonModule} from '@angular/common';
@@ -92,6 +100,7 @@ export function tokenGetter() {
     PasswordChangeComponent,
     MatFaqAdminComponent,
     MatFaqComponent,
+    DashboardHabitEditComponent,
     PasswordChangeComponentDash,
     UserDataChangeComponent
   ],
@@ -135,7 +144,10 @@ export function tokenGetter() {
     BarRatingModule,
     CommonModule,
     FlexLayoutModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatTooltipModule,
+    MatQuillModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -144,8 +156,8 @@ export function tokenGetter() {
     deps: [MatSnackBar]
   }],
   bootstrap: [AppComponent],
-  entryComponents: [PasswordChangeComponent, PasswordChangeComponentDash, UserDataChangeComponent],
-  exports: [PasswordChangeComponent, PasswordChangeComponentDash, UserDataChangeComponent]
+  entryComponents: [PasswordChangeComponent, DashboardHabitEditComponent, PasswordChangeComponentDash, UserDataChangeComponent],
+  exports: [PasswordChangeComponent, DashboardHabitEditComponent, PasswordChangeComponentDash, UserDataChangeComponent]
 })
 export class AppModule {
 }

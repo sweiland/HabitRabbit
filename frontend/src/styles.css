@@ -1,16 +1,17 @@
-/*!
- * styles.scss Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
-/* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import '~material-design-icons/iconfont/material-icons.css';
-html, body {
-  height: 100%;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 9 | @import '~ngx-bar-rating-odilo/themes/br-square-theme';
+ *   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   styles.scss 9:9  root stylesheet */
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 9 \2502  @import '~ngx-bar-rating-odilo/themes/br-square-theme';\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   styles.scss 9:9  root stylesheet";
 }
-
-/*# sourceMappingURL=styles.css.map */

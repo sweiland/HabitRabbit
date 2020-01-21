@@ -15,7 +15,7 @@
   </mat-card-content>
 
   <mat-card-actions fxLayoutAlign="end">
-    <button (click)="add()" color="primary" mat-fab>
+    <button (click)="add()" color="primary" [disabled]="disableCheck()" mat-fab>
       <mat-icon *ngIf="!id">add</mat-icon>
       <mat-icon *ngIf="id">check</mat-icon>
     </button>

@@ -5,12 +5,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {HttpClient} from '@angular/common/http';
+import {HabitService} from '../service/habit.service';
+import * as moment from 'moment';
 import {UserService} from '../service/user.service';
-import {ProfilePictureService} from '../service/profile-picture.service';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
-import {AbstractControl, FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {HttpClient} from '@angular/common/http';
+import {ProfilePictureService} from '../service/profile-picture.service';
+import {AbstractControl, FormBuilder} from '@angular/forms';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -18,8 +21,10 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  /** Based on the screen size, switch from standard to one column per row */
-
+  ID = this.userService.getID();
+  habits: any[];
+  habitsEditable: boolean;
+  typeOptions: any[];
   userId;
   level;
   score;
@@ -30,15 +35,13 @@ export class DashboardComponent implements OnInit {
   profileColor;
   profileColorPop;
   profileImage;
-
   public userForm: any;
-  pressedPassword: boolean;
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
       if (matches) {
         return [
           {title: 'User', cols: 1, rows: 1},
-          {title: 'Card 2', cols: 1, rows: 1},
+          {title: 'Active Habits', cols: 1, rows: 1},
           {title: 'Card 3', cols: 1, rows: 1},
           {title: 'Card 4', cols: 1, rows: 1}
         ];
@@ -46,7 +49,7 @@ export class DashboardComponent implements OnInit {
 
       return [
         {title: 'User', cols: 1, rows: 1},
-        {title: 'Card 2', cols: 1, rows: 1},
+        {title: 'Active Habits', cols: 1, rows: 2},
         {title: 'Card 3', cols: 1, rows: 1},
         {title: 'Card 4', cols: 1, rows: 1}
       ];
@@ -56,20 +59,22 @@ export class DashboardComponent implements OnInit {
   private password_check: string;
   private old_password: string;
   private passwordForm: any;
-
-  private usernameValue: string;
-  private firstnameValue: string;
-  private lastnameValue: string;
-  private emailValue: string;
   private userDataForm: any;
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
               private profilePictureService: ProfilePictureService, private snackbar: MatSnackBar, private router: Router,
-              public dialog: MatDialog, private fb: FormBuilder) {
+              public dialog: MatDialog, private fb: FormBuilder, private habitService: HabitService) {
   }
 
   ngOnInit() {
+    const data = this.route.snapshot.data;
+    if (data.habits) {
+      this.habits = data.habits;
+    }
+    if (data.typeOptions) {
+      this.typeOptions = data.typeOptions;
+    }
     this.userService.getUser().subscribe((res: any) => {
       this.userId = res.id;
       this.level = res.level;
@@ -123,6 +128,56 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password').value; // get password from our password form control
+    const confirmPassword = control.get('password_check').value; // get password from our confirmPassword form control
+    // compare is the password math
+    if (password !== confirmPassword) {
+      control.get('password_check').setErrors({pw_check: true});
+    }
+  }
+
+
+  isNumber(num: number) {
+    return !isNaN(num);
+  }
+
+  logActive(id: string) {
+    this.userService.logActive(this.ID);
+    this.habitService.updateHabit({
+      id,
+      last_click: moment().endOf('day')
+    }).subscribe(() => {
+      this.habits.filter((x) => {
+        return x.id === id;
+      }).map((x) => {
+        x.today = true;
+        return x;
+      });
+      this.ngOnInit();
+    });
+  }
+
+  enableEdit() {
+    this.habitsEditable = !this.habitsEditable;
+  }
+
+  openHabitDialog(habit: any) {
+    const dialogRef = this.dialog.open(DashboardHabitEditComponent, {
+      width: '500px',
+      data: {
+        id: habit.id,
+        start_date: habit.start_date,
+        end_date: habit.end_date,
+        name: habit.name,
+        interval: habit.interval,
+        priority: habit.priority,
+        type: habit.type,
+        typeOptions: this.typeOptions
+      }
+    });
+  }
+
   openDialogUser(): void {
     const data = this.route.snapshot.data;
     this.userDataForm = this.fb.group({
@@ -145,28 +200,45 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userDataForm.patchValue(result);
-        if (this.userDataForm.controls.email.hasError('email_check')) {
-          this.snackbar.open('Sorry, wrong email pattern', 'close', {duration: 1000});
-        } else {
-          this.userService.updateUser(this.userDataForm.value).subscribe(() => {
-            this.snackbar.open('You need to log in again!', 'close', {duration: 1000});
-            this.userService.logout();
-          });
-        }
+        this.habitService.updateHabit(result).subscribe(() => {
+          this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
+          location.reload();
+        });
       }
     });
   }
+}
 
-  passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password').value; // get password from our password form control
-    const confirmPassword: string = control.get('password_check').value; // get password from our confirmPassword form control
-    // compare is the password math
-    if (password !== confirmPassword) {
-      // if they don't match, set an error in our confirmPassword form control
-      control.get('password_check').setErrors({pw_check: true});
-    }
+export interface HabitDialogData {
+  id: number;
+  start_date: string;
+  end_date: string;
+  name: string;
+  interval: number;
+  priority: number;
+  typeOptions: any;
+  type: number;
+}
+
+@Component({
+  selector: 'app-dashboard-habitedit.component',
+  templateUrl: 'dashboard-habitedit.component.html',
+})
+export class DashboardHabitEditComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<DashboardHabitEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: HabitDialogData) {
   }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  disableCheck() {
+    return false;
+  }
+
 }
 
 export interface DialogData {

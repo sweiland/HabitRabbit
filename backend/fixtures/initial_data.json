@@ -52,7 +52,8 @@
       "profile_picture": 1,
       "groups": [],
       "user_permissions": [],
-      "friends": []
+      "friends": [],
+      "streak": 0
     }
   },
   {
@@ -74,7 +75,8 @@
       "profile_picture": 1,
       "groups": [],
       "user_permissions": [],
-      "friends": []
+      "friends": [],
+      "streak": 20
     }
   },
   {

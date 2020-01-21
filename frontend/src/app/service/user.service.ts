@@ -7,6 +7,8 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {User} from '../user';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +32,11 @@ export class UserService {
       .subscribe((res: any) => {
         this.isLoggedIn.next(true);
         localStorage.setItem('access_token', res.token);
-        this.router.navigate(['dashboard']);
+        this.getUser().subscribe((x: any) => {
+          return this.http.patch('/api/user/' + x.id + '/update', {last_login: moment()}).subscribe((x2: any) => {
+            this.router.navigate(['dashboard']);
+          });
+        });
       }, () => {
         alert('wrong username or password');
       });
@@ -53,6 +59,11 @@ export class UserService {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     const userID = this.jwtHelperService.decodeToken(token).user_id;
     return this.http.get('api/user/' + userID + '/get');
+  }
+
+  getID() {
+    const token = localStorage.getItem(this.accessTokenLocalStorageKey);
+    return this.jwtHelperService.decodeToken(token).user_id;
   }
 
   register(user: any) {
@@ -86,5 +97,14 @@ export class UserService {
       return this.http.patch('/api/user/' + user.id + '/update', user);
     }
 
+  }
+
+  logActive(ID: number) {
+    return this.getUser().subscribe((res: User) => {
+      const streak = res.streak + 1;
+      return this.http.patch('/api/user/' + ID + '/update', {
+        streak
+      }).subscribe();
+    });
   }
 }
