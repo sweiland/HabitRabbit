@@ -22,44 +22,99 @@
         <mat-card-content *ngIf="card.title !== 'Active Habits'" class="dashboard-card-content">
           <div>Card Content Here</div>
         </mat-card-content>
-        <mat-card-content *ngIf="card.title === 'Active Habits'" class="dashboard-card-content">
-          <mat-card *ngFor="let habit of habits" class="example-card">
-            <mat-card-title>{{habit.name}}</mat-card-title>
-            <mat-card-subtitle>You've been going for {{habit.done}} days!
-              <span *ngIf="isNumber(habit.left)">Only {{habit.left}} days left!</span>
-              <br/>
-              <code class="timeframe">{{(habit.start_date | date)}}</code>
-              <code *ngIf="habit.end_date !== null" class="timeframe">{{' ➡️ ' + (habit.end_date | date)}}</code>
-            </mat-card-subtitle>
-            <mat-card-content>
-              <div *ngIf="isNumber(habit.percentage)" class="progress">
-                <div class="row">
-                  <mat-progress-bar #tooltip="matTooltip"
-                                    [matTooltip]="'(' + habit.percentage + '%)'"
-                                    [value]="habit.percentage"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    matTooltipHideDelay="100"
-                                    matTooltipPosition="below"
-                                    mode="determinate"></mat-progress-bar>
-                  <button #tooltip="matTooltip"
-                          (click)="logActive(habit.id)"
-                          [disabled]="habit.today"
-                          aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                          color="primary"
-                          mat-fab
-                          matTooltip="Log your progress here! ⬇️"
-                          matTooltipHideDelay="100"
-                          matTooltipPosition="above">
-                    <mat-icon>check</mat-icon>
-                  </button>
+        <mat-card *ngIf="card.title == 'User'" class="userCard">
+          <mat-card-header>
+            <mat-card-title *ngIf="card.title == 'User'">
+              Level: {{level}}
+              <div class="score">Score: {{score}}x🥕</div>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div *ngIf="card.title == 'User'" class="userStatsWrapper">
+              <div *ngIf="card.title == 'User'" [ngStyle]="{'background-color': profileColor}" class="profileContainer">
+                <img [src]="profileImage" class="profilePicture">
+                <div [ngStyle]="{'background-color': profileColor, 'opacity': 0.8}" class="changePicture">
+                  <button class="buttonPicture" routerLink="../profile-picture-form"></button>
+                  Change Profile Picture
                 </div>
               </div>
-            </mat-card-content>
-            <mat-card-actions *ngIf="habitsEditable">
-              <button (click)="openHabitDialog(habit)" color="primary" mat-raised-button>Edit</button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-card-content>
+              <div class="userStats">
+                <div class="userFirst">
+                  <div class="stat statfirst">Username:
+                    <div [ngStyle]="{'color': profileColor}" class="statValue">{{username}}</div>
+                  </div>
+                  <div class="stat statsecond">First Name:
+                    <div class="statValue">{{firstname}}</div>
+                  </div>
+                </div>
+                <div class="userSecond">
+                  <div class="stat statfirst">Last Name:
+                    <div class="statValue">{{lastname}}</div>
+                  </div>
+                  <div class="stat statsecond">E-Mail:
+                    <div class="statValue">{{email}}</div>
+                  </div>
+                </div>
+                <div class="userThird">
+                  <div class="stat statfirst">
+                    <div class="statValue test">
+                      <button (click)="openDialogUser()"
+                              class="userButton" color="primary"
+                              mat-raised-button type="submit">Edit
+                      </button>
+                    </div>
+                  </div>
+                  <div class="stat statsecond">
+                    <div class="statValue">
+                      <button (click)="openDialog()"
+                              class="userButton" color="accent"
+                              mat-raised-button type="submit">Change PW
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-content *ngIf="card.title === 'Active Habits'" class="dashboard-card-content">
+            <mat-card *ngFor="let habit of habits" class="example-card">
+              <mat-card-title>{{habit.name}}</mat-card-title>
+              <mat-card-subtitle>You've been going for {{habit.done}} days!
+                <span *ngIf="isNumber(habit.left)">Only {{habit.left}} days left!</span>
+                <br/>
+                <code class="timeframe">{{(habit.start_date | date)}}</code>
+                <code *ngIf="habit.end_date !== null" class="timeframe">{{' ➡️ ' + (habit.end_date | date)}}</code>
+              </mat-card-subtitle>
+              <mat-card-content>
+                <div *ngIf="isNumber(habit.percentage)" class="progress">
+                  <div class="row">
+                    <mat-progress-bar #tooltip="matTooltip"
+                                      [matTooltip]="'(' + habit.percentage + '%)'"
+                                      [value]="habit.percentage"
+                                      aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                      matTooltipHideDelay="100"
+                                      matTooltipPosition="below"
+                                      mode="determinate"></mat-progress-bar>
+                    <button #tooltip="matTooltip"
+                            (click)="logActive(habit.id)"
+                            [disabled]="habit.today"
+                            aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                            color="primary"
+                            mat-fab
+                            matTooltip="Log your progress here! ⬇️"
+                            matTooltipHideDelay="100"
+                            matTooltipPosition="above">
+                      <mat-icon>check</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </mat-card-content>
+              <mat-card-actions *ngIf="habitsEditable">
+                <button (click)="openHabitDialog(habit)" color="primary" mat-raised-button>Edit</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-card-content>
+        </mat-card>
       </mat-card>
     </mat-grid-tile>
     <footer>©️ 2020 HabitRabbit Team 🥕🐰</footer>

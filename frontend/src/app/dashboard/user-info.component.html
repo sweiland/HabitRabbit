@@ -1,0 +1,26 @@
+<form>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input [(ngModel)]="data.username" matInput minlength="8" name="username" placeholder="User Name"
+             required
+             type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="data.first_name" matInput minlength="8" name="firstname" placeholder="First Name" required
+             type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="data.last_name" matInput name="lastname" placeholder="Last Name" required
+             type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="data.email" matInput name="email" placeholder="E-Mail" required
+             type="text">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button (click)="onNoClick()" color="warn" mat-button>Cancel</button>
+    <button [disabled]="disableCheck2()" [mat-dialog-close]="data" color="primary" mat-button type="submit">Submit
+    </button>
+  </div>
+</form>
