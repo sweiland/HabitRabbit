@@ -62,7 +62,7 @@ class Habit(models.Model):
     name = models.TextField()
     member = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True, blank=True)
-    interval = models.PositiveSmallIntegerField(null=True, blank=True)
+    interval = models.PositiveSmallIntegerField(default=1)
     priority = models.PositiveSmallIntegerField(choices=PrioChoices.choices)
     last_click = models.DateTimeField(null=True, blank=True)
 

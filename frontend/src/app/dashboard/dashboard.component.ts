@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
     this.userService.logActive(this.ID);
     this.habitService.updateHabit({
       id,
-      last_click: moment().startOf('day')
+      last_click: moment().endOf('day')
     }).subscribe(() => {
       this.habits.filter((x) => {
         return x.id === id;

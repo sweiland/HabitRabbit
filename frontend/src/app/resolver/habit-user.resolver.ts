@@ -31,13 +31,18 @@ export class HabitUserResolver implements Resolve<Observable<any>> {
 
   populateInfo(habit: any[]): any[] {
     return habit.map((x) => {
-      x.today = moment(x.last_click).startOf('day').isSame(moment().startOf('day'));
-      const duration = moment(x.end_date).startOf('day').diff(moment(x.start_date).startOf('day'), 'days');
-      const done = moment(x.start_date).startOf('day').diff(moment().startOf('day'), 'days') * -1;
-      x.left = moment(x.end_date).startOf('day').diff(moment().startOf('day'), 'days');
-      x.percentage = (done / duration * 100).toFixed(0);
-      x.duration = duration;
-      x.done = done;
+      const today = moment().startOf('day');
+      const start = moment(x.start_date).startOf('day');
+      const end = moment(x.end_date).startOf('day');
+      x.today = moment(x.last_click).add(x.interval - 1, 'day').startOf('day').isSameOrAfter(today);
+      const duration = end.diff(start, 'day');
+      const done = start.diff(today, 'day') * -1;
+      const percentage = (done / duration * 100);
+      const left = end.diff(today, 'day');
+      x.left = left < 0 ? left * -1 : left;
+      x.percentage = percentage < 0 || percentage > 100 ? '0' : percentage.toFixed(0);
+      x.duration = duration < 0 ? duration * -1 : duration;
+      x.done = done < 0 ? '0' : done;
       return x;
     });
   }
