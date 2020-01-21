@@ -53,6 +53,7 @@
   border-radius: 50px 50px 50px 50px;
   border-color: black;
   border-style: solid;
+  overflow: hidden;
 }
 
 .profilepic {
