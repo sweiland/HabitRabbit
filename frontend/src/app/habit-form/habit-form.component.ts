@@ -47,8 +47,13 @@ export class HabitFormComponent implements OnInit {
   dateValidator(control: AbstractControl) {
     const startDate = moment(control.get('start_date').value);
     const endDate = moment(control.get('end_date').value);
-    if (startDate.startOf('day').isSameOrAfter(endDate.endOf('day'))) {
-      control.get('end_date').setErrors({date_check: true});
+    const date_check_se: boolean = startDate.startOf('day').isSameOrAfter(endDate.endOf('day'));
+    const date_check_le: boolean = startDate.add(1, 'year').startOf('day').isBefore(endDate.startOf('day'));
+    if (date_check_se) {
+      control.get('end_date').setErrors({date_check_se});
+    }
+    if (date_check_le) {
+      control.get('end_date').setErrors({date_check_le});
     }
   }
 
@@ -75,4 +80,11 @@ export class HabitFormComponent implements OnInit {
     }
   }
 
+  moment() {
+    return moment();
+  }
+
+  getMax() {
+    return moment(this.habitForm.get('start_date').value).add(1, 'year');
+  }
 }
