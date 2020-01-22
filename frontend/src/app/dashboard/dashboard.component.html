@@ -98,7 +98,7 @@
                                     mode="determinate"></mat-progress-bar>
                   <button #tooltip="matTooltip"
                           (click)="logActive(habit.id)"
-                          [disabled]="habit.today"
+                          [disabled]="false"
                           aria-label="Button that displays a tooltip that hides when scrolled out of the container"
                           color="primary"
                           mat-fab

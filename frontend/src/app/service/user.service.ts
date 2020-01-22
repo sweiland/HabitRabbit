@@ -101,9 +101,32 @@ export class UserService {
   logActive(ID: number) {
     return this.getUser().subscribe((res: User) => {
       const streak = res.streak + 1;
+      const add = this.getsPoints(streak);
+      const score = res.score + add;
+      const level = this.getLevel(score);
       return this.http.patch('/api/user/' + ID + '/update', {
-        streak
+        streak,
+        score,
+        level
       }).subscribe();
     });
+  }
+
+  getsPoints(streak: number) {
+    if (streak < 14) {
+      return 2;
+    }
+    if (streak < 30) {
+      return 4;
+    }
+    if (streak < 90) {
+      return 8;
+    }
+    return 10;
+  }
+
+  getLevel(score: number) {
+    const withoutModulo = score - (score % 20);
+    return withoutModulo / 20;
   }
 }
