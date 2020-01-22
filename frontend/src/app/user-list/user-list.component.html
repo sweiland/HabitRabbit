@@ -2,6 +2,11 @@
   ~ type-list.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
   -->
 <div class="mat-elevation-z8">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input #box matInput type="text" (keyup)="filterFriends(box.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
   <table [dataSource]="dataSource" aria-label="Elements" class="full-width-table" mat-table matSort>
 
     <ng-container matColumnDef="id">

@@ -44,6 +44,7 @@ export class MessageListComponent implements OnInit {
 
   deleteMessage(id: number) {
     this.messageService.deleteMessage(id).subscribe(() => {
+      this.ngOnInit();
     });
   }
 }

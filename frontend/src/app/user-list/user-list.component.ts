@@ -35,6 +35,7 @@ export class UserListComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['username', 'first_name', 'last_name', 'email', 'level', 'score', 'date_joined', 'is_superuser', 'id'];
   userId: any;
+  private filteredFriends: any;
 
   constructor(private userService: UserService) {
   }
@@ -65,4 +66,11 @@ export class UserListComponent implements OnInit {
 
 
   }
+
+  filterFriends(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
+  }
 }
+
+
+
