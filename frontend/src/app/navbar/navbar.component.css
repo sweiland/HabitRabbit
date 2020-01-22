@@ -15,8 +15,47 @@
   z-index: 1;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.mat-toolbar.mat-button {
+  margin: 0 5% 0 5%;
+}
+
+.menuspacer {
+  flex: auto;
+}
+
+.mat-devider {
+  height: 50%;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+.title {
+  cursor: pointer;
+  margin-left: 1.5%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.currentuser {
+  font-size: 15px;
+  color: #e5e5e5;
+  font-style: italic;
+  margin-right: 1.5%;
+}
+
+.pp_color {
+  width: 7%;
+  height: 80%;
+  border-radius: 1px;
+  border-color: black;
+  border-style: solid;
+}
+
+.profilepic {
+  width: 100%;
+  height: 100%;
 }
 
 /*# sourceMappingURL=navbar.component.css.map */

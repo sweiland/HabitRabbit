@@ -19,8 +19,24 @@
             </mat-menu>
           </mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+        <mat-card-content *ngIf="card.title === 'Card 3'" class="dashboard-card-content">
+          <div>
+            <ngx-charts-pie-chart
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="single"
+              [gradient]="gradient"
+              [legend]="showLegend"
+              [legendPosition]="legendPosition"
+              [labels]="showLabels"
+              [doughnut]="isDoughnut"
+              (select)="onSelect($event)"
+              (activate)="onActivate($event)"
+              (deactivate)="onDeactivate($event)"
+            >
+            </ngx-charts-pie-chart>
+
+          </div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

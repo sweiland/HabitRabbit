@@ -62,6 +62,7 @@ import {MatFaqComponent} from './faq/mat-faq/mat-faq.component';
 import {MatFaqAdminComponent} from './faq/ngx-material-faq-admin/mat-faq-admin.component';
 import { CommonModule } from '@angular/common';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -135,6 +136,8 @@ export function tokenGetter() {
     FlexLayoutModule,
     MatExpansionModule,
     MatQuillModule,
+    MatExpansionModule,
+    NgxChartsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
