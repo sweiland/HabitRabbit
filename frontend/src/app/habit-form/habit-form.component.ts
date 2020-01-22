@@ -3,7 +3,7 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder} from '@angular/forms';
+import {AbstractControl, FormBuilder, ValidatorFn, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HabitService} from '../service/habit.service';
@@ -16,6 +16,7 @@ import {UserService} from '../service/user.service';
   styleUrls: ['./habit-form.component.scss']
 })
 export class HabitFormComponent implements OnInit {
+
   habitForm;
   memberOptions;
   typeOptions;
@@ -31,12 +32,12 @@ export class HabitFormComponent implements OnInit {
     this.typeOptions = data.typeOptions;
     this.habitForm = this.fb.group({
       id: [null],
-      start_date: [moment().startOf('day')],
-      end_date: [null],
-      name: [''],
-      member: [userID],
-      type: [null],
-      priority: [1]
+      start_date: [moment().startOf('day'), [Validators.required, this.startDateValidator()]],
+      end_date: [null, Validators.required],
+      name: ['', Validators.required],
+      member: [userID, Validators.required],
+      type: [null, Validators.required],
+      priority: [1, Validators.required]
     }, {validator: this.dateValidator});
     if (data.habit) {
       this.habitForm.patchValue(data.habit);
@@ -46,10 +47,19 @@ export class HabitFormComponent implements OnInit {
   dateValidator(control: AbstractControl) {
     const startDate = moment(control.get('start_date').value);
     const endDate = moment(control.get('end_date').value);
-    if (startDate.startOf('day').isAfter(endDate)) {
+    if (startDate.startOf('day').isSameOrAfter(endDate.endOf('day'))) {
       control.get('end_date').setErrors({date_check: true});
     }
   }
+
+  startDateValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const startDate = moment(control.value).startOf('day');
+      const today = moment().startOf('day');
+      return startDate.isBefore(today) ? {start_check: {value: control.value}} : null;
+    };
+  }
+
 
   onSubmit() {
     const habit = this.habitForm.value;
@@ -64,6 +74,5 @@ export class HabitFormComponent implements OnInit {
       });
     }
   }
-
 
 }
