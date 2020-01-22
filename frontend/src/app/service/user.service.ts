@@ -98,11 +98,11 @@ export class UserService {
 
   }
 
-  logActive(ID: number) {
+  logActive(ID: number, finished: boolean) {
     return this.getUser().subscribe((res: User) => {
       const streak = res.streak + 1;
       const add = this.getsPoints(streak);
-      const score = res.score + add;
+      const score = finished ? res.score + add + 50 : res.score + add;
       const level = this.getLevel(score);
       return this.http.patch('/api/user/' + ID + '/update', {
         streak,

@@ -97,14 +97,16 @@ export class DashboardComponent implements OnInit {
     return !isNaN(num);
   }
 
-  logActive(id: string) {
-    this.userService.logActive(this.ID);
+  logActive(habit: any) {
+    const is_finished = habit.done >= habit.duration;
+    this.userService.logActive(this.ID, is_finished);
     this.habitService.updateHabit({
-      id,
-      last_click: moment().endOf('day')
+      id: habit.id,
+      last_click: moment().endOf('day'),
+      is_finished
     }).subscribe(() => {
       this.habits.filter((x) => {
-        return x.id === id;
+        return x.id === habit.id;
       }).map((x) => {
         x.today = true;
         return x;

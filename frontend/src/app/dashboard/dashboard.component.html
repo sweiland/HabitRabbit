@@ -73,7 +73,7 @@
             <mat-menu #menu="matMenu" xPosition="before">
               <button (click)="enableEdit()" mat-menu-item><span *ngIf="!habitsEditable">Enable Edit Mode</span><span
                 *ngIf="habitsEditable">Disable Edit Mode</span></button>
-              <a routerLink="../habit-form" mat-menu-item type="button">Add Habit</a>
+              <a mat-menu-item routerLink="../habit-form" type="button">Add Habit</a>
             </mat-menu>
           </mat-card-title>
         </mat-card-header>
@@ -89,22 +89,33 @@
             <mat-card-content>
               <div *ngIf="isNumber(habit.percentage)" class="progress">
                 <div class="row">
-                  <mat-progress-bar #tooltip="matTooltip"
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage < 100"
                                     [matTooltip]="'(' + habit.percentage + '%)'"
                                     [value]="habit.percentage"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                    color="accent"
                                     matTooltipHideDelay="100"
-                                    matTooltipPosition="below"
-                                    mode="determinate"></mat-progress-bar>
-                  <button #tooltip="matTooltip"
-                          (click)="logActive(habit.id)"
-                          [disabled]="habit.today"
-                          aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                    matTooltipPosition="below" mode="determinate"></mat-progress-bar>
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage >= 100"
+                                    [matTooltip]="'(' + habit.percentage + '%)'"
+                                    [value]="habit.percentage"
+                                    matTooltipHideDelay="100"
+                                    matTooltipPosition="below" mode="determinate"></mat-progress-bar>
+                  <button #tooltip="matTooltip" (click)="logActive(habit)"
+                          *ngIf="!habit.today"
                           color="primary"
                           mat-fab
                           matTooltip="Log your progress here! ⬇️"
                           matTooltipHideDelay="100"
                           matTooltipPosition="above">
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button #tooltip="matTooltip" *ngIf="habit.today"
+                          [disabled]="habit.today"
+                          mat-fab
+                          matTooltip="Log your progress here! ⬇️"
+                          matTooltipHideDelay="100"
+                          matTooltipPosition="above"
+                          style="color: green;">
                     <mat-icon>check</mat-icon>
                   </button>
                 </div>
