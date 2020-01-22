@@ -14,13 +14,18 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class HabitUserResolver implements Resolve<Observable<any>> {
-  ID = this.userService.getID();
+  ID: number;
   habits: any[];
 
   constructor(private habitService: HabitService, private userService: UserService) {
   }
 
   resolve(route: ActivatedRouteSnapshot) {
+    console.log(this.ID);
+    this.userService.getUser().subscribe((res: any) => {
+        this.ID = res.id;
+      }
+    );
     return this.habitService.getAll().pipe(map((res: any[]) => {
       this.habits = res.filter(e => {
         return e.member_id === this.ID ? e : null;
