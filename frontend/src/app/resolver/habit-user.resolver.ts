@@ -33,25 +33,23 @@ export class HabitUserResolver implements Resolve<Observable<any>> {
     return habit.map((x) => {
       const start = moment(x.start_date).startOf('day');
       const end = moment(x.end_date).startOf('day');
+      const today = moment().startOf('day');
       const duration = end.diff(start, 'day');
-      if (x.is_finished) {
-        x.today = x.is_finished;
+      const percentage = (x.clicked / duration * 100);
+      x.late = moment().endOf('day').isAfter(moment(x.last_click).add(x.interval + 3, 'day'));
+      x.clicked = x.late ? x.clicked - 1 : x.clicked;
+      x.percentage = percentage < 0 || percentage > 100 ? '0' : percentage.toFixed(0);
+      x.duration = duration < 0 ? duration * -1 : duration;
+      if (moment().startOf('day').isSameOrAfter(end.endOf('day'))) {
+        x.is_finished = true;
+        x.today = true;
         x.left = 0;
-        x.percentage = 100;
-        x.duration = duration < 0 ? duration * -1 : duration;
-        x.done = x.duration;
         return x;
       } else {
-        const today = moment().startOf('day');
-        x.today = moment(x.last_click).add(x.interval - 1, 'day').startOf('day')
-          .isSameOrAfter(today);
-        const done = start.diff(today, 'day') * -1;
-        const percentage = (done / duration * 100);
+        x.today = today.isSameOrAfter(start) ? moment(x.last_click).add(x.interval - 1, 'day').startOf('day')
+          .isSameOrAfter(today) : true;
         const left = end.diff(today, 'day');
         x.left = left < 0 ? left * -1 : left;
-        x.percentage = percentage < 0 || percentage > 100 ? '0' : percentage.toFixed(0);
-        x.duration = duration < 0 ? duration * -1 : duration;
-        x.done = done < 0 ? '0' : done;
         return x;
       }
     });

@@ -98,9 +98,10 @@ export class UserService {
 
   }
 
-  logActive(ID: number, finished: boolean) {
+  logActive(ID: number, finished: boolean, penalty: boolean, percentage: number) {
     return this.getUser().subscribe((res: User) => {
-      const streak = res.streak + 1;
+      console.log(percentage);
+      const streak = penalty ? 0 : res.streak + 1;
       const add = this.getsPoints(streak);
       const score = finished ? res.score + add + 50 : res.score + add;
       const level = this.getLevel(score);

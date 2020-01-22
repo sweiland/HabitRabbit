@@ -80,7 +80,7 @@
         <mat-card-content class="dashboard-card-content">
           <mat-card *ngFor="let habit of habits" class="example-card">
             <mat-card-title>{{habit.name}}</mat-card-title>
-            <mat-card-subtitle>You've been going for {{habit.done}} days!
+            <mat-card-subtitle>You've been going for {{habit.clicked}} days!
               <span *ngIf="isNumber(habit.left)">Only {{habit.left}} days left!</span>
               <br/>
               <code class="timeframe">{{(habit.start_date | date)}}</code>

@@ -98,9 +98,10 @@ export class DashboardComponent implements OnInit {
   }
 
   logActive(habit: any) {
-    const is_finished = habit.done >= habit.duration;
-    this.userService.logActive(this.ID, is_finished);
+    const is_finished = moment().startOf('day').isSameOrAfter(moment(habit.end_date).endOf('day'));
+    this.userService.logActive(this.ID, is_finished, habit.late, habit.percentage);
     this.habitService.updateHabit({
+      clicked: habit.clicked + 1,
       id: habit.id,
       last_click: moment().endOf('day'),
       is_finished
@@ -109,6 +110,8 @@ export class DashboardComponent implements OnInit {
         return x.id === habit.id;
       }).map((x) => {
         x.today = true;
+        x.clicked++;
+        x.percentage = ((x.clicked / x.duration) * 100).toFixed(0);
         return x;
       });
       this.ngOnInit();

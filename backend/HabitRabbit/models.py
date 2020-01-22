@@ -65,7 +65,8 @@ class Habit(models.Model):
     interval = models.PositiveSmallIntegerField(default=1)
     priority = models.PositiveSmallIntegerField(choices=PrioChoices.choices)
     last_click = models.DateTimeField(null=True, blank=True)
-    is_finished = models.BooleanField()
+    is_finished = models.BooleanField(default=False)
+    clicked = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return '%s (since %s)' % (self.name, self.start_date)
