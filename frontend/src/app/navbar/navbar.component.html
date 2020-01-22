@@ -46,7 +46,7 @@
       <mat-divider vertical style="height:50%"></mat-divider>
       <span class="menuspacer"></span>
       <div [ngStyle]="{'background-color': colorPP}" class="pp_color">
-        <img [src]="picturesource" class="profilepic">
+        <img *ngIf="imageExists" [src]="picturesource" class="profilepic">
       </div>
       <span class="currentuser">{{username}}</span>
       <app-logout></app-logout>

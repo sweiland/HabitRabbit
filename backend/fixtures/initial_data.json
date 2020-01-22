@@ -88,7 +88,7 @@
       "name": "Quit Procrastinating",
       "member": 1,
       "type": null,
-      "interval": null,
+      "interval": 1,
       "priority": 2
     }
   },
@@ -101,7 +101,7 @@
       "name": "Pick Up Yoga",
       "member": 1,
       "type": null,
-      "interval": null,
+      "interval": 7,
       "priority": 1
     }
   },

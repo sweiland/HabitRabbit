@@ -9,15 +9,15 @@
       <mat-card class="dashboard-card" *ngIf="card.title === 'User'">
         <mat-card class="userCard">
           <mat-card-header>
-            <mat-card-title>
-              Level: {{level}}
+            <mat-card-title class="levelTitle">
+              ⭐️ Level: {{level}}
               <div class="score">Score: {{score}}x🥕</div>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
             <div class="userStatsWrapper">
               <div [ngStyle]="{'background-color': profileColor}" class="profileContainer">
-                <img [src]="profileImage" class="profilePicture">
+                <img *ngIf="profileImage" [src]="profileImage" class="profilePicture">
                 <div [ngStyle]="{'background-color': profileColor, 'opacity': 0.8}" class="changePicture">
                   <button class="buttonPicture" routerLink="../profile-picture-form"></button>
                   Change Profile Picture
@@ -114,6 +114,19 @@
             </mat-card-actions>
           </mat-card>
         </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="card.title === 'Daily Message'" class="dashboard-card">
+        <mat-card class="messageCard">
+          <mat-card-header>
+            <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
+            <mat-card-content>
+              <div class="dailyMessage">"{{dailyMessage}}"<br>
+                <div class="signature">-Habit Rabbit Team</div>
+                <div class="helpfullink">Helpful Link: {{currentLink}}</div>
+              </div>
+            </mat-card-content>
+          </mat-card-header>
+        </mat-card>
       </mat-card>
     </mat-grid-tile>
     <footer>©️ 2020 HabitRabbit Team 🥕🐰</footer>

@@ -14,6 +14,8 @@ import {HttpClient} from '@angular/common/http';
 import {ProfilePictureService} from '../service/profile-picture.service';
 import {AbstractControl, FormBuilder} from '@angular/forms';
 import {User} from '../user';
+import {MessageService} from '../service/message.service';
+import {TypeService} from '../service/type.service';
 
 
 @Component({
@@ -36,6 +38,8 @@ export class DashboardComponent implements OnInit {
   profileColor;
   profileColorPop;
   profileImage;
+  dailyMessage;
+  currentLink;
   public userForm: any;
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
@@ -43,7 +47,7 @@ export class DashboardComponent implements OnInit {
         return [
           {title: 'User', cols: 1, rows: 1},
           {title: 'Active Habits', cols: 1, rows: 1},
-          {title: 'Card 3', cols: 1, rows: 1},
+          {title: 'Daily Message', cols: 1, rows: 1},
           {title: 'Card 4', cols: 1, rows: 1}
         ];
       }
@@ -51,7 +55,7 @@ export class DashboardComponent implements OnInit {
       return [
         {title: 'User', cols: 1, rows: 1},
         {title: 'Active Habits', cols: 1, rows: 2},
-        {title: 'Card 3', cols: 1, rows: 1},
+        {title: 'Daily Message', cols: 1, rows: 1},
         {title: 'Card 4', cols: 1, rows: 1}
       ];
     })
@@ -65,7 +69,8 @@ export class DashboardComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
               private profilePictureService: ProfilePictureService, private snackbar: MatSnackBar, private router: Router,
-              public dialog: MatDialog, private fb: FormBuilder, private habitService: HabitService) {
+              public dialog: MatDialog, private fb: FormBuilder, private habitService: HabitService,
+              private messageService: MessageService, private typeService: TypeService) {
   }
 
   ngOnInit() {
@@ -84,11 +89,46 @@ export class DashboardComponent implements OnInit {
       this.username = res.username;
       this.firstname = res.first_name;
       this.lastname = res.last_name;
-      this.profilePictureService.getColor(res.profile_picture).subscribe((response: any) => {
-        this.profileColor = this.profilePictureService.getColorVal(response.color);
-        this.profileColorPop = this.profileColor + '80';
-        this.profileImage = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
+      if (res.profile_picture === null) {
+        this.profileColor = '#ffffff';
+        this.profileImage = false;
+      } else {
+        this.profilePictureService.getColor(res.profile_picture).subscribe((response: any) => {
+          if (response.color === null) {
+            console.log(this.profileColor);
+            this.profileColor = '#ffffff';
+          } else {
+            this.profileColor = this.profilePictureService.getColorVal(response.color);
+            this.profileColorPop = this.profileColor + '80';
+          }
+          if (response.picture == null) {
+            this.profileImage = false;
+          } else {
+            this.profileImage = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
+          }
+        });
+      }
+    });
+    this.messageService.getAll().subscribe((mes: any[]): Promise<any[]> => {
+      const types = this.habits.map((h) => {
+        return h.type_id;
       });
+      const tempNum = types[Math.floor(Math.random() * types.length)];
+      this.typeService.getMessage(tempNum).subscribe((resp: any) => {
+        if (resp.helpful_link === null) {
+          this.currentLink = 'There is no link available';
+        } else {
+          this.currentLink = resp.helpful_link;
+        }
+      });
+      const filtered = mes.filter((f) => {
+        return types.indexOf(f.type) !== -1;
+      });
+      const res = filtered.map((i) => {
+        return JSON.parse(i.message);
+      });
+      const randomMessage = res[Math.floor(Math.random() * res.length)];
+      return this.dailyMessage = randomMessage;
     });
   }
 
@@ -214,7 +254,6 @@ export class DashboardComponent implements OnInit {
       control.get('password_check').setErrors({pw_check: true});
     }
   }
-
 }
 
 export interface HabitDialogData {
@@ -246,7 +285,6 @@ export class DashboardHabitEditComponent {
   disableCheck() {
     return false;
   }
-
 }
 
 export interface DialogData {
