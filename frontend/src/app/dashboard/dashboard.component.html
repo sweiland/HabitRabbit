@@ -6,7 +6,7 @@
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card" *ngIf="card.title === 'User'">
+      <mat-card *ngIf="card.title === 'User'" class="dashboard-card">
         <mat-card class="userCard">
           <mat-card-header>
             <mat-card-title>
@@ -63,7 +63,7 @@
           </mat-card-content>
         </mat-card>
       </mat-card>
-      <mat-card class="dashboard-card" style="overflow: scroll" *ngIf="card.title === 'Active Habits'">
+      <mat-card *ngIf="card.title === 'Active Habits'" class="dashboard-card" style="overflow: scroll">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
@@ -73,6 +73,7 @@
             <mat-menu #menu="matMenu" xPosition="before">
               <button (click)="enableEdit()" mat-menu-item><span *ngIf="!habitsEditable">Enable Edit Mode</span><span
                 *ngIf="habitsEditable">Disable Edit Mode</span></button>
+              <a routerLink="../habit-form" mat-menu-item type="button">Add Habit</a>
             </mat-menu>
           </mat-card-title>
         </mat-card-header>

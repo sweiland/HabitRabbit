@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HabitService} from '../service/habit.service';
 import {MatSnackBar} from '@angular/material';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-habit-form',
@@ -20,10 +21,11 @@ export class HabitFormComponent implements OnInit {
   typeOptions;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private habitService: HabitService, private router: Router,
-              private snackbar: MatSnackBar) {
+              private snackbar: MatSnackBar, private userService: UserService) {
   }
 
   ngOnInit(): void {
+    const userID = this.userService.getID();
     const data = this.route.snapshot.data;
     this.memberOptions = data.memberOptions;
     this.typeOptions = data.typeOptions;
@@ -32,7 +34,7 @@ export class HabitFormComponent implements OnInit {
       start_date: [moment().startOf('day')],
       end_date: [null],
       name: [''],
-      member: [null],
+      member: [userID],
       type: [null],
       priority: [1]
     }, {validator: this.dateValidator});
