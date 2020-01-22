@@ -14,12 +14,11 @@
              type="text">
     </mat-form-field>
     <mat-form-field>
-      <input [(ngModel)]="data.email" matInput name="email" placeholder="E-Mail" required
-             type="text">
+      <input [(ngModel)]="data.email" matInput name="email" placeholder="E-Mail" required type="text">
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onNoClick()" color="warn" mat-button>Cancel</button>
+    <button (click)="onNoClick()" color="warn" mat-button type="button">Cancel</button>
     <button [disabled]="disableCheck2()" [mat-dialog-close]="data" color="primary" mat-button type="submit">Submit
     </button>
   </div>

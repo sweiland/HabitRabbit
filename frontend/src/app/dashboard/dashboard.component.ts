@@ -163,7 +163,7 @@ export class DashboardComponent implements OnInit {
         } else {
           this.userService.updatePassword(this.passwordForm.value).subscribe(() => {
             this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
-            this.router.navigate(['/login']);
+            this.userService.logout();
           });
         }
       }
@@ -171,7 +171,6 @@ export class DashboardComponent implements OnInit {
   }
 
   openDialogUser(): void {
-    const data = this.route.snapshot.data;
     this.userDataForm = this.fb.group({
       id: [this.userId],
       username: [''],
@@ -179,26 +178,27 @@ export class DashboardComponent implements OnInit {
       last_name: [''],
       email: ['']
     });
-    if (data.user) {
-      this.userForm.patchValue(data.user);
-      this.userForm.controls.password.disable();
-      this.userForm.controls.password_check.disable();
-    }
 
     const dialogRef = this.dialog.open(UserDataChangeComponent, {
       width: '250px',
       data: {username: this.username, first_name: this.firstname, last_name: this.lastname, email: this.email}
     });
 
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userDataForm.patchValue(result);
         if (this.userDataForm.controls.email.hasError('email_check')) {
           this.snackbar.open('Sorry, wrong email pattern', 'close', {duration: 1000});
-        } else {
+        } else if (result.email !== this.email) {
           this.userService.updateUser(this.userDataForm.value).subscribe(() => {
             this.snackbar.open('You need to log in again!', 'close', {duration: 1000});
             this.userService.logout();
+          });
+        } else {
+          this.userService.updateUser(this.userDataForm.value).subscribe(() => {
+            this.snackbar.open('Updated successfully!', 'close', {duration: 1000});
+            location.reload();
           });
         }
       }
@@ -288,7 +288,6 @@ export interface UserData {
   selector: 'app-user-info.component',
   templateUrl: 'user-info.component.html',
 })
-// tslint:disable-next-line:component-class-suffix
 export class UserDataChangeComponent {
 
   constructor(
