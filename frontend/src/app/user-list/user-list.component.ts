@@ -40,12 +40,14 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUser().subscribe((response: unknown) => {
-      // @ts-ignore
+    this.userService.getUser().subscribe((response: any) => {
       this.userId = response.id;
     });
-    this.userService.getAll().subscribe((response: unknown[]) => {
+    this.userService.getAll().subscribe((response: any[]) => {
       this.paginator.length = response.length;
+      response.forEach((s) => {
+        s.score = s.score.split(',').reverse()[0];
+      });
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
