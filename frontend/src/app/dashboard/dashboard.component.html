@@ -89,13 +89,19 @@
             <mat-card-content>
               <div *ngIf="isNumber(habit.percentage)" class="progress">
                 <div class="row">
-                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage < 100"
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="!habit.is_finished"
                                     [matTooltip]="'(' + habit.percentage + '%)'"
                                     [value]="habit.percentage"
                                     color="accent"
                                     matTooltipHideDelay="100"
                                     matTooltipPosition="below" mode="determinate"></mat-progress-bar>
-                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage >= 100"
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage <= 50 && habit.is_finished"
+                                    [matTooltip]="'(' + habit.percentage + '%)'"
+                                    [value]="habit.percentage"
+                                    color="warn"
+                                    matTooltipHideDelay="100"
+                                    matTooltipPosition="below" mode="determinate"></mat-progress-bar>
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage > 50 && habit.is_finished"
                                     [matTooltip]="'(' + habit.percentage + '%)'"
                                     [value]="habit.percentage"
                                     matTooltipHideDelay="100"
@@ -109,8 +115,8 @@
                           matTooltipPosition="above">
                     <mat-icon>check</mat-icon>
                   </button>
-                  <button #tooltip="matTooltip" *ngIf="habit.today"
-                          [disabled]="habit.today"
+                  <button #tooltip="matTooltip" *ngIf="habit.today && !habit.is_finished"
+                          [disabled]="true"
                           mat-fab
                           matTooltip="Log your progress here! ⬇️"
                           matTooltipHideDelay="100"
@@ -121,7 +127,7 @@
                 </div>
               </div>
             </mat-card-content>
-            <mat-card-actions *ngIf="habitsEditable">
+            <mat-card-actions *ngIf="habitsEditable && !habit.is_finished">
               <button (click)="openHabitDialog(habit)" color="primary" mat-raised-button>Edit</button>
             </mat-card-actions>
           </mat-card>

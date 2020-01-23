@@ -98,13 +98,12 @@ export class UserService {
 
   }
 
-  logActive(ID: number, finished: boolean, penalty: boolean, percentage: number) {
+  logActive(ID: number, finished: boolean, penalty: boolean, percentage: number, failed: boolean) {
     return this.getUser().subscribe((res: User) => {
-      console.log(percentage);
       const streak = penalty ? 0 : res.streak + 1;
       const add = this.getsPoints(streak);
-      const score = finished ? res.score + add + 50 : res.score + add;
-      const level = this.getLevel(score);
+      const score = failed ? res.score - 50 : percentage > 50 && finished ? res.score + add + 50 : res.score + add;
+      const level = failed ? res.level - 1 : this.getLevel(score);
       return this.http.patch('/api/user/' + ID + '/update', {
         streak,
         score,

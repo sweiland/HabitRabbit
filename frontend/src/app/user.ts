@@ -7,4 +7,5 @@ export class User {
   number: number;
   streak: number;
   score: number;
+  level: number;
 }

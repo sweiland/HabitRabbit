@@ -45,6 +45,7 @@ export class HabitUserResolver implements Resolve<Observable<any>> {
       x.clicked = x.late ? x.clicked - 1 : x.clicked;
       x.percentage = percentage < 0 || percentage > 100 ? '0' : percentage.toFixed(0);
       x.duration = duration < 0 ? duration * -1 : duration;
+      x.failed = x.is_finished && x.percentage <= 50;
       if (moment().startOf('day').isSameOrAfter(end.endOf('day'))) {
         x.is_finished = true;
         x.today = true;
