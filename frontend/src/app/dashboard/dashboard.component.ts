@@ -23,7 +23,7 @@ import {User} from '../user';
 })
 
 export class DashboardComponent implements OnInit {
-  single: any[];
+  single: any[] = single;
   view: number[] = [700];
 
   // options
@@ -55,13 +55,17 @@ export class DashboardComponent implements OnInit {
   profileImage;
   public userForm: any;
 
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
       if (matches) {
         return [
           {title: 'User', cols: 1, rows: 1},
           {title: 'Active Habits', cols: 1, rows: 1},
-          {title: 'Charts', cols: 1, rows: 1},
+          {title: 'Charts', cols: 2, rows: 2},
           {title: 'Card 4', cols: 1, rows: 1}
         ];
       }
@@ -69,7 +73,7 @@ export class DashboardComponent implements OnInit {
       return [
         {title: 'User', cols: 1, rows: 1},
         {title: 'Active Habits', cols: 1, rows: 2},
-        {title: 'Charts', cols: 1, rows: 1},
+        {title: 'Charts', cols: 2, rows: 2},
         {title: 'Card 4', cols: 1, rows: 1}
       ];
     })
@@ -86,6 +90,18 @@ export class DashboardComponent implements OnInit {
               private profilePictureService: ProfilePictureService, private snackbar: MatSnackBar, private router: Router,
               public dialog: MatDialog, private fb: FormBuilder, private habitService: HabitService) {
     Object.assign(this, {single});
+  }
+
+  onSelect(data): void {
+    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  }
+
+  onActivate(data): void {
+    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  }
+
+  onDeactivate(data): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
 
@@ -261,10 +277,6 @@ export interface HabitDialogData {
 })
 export class DashboardHabitEditComponent {
 
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
-  };
-
   constructor(
     public dialogRef: MatDialogRef<DashboardHabitEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: HabitDialogData) {
@@ -278,17 +290,6 @@ export class DashboardHabitEditComponent {
     return false;
   }
 
-  onSelect(data): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
 }
 
 export interface DialogData {
@@ -343,8 +344,7 @@ export class UserDataChangeComponent {
 
   disableCheck2() {
     const emailValidator = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
-    const valid = !(this.data.username && this.data.first_name && this.data.last_name && emailValidator.test(this.data.email));
-    return valid;
+    return !(this.data.username && this.data.first_name && this.data.last_name && emailValidator.test(this.data.email));
   }
 }
 
