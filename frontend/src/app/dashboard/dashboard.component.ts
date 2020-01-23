@@ -56,6 +56,9 @@ export class DashboardComponent implements OnInit {
   colorScheme = {
     domain: ['#ffea00', '#b388ff', '#ff1744', '#ff9100', '#00e676', '#00e5ff', '#d4e157', '#2979ff', '#f9d95f', '#613db1', '#e15241', '#dcdcdc']
   };
+  pointScheme = {
+    domain: ['#ff9100']
+  };
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
@@ -135,7 +138,6 @@ export class DashboardComponent implements OnInit {
     });
     const series = [];
     data.user.score.split(',').forEach((s, i) => {
-      console.log(s, i);
       series.push({
         name: i,
         value: s
