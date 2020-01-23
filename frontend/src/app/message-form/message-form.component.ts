@@ -39,27 +39,22 @@ export class MessageFormComponent implements OnInit {
     if (id) {
       this.http.get('/api/message/' + id + '/get')
         .subscribe((response: any) => {
-          const message = JSON.parse(response);
           this.messageForm.patchValue(response);
-          this.messageForm.patchValue({message});
         });
     }
   }
 
   onSubmit() {
     const message = this.messageForm.value;
-    message.message = JSON.stringify(this.messageForm.value.message);
     if (message.id) {
       this.messageService.updateMessage(message)
         .subscribe(() => {
           this.router.navigate(['/message-list/']);
-          alert('updated successfully');
         });
     } else {
       this.messageService.saveMessage(message)
         .subscribe((response: any) => {
           this.router.navigate(['/message-list/']);
-          alert('created successfully');
         });
     }
   }
