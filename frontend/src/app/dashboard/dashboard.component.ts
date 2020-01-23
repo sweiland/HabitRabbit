@@ -14,7 +14,6 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
 import {HttpClient} from '@angular/common/http';
 import {ProfilePictureService} from '../service/profile-picture.service';
 import {AbstractControl, FormBuilder} from '@angular/forms';
-import {User} from '../user';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,7 +45,7 @@ export class DashboardComponent implements OnInit {
   level;
   score;
   email;
-  username;
+  username = '';
   firstname;
   lastname;
   profileColor;
@@ -78,12 +77,12 @@ export class DashboardComponent implements OnInit {
     })
   );
   typeChart: any[] = [];
+  pointChart: any[] = [];
   private password: string;
   private password_check: string;
   private old_password: string;
   private passwordForm: any;
   private userDataForm: any;
-  pointChart: any[] = [];
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
@@ -101,23 +100,23 @@ export class DashboardComponent implements OnInit {
     if (data.typeOptions) {
       this.typeOptions = data.typeOptions;
     }
-    this.userService.getUser().subscribe((res: any) => {
-      this.userId = res.id;
-      this.level = res.level;
-      this.score = res.score;
-      this.email = res.email;
-      this.username = res.username;
-      this.firstname = res.first_name;
-      this.lastname = res.last_name;
-      this.profilePictureService.getColor(res.profile_picture).subscribe((response: any) => {
+    if (data.user) {
+      this.userId = data.user.id;
+      this.level = data.user.level;
+      this.score = data.user.score.split(',').reverse()[0];
+      this.email = data.user.email;
+      this.username = data.user.username;
+      this.firstname = data.user.first_name;
+      this.lastname = data.user.last_name;
+      this.profilePictureService.getColor(data.user.profile_picture).subscribe((response: any) => {
         this.profileColor = this.profilePictureService.getColorVal(response.color);
         this.profileColorPop = this.profileColor + '80';
         this.profileImage = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
       });
-    });
+    }
     this.habitChart = [
       {name: 'Active', value: this.habits.filter(h => !h.is_finished).length},
-      {name: 'Finished', value: this.habits.filter(h => h.is_finished).length},
+      {name: 'Finished', value: this.habits.filter(h => h.is_finished && !h.failed).length},
       {name: 'Failed', value: this.habits.filter(h => h.failed).length},
       {name: 'Late', value: this.habits.filter(h => h.late).length},
     ];
@@ -134,22 +133,17 @@ export class DashboardComponent implements OnInit {
       const name = this.typeOptions.filter(o => o.id === key)[0].name;
       this.typeChart.push({name, value});
     });
+    const series = [];
+    data.user.score.split(',').forEach((s, i) => {
+      console.log(s, i);
+      series.push({
+        name: i,
+        value: s
+      });
+    });
     this.pointChart.push({
-      name: 'Germany',
-      series: [
-        {
-          name: '1990',
-          value: 62000000
-        },
-        {
-          name: '2010',
-          value: 73000000
-        },
-        {
-          name: '2011',
-          value: 89400000
-        }
-      ]
+      name: this.username,
+      series
     });
   }
 

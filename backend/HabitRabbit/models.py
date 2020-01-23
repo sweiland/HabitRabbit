@@ -1,6 +1,7 @@
 #  models.py Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
 
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import validate_comma_separated_integer_list
 from django.db import models
 from django.utils import timezone
 
@@ -29,7 +30,7 @@ class User(AbstractUser):
     last_name = models.TextField()
     email = models.EmailField(unique=True)
     level = models.PositiveSmallIntegerField(default=1)
-    score = models.PositiveSmallIntegerField(default=0)
+    score = models.CharField(validators=[validate_comma_separated_integer_list], default=[0], max_length=65535)
     friends = models.ManyToManyField('self', blank=True)
     streak = models.PositiveSmallIntegerField(default=0)
 

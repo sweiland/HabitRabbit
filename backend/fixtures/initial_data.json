@@ -48,7 +48,7 @@
       "last_name": "Weiland",
       "email": "hello@sweiland.at",
       "level": 1,
-      "score": 0,
+      "score": "0,2,5,16,50,75",
       "profile_picture": 1,
       "groups": [],
       "user_permissions": [],
@@ -71,7 +71,7 @@
       "last_name": "S.",
       "email": "peter.s@fhj.at",
       "level": 1,
-      "score": 0,
+      "score": "0",
       "profile_picture": 1,
       "groups": [],
       "user_permissions": [],
@@ -87,8 +87,8 @@
       "end_date": "2020-01-25T23:59:59.999Z",
       "name": "Quit Procrastinating",
       "member": 1,
-      "type": null,
-      "interval": null,
+      "type": 1,
+      "interval": 1,
       "priority": 2
     }
   },
@@ -100,8 +100,8 @@
       "end_date": null,
       "name": "Pick Up Yoga",
       "member": 1,
-      "type": null,
-      "interval": null,
+      "type": 1,
+      "interval": 7,
       "priority": 1
     }
   },

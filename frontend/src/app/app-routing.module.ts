@@ -28,6 +28,7 @@ import {UserFormComponent} from './user-form/user-form.component';
 import {UserResolver} from './resolver/user.resolver';
 import {HabitResolver} from './resolver/habit.resolver';
 import {HabitUserResolver} from './resolver/habit-user.resolver';
+import {CurrentUserResolver} from './resolver/current-user.resolver';
 
 
 const routes: Routes = [
@@ -38,7 +39,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    resolve: {habits: HabitUserResolver, typeOptions: TypesResolver}
+    resolve: {habits: HabitUserResolver, typeOptions: TypesResolver, user: CurrentUserResolver}
   },
   {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
   {

@@ -7,7 +7,6 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {User} from '../user';
 import * as moment from 'moment';
 
 @Injectable({
@@ -99,11 +98,15 @@ export class UserService {
   }
 
   logActive(ID: number, finished: boolean, penalty: boolean, percentage: number, failed: boolean) {
-    return this.getUser().subscribe((res: User) => {
+    return this.getUser().subscribe((res: any) => {
       const streak = penalty ? 0 : res.streak + 1;
-      const add = this.getsPoints(streak);
-      const score = failed ? res.score - 50 : percentage > 50 && finished ? res.score + add + 50 : res.score + add;
-      const level = failed ? res.level - 1 : this.getLevel(score);
+      const add: number = this.getsPoints(streak);
+      const scoreList = res.score.split(',');
+      const currentScore: number = +scoreList.reverse()[0];
+      const scoreN: number = failed ? currentScore - 50 : percentage > 50 && finished ?
+        currentScore + add + 50 : currentScore + add;
+      const score = res.score.split(',') + ',' + scoreN;
+      const level = failed ? res.level - 1 : this.getLevel(scoreN);
       return this.http.patch('/api/user/' + ID + '/update', {
         streak,
         score,
@@ -112,7 +115,7 @@ export class UserService {
     });
   }
 
-  getsPoints(streak: number) {
+  getsPoints(streak: number): number {
     if (streak < 14) {
       return 2;
     }

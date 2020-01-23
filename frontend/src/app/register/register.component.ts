@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
       is_staff: [false],
       is_superuser: [false],
       level: [1],
-      score: [0]
+      score: ['0']
     });
   }
 

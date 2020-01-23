@@ -32,7 +32,7 @@ export class UserFormComponent implements OnInit {
       last_name: ['', Validators.required],
       email: ['', [Validators.email, Validators.pattern(patterns[0])]],
       level: [1],
-      score: [0],
+      score: ['0'],
       is_superuser: [false],
       is_staff: [false],
       password: [null],
