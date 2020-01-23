@@ -1,6 +1,11 @@
 /*!
  * profile-picture-form.component.scss Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
  */
+mat-card-title {
+  font-size: 2rem;
+  text-align: center;
+}
+
 .full-width {
   width: 100%;
 }
@@ -30,35 +35,35 @@
 }
 
 .red {
-  background-color: #d4002d;
+  background-color: #ff1744;
 }
 
 .green {
-  background-color: #76b82a;
+  background-color: #00e676;
 }
 
 .turquoise {
-  background-color: #00afcb;
+  background-color: #00e5ff;
 }
 
 .yellow {
-  background-color: #F8FF2E;
+  background-color: #ffea00;
 }
 
 .orange {
-  background-color: #ec6608;
+  background-color: #ff9100;
 }
 
 .violet {
-  background-color: #673AB7;
+  background-color: #2979ff;
 }
 
 .blue {
-  background-color: #3876CF;
+  background-color: #b388ff;
 }
 
 .brown {
-  background-color: #c49052;
+  background-color: #d4e157;
 }
 
 .color_picker {
@@ -88,28 +93,19 @@ mat-form-field {
 }
 
 button {
-  width: 9.5rem;
-  height: 7rem;
+  width: 18.5rem;
+  height: 12rem;
   color: transparent;
   font-size: 1.5em;
   background-color: transparent;
   border: none;
+  outline: none;
 }
 
 button:hover {
   color: white;
   text-shadow: -1px 1px black;
   cursor: pointer;
-}
-
-.wrapper {
-  display: flex;
-}
-
-.selection {
-  width: 50%;
-  height: 50%;
-  border-right: 5px solid black;
 }
 
 .preview {
@@ -136,8 +132,9 @@ img {
   max-height: 100%;
 }
 
-button {
-  padding: 1rem;
+.colorV {
+  border-radius: 2px;
+  border-style: solid;
 }
 
 .image {
@@ -145,9 +142,37 @@ button {
   border-style: solid;
 }
 
-.colorV {
-  border-radius: 2px;
+.colors {
+  margin-left: 10%;
+}
+
+.pictures {
+  margin-left: 10%;
+}
+
+.deleteS {
+  padding-top: 5%;
+  align-content: center;
+  margin-left: 44.7%;
+}
+
+.delete {
+  width: 10rem;
+  height: 3rem;
+  color: white;
+  text-shadow: -1px 1px black;
+  font-size: 1.5em;
+  background-color: #673AB7;
+  border: none;
+  outline: none;
+  border-radius: 20px 20px 20px 20px;
+  border-width: 3px;
+  border-color: black;
   border-style: solid;
+}
+
+.delete:hover {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=profile-picture-form.component.css.map */

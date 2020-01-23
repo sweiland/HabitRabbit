@@ -21,19 +21,23 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input [matDatepicker]="datepicker" formControlName="start_date" matInput placeholder="Start Date" required>
+            <input [min]="moment()" [matDatepicker]="datepicker" formControlName="start_date" matInput placeholder="Start Date" required>
             <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #datepicker></mat-datepicker>
             <mat-hint align="end">Start Date for the journey to this habit</mat-hint>
             <mat-error *ngIf="habitForm.controls.start_date.hasError('required')">Start Date is required</mat-error>
+            <mat-error *ngIf="habitForm.controls.start_date.hasError('start_check')">Start Date can not be in the past.
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width">
-            <input [matDatepicker]="datepicker2" formControlName="end_date" matInput placeholder="End Date" required>
+            <input [min]="moment()" [max]="getMax()" [matDatepicker]="datepicker2" formControlName="end_date" matInput placeholder="End Date" required>
             <mat-datepicker-toggle [for]="datepicker2" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #datepicker2></mat-datepicker>
             <mat-hint align="end">End Date for the journey to this habit</mat-hint>
             <mat-error *ngIf="habitForm.controls.end_date.hasError('required')">End Date is required</mat-error>
-            <mat-error *ngIf="habitForm.controls.end_date.hasError('date_check')">End Date must be after Start Date
+            <mat-error *ngIf="habitForm.controls.end_date.hasError('date_check_se')">End Date must be after Start Date
+            </mat-error>
+            <mat-error *ngIf="habitForm.controls.end_date.hasError('date_check_le')">Maximum duration is 1 year!
             </mat-error>
           </mat-form-field>
         </div>

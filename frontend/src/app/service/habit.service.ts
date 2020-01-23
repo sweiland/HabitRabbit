@@ -27,7 +27,6 @@ export class HabitService {
 
   getHabit(id: string) {
     return this.http.get('/api/habit/' + id + '/get');
-
   }
 
   updateHabit(habit: any) {

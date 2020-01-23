@@ -26,6 +26,9 @@
               <mat-error *ngIf="registerForm.controls['username'].hasError('required')">
                 Username is required
               </mat-error>
+              <mat-error *ngIf="registerForm.controls['username'].hasError('pattern')">
+                Please don't include @!
+              </mat-error>
             </mat-form-field>
             <div>
               <button mat-button matStepperNext type="submit">Next</button>

@@ -19,7 +19,7 @@ import {NavbarService} from '../service/navbar.service';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() username: string;
+  username: string;
   @Input() color: string;
   profilepictures: any[];
   testcolor = '';
@@ -51,11 +51,11 @@ export class NavbarComponent implements OnInit {
       this.pictureId = data;
       console.log(this.pictureId, this.colorPP, this.picturesource);
     });
-    console.log('då samma');
     this.userService.isLoggedIn.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
     });
     this.userService.getUser().subscribe((res: any) => {
+      this.username = res.username;
       if (res.profile_picture != null) {
         this.ppColor = this.profilePictureService.getPicture(res.profile_picture)
           .subscribe((response: any) => {
@@ -65,7 +65,6 @@ export class NavbarComponent implements OnInit {
               if (res2.picture) {
                 this.imageExists = true;
                 this.picturesource = '../../assets/Resources/profile_pictures/carrot' + res2.picture + '.svg';
-                console.log(this.picturesource);
               }
             });
           });

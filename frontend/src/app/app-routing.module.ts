@@ -27,13 +27,19 @@ import {TypeResolver} from './resolver/type.resolver';
 import {UserFormComponent} from './user-form/user-form.component';
 import {UserResolver} from './resolver/user.resolver';
 import {HabitResolver} from './resolver/habit.resolver';
+import {HabitUserResolver} from './resolver/habit-user.resolver';
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    resolve: {habits: HabitUserResolver, typeOptions: TypesResolver}
+  },
   {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
   {
     path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard],
