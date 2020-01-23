@@ -27,6 +27,7 @@ import {TypeFormComponent} from './type-form/type-form.component';
 import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCheckboxModule,
@@ -135,6 +136,7 @@ export function tokenGetter() {
     FlexLayoutModule,
     MatExpansionModule,
     MatQuillModule,
+    MatAutocompleteModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

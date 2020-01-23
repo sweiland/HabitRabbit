@@ -52,7 +52,12 @@
       "profile_picture": 1,
       "groups": [],
       "user_permissions": [],
+<<<<<<< Updated upstream
       "friends": []
+=======
+      "friends": [1,2],
+      "streak": 0
+>>>>>>> Stashed changes
     }
   },
   {
@@ -74,7 +79,12 @@
       "profile_picture": 1,
       "groups": [],
       "user_permissions": [],
+<<<<<<< Updated upstream
       "friends": []
+=======
+      "friends": [1,2],
+      "streak": 20
+>>>>>>> Stashed changes
     }
   },
   {
@@ -86,7 +96,7 @@
       "name": "Quit Procrastinating",
       "member": 1,
       "type": null,
-      "interval": null,
+      "interval": 1,
       "priority": 2
     }
   },
@@ -99,7 +109,7 @@
       "name": "Pick Up Yoga",
       "member": 1,
       "type": null,
-      "interval": null,
+      "interval": 1,
       "priority": 1
     }
   },
