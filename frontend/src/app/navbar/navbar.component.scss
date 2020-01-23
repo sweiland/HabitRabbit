@@ -44,6 +44,7 @@
   color: #e5e5e5;
   font-style: italic;
   margin-right: 1.5%;
+  margin-left: 1em;
 }
 
 .pp_color {
@@ -62,3 +63,21 @@
   height: 100%;
 }
 
+.navLevel {
+  position: relative;
+  right: 0.75em;
+  width: 90px;
+  height: 55px;
+  color: black;
+  text-align: center;
+  background-image: url("../../assets/Resources/navbar/level_icon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50px;
+}
+
+.levelText {
+  position: relative;
+  font-size: 0.75em;
+  top: 20%;
+}

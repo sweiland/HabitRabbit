@@ -9,15 +9,18 @@
       <mat-card *ngIf="card.title === 'User'" class="dashboard-card">
         <mat-card class="userCard">
           <mat-card-header>
-            <mat-card-title>
-              Level: {{level}}
-              <div class="score">Score: {{score}}x🥕</div>
+            <mat-card-title class="levelTitle">
+              <div class="star">⭐️</div>
+              <div class="level">Level: {{level}}</div>
+              <div class="score">Score: {{score}}x
+                <div class="scoreCount">🥕</div>
+              </div>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
             <div class="userStatsWrapper">
               <div [ngStyle]="{'background-color': profileColor}" class="profileContainer">
-                <img [src]="profileImage" class="profilePicture">
+                <img *ngIf="profileImage" [src]="profileImage" class="profilePicture">
                 <div [ngStyle]="{'background-color': profileColor, 'opacity': 0.8}" class="changePicture">
                   <button class="buttonPicture" routerLink="../profile-picture-form"></button>
                   Change Profile Picture
@@ -79,8 +82,10 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <mat-card *ngFor="let habit of habits" class="example-card">
-            <mat-card-title>{{habit.name}}</mat-card-title>
-            <mat-card-subtitle>You've been going for {{habit.clicked}} days!
+            <mat-card-title>{{habit.name}}
+              <div class="habitsymbol">{{getCategorySymbol(habit.type)}}</div>
+            </mat-card-title>
+            <mat-card-subtitle>You've been going for {{habit.done}} days!
               <span *ngIf="isNumber(habit.left)">Only {{habit.left}} days left!</span>
               <br/>
               <code class="timeframe">{{(habit.start_date | date)}}</code>
@@ -144,6 +149,7 @@
             <mat-tab-group>
               <mat-tab label="Habits">
                 <ngx-charts-pie-chart
+                  [animations]="true"
                   [doughnut]="isDoughnut"
                   [gradient]="gradient"
                   [labels]="showLabels"
@@ -151,38 +157,50 @@
                   [legend]="showLegend"
                   [results]="habitChart"
                   [scheme]="colorScheme"
-                  [animations]="true"
                   [view]="">
                 </ngx-charts-pie-chart>
               </mat-tab>
               <mat-tab label="Points">
                 <ngx-charts-area-chart
-                  [view]=""
-                  [scheme]="pointScheme"
+                  [animations]="true"
                   [legend]="false"
+                  [results]="pointChart"
+                  [scheme]="pointScheme"
                   [showXAxisLabel]="false"
                   [showYAxisLabel]="showLabels"
-                  [animations]="true"
-                  [yAxis]="true"
+                  [view]=""
                   [yAxisLabel]="'Points'"
-                  [results]="pointChart">
+                  [yAxis]="true">
                 </ngx-charts-area-chart>
               </mat-tab>
               <mat-tab label="Types">
                 <ngx-charts-bar-vertical
+                  [animations]="true"
                   [gradient]="gradient"
                   [legendPosition]="legendPosition"
                   [legend]="showLegend"
                   [noBarWhenZero]="true"
                   [results]="typeChart"
                   [scheme]="colorScheme"
-                  [animations]="true"
                   [view]="">
                 </ngx-charts-bar-vertical>
               </mat-tab>
             </mat-tab-group>
           </mat-card>
         </mat-card-content>
+        <mat-card *ngIf="card.title === 'Daily Message'" class="dashboard-card">
+          <mat-card class="messageCard">
+            <mat-card-header>
+              <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
+              <mat-card-content>
+                <div class="dailyMessage">"{{dailyMessage}}"<br>
+                  <div class="signature">-Habit Rabbit Team</div>
+                  <div class="helpfullink">Helpful Link: {{currentLink}}</div>
+                </div>
+              </mat-card-content>
+            </mat-card-header>
+          </mat-card>
+        </mat-card>
       </mat-card>
     </mat-grid-tile>
     <footer>©️ 2020 HabitRabbit Team 🥕🐰</footer>

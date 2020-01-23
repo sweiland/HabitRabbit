@@ -35,4 +35,8 @@ export class TypeService {
     return this.http.patch('/api/type/' + type.id + '/update', type);
 
   }
+
+  getMessage(type: number) {
+    return this.http.get('api/type/' + type + '/get');
+  }
 }

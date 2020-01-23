@@ -20,17 +20,19 @@ import {NavbarService} from '../service/navbar.service';
 export class NavbarComponent implements OnInit {
 
   username: string;
+  level: string;
   @Input() color: string;
   profilepictures: any[];
   testcolor = '';
   ppColor;
   colorPP;
   isLoggedIn = false;
+  isSuperUser;
   picturesource = '';
   pictureId;
   imageExists = false;
   showComponent;
-
+  levelIcon = '../../assets/Resources/navbar/level_icon.png';
   constructor(private http: HttpClient, private userService: UserService, private profilePictureService: ProfilePictureService,
               private navbar: NavbarService) {
   }
@@ -56,6 +58,8 @@ export class NavbarComponent implements OnInit {
     });
     this.userService.getUser().subscribe((res: any) => {
       this.username = res.username;
+      this.level = res.level;
+      this.isSuperUser = res.is_superuser;
       if (res.profile_picture != null) {
         this.ppColor = this.profilePictureService.getPicture(res.profile_picture)
           .subscribe((response: any) => {
