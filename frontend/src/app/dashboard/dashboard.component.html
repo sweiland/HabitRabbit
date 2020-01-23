@@ -136,26 +136,20 @@
       <mat-card *ngIf="card.title === 'Charts'" class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            <h1>Stats 4 Nerds</h1>
+            {{card.title}}
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div class="chart">
-            <ngx-charts-pie-chart
-              [view]="view"
-              [scheme]="colorScheme"
-              [results]="single"
-              [gradient]="gradient"
-              [legend]="showLegend"
-              [legendPosition]="legendPosition"
-              [labels]="showLabels"
-              [doughnut]="isDoughnut"
-              (select)="onSelect($event)"
-              (activate)="onActivate($event)"
-              (deactivate)="onDeactivate($event)">
-            </ngx-charts-pie-chart>
-
-          </div>
+          <ngx-charts-pie-chart
+            [doughnut]="isDoughnut"
+            [gradient]="gradient"
+            [labels]="showLabels"
+            [legendPosition]="legendPosition"
+            [legend]="showLegend"
+            [results]="single"
+            [scheme]="colorScheme"
+            [view]="view">
+          </ngx-charts-pie-chart>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
