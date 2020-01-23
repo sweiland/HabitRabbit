@@ -22,7 +22,7 @@
 .score {
   position: absolute;
   float: right;
-  top: 17px;
+  top: 1.5em;
   right: 25px;
 }
 
@@ -225,4 +225,27 @@ footer {
 .helpfullink {
   position: relative;
   top: 2em;
+}
+
+.habitsymbol {
+  font-size: 2em;
+  float: right;
+}
+
+.scoreCount {
+  float: right;
+  font-size: 1.7em;
+}
+
+.star {
+  position: relative;
+  float: left;
+  font-size: 2em;
+}
+
+.level {
+  position: relative;
+  top: 0.7em;
+  left: 0.3em;
+  float: left;
 }

@@ -10,8 +10,11 @@
         <mat-card class="userCard">
           <mat-card-header>
             <mat-card-title class="levelTitle">
-              ⭐️ Level: {{level}}
-              <div class="score">Score: {{score}}x🥕</div>
+              <div class="star">⭐️</div>
+              <div class="level">Level: {{level}}</div>
+              <div class="score">Score: {{score}}x
+                <div class="scoreCount">🥕</div>
+              </div>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="dashboard-card-content">
@@ -78,7 +81,9 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <mat-card *ngFor="let habit of habits" class="example-card">
-            <mat-card-title>{{habit.name}}</mat-card-title>
+            <mat-card-title>{{habit.name}}
+              <div class="habitsymbol">{{getCategorySymbol(habit.type)}}</div>
+            </mat-card-title>
             <mat-card-subtitle>You've been going for {{habit.done}} days!
               <span *ngIf="isNumber(habit.left)">Only {{habit.left}} days left!</span>
               <br/>

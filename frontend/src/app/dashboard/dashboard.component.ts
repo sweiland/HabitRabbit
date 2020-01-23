@@ -90,13 +90,13 @@ export class DashboardComponent implements OnInit {
       this.firstname = res.first_name;
       this.lastname = res.last_name;
       if (res.profile_picture === null) {
-        this.profileColor = '#ffffff';
+        this.profileColor = '#613DB1';
         this.profileImage = false;
       } else {
         this.profilePictureService.getColor(res.profile_picture).subscribe((response: any) => {
           if (response.color === null) {
             console.log(this.profileColor);
-            this.profileColor = '#ffffff';
+            this.profileColor = '#613DB1';
           } else {
             this.profileColor = this.profilePictureService.getColorVal(response.color);
             this.profileColorPop = this.profileColor + '80';
@@ -132,6 +132,41 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  getCategorySymbol(type: number) {
+    if (type === 1) {
+      return '🎓';
+    }
+    if (type === 2) {
+      return '🦴';
+    }
+    if (type === 3) {
+      return '🏀';
+    }
+    if (type === 4) {
+      return '👫';
+    }
+    if (type === 5) {
+      return '🥙';
+    }
+    if (type === 6) {
+      return '🛁';
+    }
+    if (type === 7) {
+      return '🗣';
+    }
+    if (type === 8) {
+      return '🧠';
+    }
+    if (type === 9) {
+      return '💶';
+    }
+    if (type === 10) {
+      return '🕜';
+    }
+    if (type === 11) {
+      return '🔶';
+    }
+  }
 
   isNumber(num: number) {
     return !isNaN(num);
