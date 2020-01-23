@@ -140,16 +140,49 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <ngx-charts-pie-chart
-            [doughnut]="isDoughnut"
-            [gradient]="gradient"
-            [labels]="showLabels"
-            [legendPosition]="legendPosition"
-            [legend]="showLegend"
-            [results]="single"
-            [scheme]="colorScheme"
-            [view]="view">
-          </ngx-charts-pie-chart>
+          <mat-card class="example-card">
+            <mat-tab-group>
+              <mat-tab label="Habits">
+                <ngx-charts-pie-chart
+                  [doughnut]="isDoughnut"
+                  [gradient]="gradient"
+                  [labels]="showLabels"
+                  [legendPosition]="legendPosition"
+                  [legend]="showLegend"
+                  [results]="habitChart"
+                  [scheme]="colorScheme"
+                  [animations]="true"
+                  [view]="">
+                </ngx-charts-pie-chart>
+              </mat-tab>
+              <mat-tab label="Points">
+                <ngx-charts-area-chart
+                  [view]=""
+                  [scheme]="colorScheme"
+                  [legend]="false"
+                  [showXAxisLabel]="false"
+                  [showYAxisLabel]="showLabels"
+                  [animations]="true"
+                  [yAxis]="true"
+                  [yAxisLabel]="'Points'"
+                  [timeline]="true"
+                  [results]="pointChart">
+                </ngx-charts-area-chart>
+              </mat-tab>
+              <mat-tab label="Types">
+                <ngx-charts-bar-vertical
+                  [gradient]="gradient"
+                  [legendPosition]="legendPosition"
+                  [legend]="showLegend"
+                  [noBarWhenZero]="true"
+                  [results]="typeChart"
+                  [scheme]="colorScheme"
+                  [animations]="true"
+                  [view]="">
+                </ngx-charts-bar-vertical>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-card>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

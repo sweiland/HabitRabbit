@@ -21,7 +21,6 @@ export class HabitUserResolver implements Resolve<Observable<any>> {
   }
 
   resolve(route: ActivatedRouteSnapshot) {
-    console.log(this.ID);
     this.userService.getUser().subscribe((res: any) => {
         this.ID = res.id;
       }

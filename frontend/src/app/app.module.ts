@@ -42,7 +42,7 @@ import {
   MatProgressBarModule,
   MatSnackBar,
   MatSnackBarModule,
-  MatStepperModule,
+  MatStepperModule, MatTabsModule,
   MatTooltipModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -151,6 +151,7 @@ export function tokenGetter() {
     MatQuillModule,
     MatExpansionModule,
     NgxChartsModule,
+    MatTabsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

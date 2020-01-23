@@ -23,15 +23,14 @@ import {User} from '../user';
 })
 
 export class DashboardComponent implements OnInit {
-  single: any[] = single;
-  view: number[] = [500];
+  habitChart: any[] = single;
 
   // options
   gradient = true;
   showLegend = true;
   showLabels = true;
   isDoughnut = true;
-  legendPosition = 'below';
+  legendPosition = 'right';
   /** Based on the screen size, switch from standard to one column per row */
 
   export;
@@ -56,7 +55,7 @@ export class DashboardComponent implements OnInit {
   public userForm: any;
 
   colorScheme = {
-    domain: ['#f9d95f', '#613db1', '#e15241', '#dcdcdc']
+    domain: ['#ffea00', '#b388ff', '#ff1744', '#ff9100', '#00e676', '#00e5ff', '#d4e157', '#2979ff', '#f9d95f', '#613db1', '#e15241', '#dcdcdc']
   };
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -78,12 +77,13 @@ export class DashboardComponent implements OnInit {
       ];
     })
   );
-
+  typeChart: any[] = [];
   private password: string;
   private password_check: string;
   private old_password: string;
   private passwordForm: any;
   private userDataForm: any;
+  pointChart: any[] = [];
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
@@ -115,12 +115,42 @@ export class DashboardComponent implements OnInit {
         this.profileImage = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
       });
     });
-    this.single = [
+    this.habitChart = [
       {name: 'Active', value: this.habits.filter(h => !h.is_finished).length},
       {name: 'Finished', value: this.habits.filter(h => h.is_finished).length},
       {name: 'Failed', value: this.habits.filter(h => h.failed).length},
       {name: 'Late', value: this.habits.filter(h => h.late).length},
     ];
+    const assignedTypes = new Map();
+    this.habits.forEach((t) => {
+      if (assignedTypes.has(t.type)) {
+        let old = assignedTypes.get(t.type) + 1;
+        assignedTypes.set(t.type, old++);
+      } else {
+        assignedTypes.set(t.type, 1);
+      }
+    });
+    assignedTypes.forEach((value, key) => {
+      const name = this.typeOptions.filter(o => o.id === key)[0].name;
+      this.typeChart.push({name, value});
+    });
+    this.pointChart.push({
+      name: 'Germany',
+      series: [
+        {
+          name: '1990',
+          value: 62000000
+        },
+        {
+          name: '2010',
+          value: 73000000
+        },
+        {
+          name: '2011',
+          value: 89400000
+        }
+      ]
+    });
   }
 
 
