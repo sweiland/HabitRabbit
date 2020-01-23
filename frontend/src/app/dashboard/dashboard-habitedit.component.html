@@ -30,7 +30,7 @@
     <bar-rating [(ngModel)]="data.priority" [max]="3" [theme]="'square'" matInput name="priority"></bar-rating>
   </div>
   <div mat-dialog-actions>
-    <button (click)="onNoClick()" color="warn" mat-button>Cancel</button>
+    <button (click)="onNoClick()" color="warn" mat-button type="button">Cancel</button>
     <button [disabled]="disableCheck()" [mat-dialog-close]="data" color="primary" mat-button type="submit">Submit
     </button>
   </div>
