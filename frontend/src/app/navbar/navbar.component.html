@@ -45,6 +45,7 @@
       <button mat-button routerLink="faq"><i class="material-icons">help</i> FAQ</button>
       <mat-divider vertical style="height:50%"></mat-divider>
       <span class="menuspacer"></span>
+      <div class="navLevel"><span class="levelText">{{level}}</span></div>
       <div [ngStyle]="{'background-color': colorPP}" class="pp_color">
         <img *ngIf="imageExists" [src]="picturesource" class="profilepic">
       </div>
