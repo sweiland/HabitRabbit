@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit {
   ppColor;
   colorPP;
   isLoggedIn = false;
+  isSuperUser;
   picturesource = '';
   pictureId;
   imageExists = false;
@@ -58,6 +59,7 @@ export class NavbarComponent implements OnInit {
     this.userService.getUser().subscribe((res: any) => {
       this.username = res.username;
       this.level = res.level;
+      this.isSuperUser = res.is_superuser;
       if (res.profile_picture != null) {
         this.ppColor = this.profilePictureService.getPicture(res.profile_picture)
           .subscribe((response: any) => {

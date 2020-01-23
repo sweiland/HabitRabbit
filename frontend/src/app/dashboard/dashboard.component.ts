@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     const data = this.route.snapshot.data;
+    console.log(data);
     if (data.habits) {
       this.habits = data.habits;
     }
@@ -113,6 +114,7 @@ export class DashboardComponent implements OnInit {
       const types = this.habits.map((h) => {
         return h.type_id;
       });
+      console.log(types);
       const tempNum = types[Math.floor(Math.random() * types.length)];
       this.typeService.getMessage(tempNum).subscribe((resp: any) => {
         if (resp.helpful_link === null) {

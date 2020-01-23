@@ -5,7 +5,8 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button mat-button style="padding: 0.1% 0.1% 0.3% 0.1%; min-width: 35px; line-height: 30px"><i class="material-icons pointer" routerLink="dashboard">home</i></button>
+      <button mat-button style="padding: 0.1% 0.1% 0.3% 0.1%; min-width: 35px; line-height: 30px"><i
+        class="material-icons pointer" routerLink="dashboard">home</i></button>
       <span routerLink="dashboard" class="title">HabitRabbit</span>
       <span class="menuspacer"></span>
       <mat-divider vertical style="height:50%"></mat-divider>
@@ -16,19 +17,23 @@
       </mat-menu>
       <mat-divider vertical style="height:50%"></mat-divider>
 
-      <button mat-button [matMenuTriggerFor]="userMenu"><i class="material-icons">person</i> User</button>
+      <button *ngIf="isSuperUser" [matMenuTriggerFor]="userMenu" mat-button><i class="material-icons">person</i> User
+      </button>
       <mat-menu #userMenu="matMenu">
         <button mat-menu-item routerLink="user-list">User List</button>
         <button mat-menu-item routerLink="user-form">Create User</button>
       </mat-menu>
       <mat-divider vertical style="height:50%"></mat-divider>
-      <button mat-button [matMenuTriggerFor]="messageMenu"><i class="material-icons">comment</i> Message</button>
+      <button *ngIf="isSuperUser" [matMenuTriggerFor]="messageMenu" mat-button><i class="material-icons">comment</i>
+        Message
+      </button>
       <mat-menu #messageMenu="matMenu">
         <button mat-menu-item routerLink="message-list">Message List</button>
         <button mat-menu-item routerLink="message-form">Create Message</button>
       </mat-menu>
       <mat-divider vertical style="height:50%"></mat-divider>
-      <button mat-button [matMenuTriggerFor]="typeMenu"><i class="material-icons">subject</i> Type</button>
+      <button *ngIf="isSuperUser" [matMenuTriggerFor]="typeMenu" mat-button><i class="material-icons">subject</i> Type
+      </button>
       <mat-menu #typeMenu="matMenu">
         <button mat-menu-item routerLink="type-list">Type List</button>
         <button mat-menu-item routerLink="type-form">Create Type</button>
@@ -45,14 +50,14 @@
       <button mat-button routerLink="faq"><i class="material-icons">help</i> FAQ</button>
       <mat-divider vertical style="height:50%"></mat-divider>
       <span class="menuspacer"></span>
-      <div class="navLevel"><span class="levelText">{{level}}</span></div>
+      <div class="navLevel">
+        <span class="levelText">{{level}}</span>
+      </div>
       <div [ngStyle]="{'background-color': colorPP}" class="pp_color">
         <img *ngIf="imageExists" [src]="picturesource" class="profilepic">
       </div>
       <span class="currentuser">{{username}}</span>
       <app-logout></app-logout>
-
-
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>
