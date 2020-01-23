@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "version": "0.0.0",
+  "name": "habitrabbit",
+  "version": "0.9.7",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -58,7 +58,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
     "ts-node": "^8.6.2",
-    "tslint": "^5.20.1",
-    "typescript": "~3.5.3"
+    "tslint": "^6.0.0",
+    "typescript": "^3.5.3"
   }
 }
