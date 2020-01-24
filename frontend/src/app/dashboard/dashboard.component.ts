@@ -58,7 +58,8 @@ export class DashboardComponent implements OnInit {
   public userForm: any;
 
   colorScheme = {
-    domain: ['#ffea00', '#b388ff', '#ff1744', '#ff9100', '#00e676', '#00e5ff', '#d4e157', '#2979ff', '#f9d95f', '#613db1', '#e15241', '#dcdcdc']
+    domain: ['#ffea00', '#b388ff', '#ff1744', '#ff9100', '#00e676', '#00e5ff', '#d4e157', '#2979ff', '#f9d95f', '#613db1', '#e15241',
+      '#dcdcdc']
   };
   pointScheme = {
     domain: ['#ff9100']
@@ -167,6 +168,28 @@ export class DashboardComponent implements OnInit {
         series
       });
     }
+    this.messageService.getAll().subscribe((mes: any[]): Promise<any[]> => {
+      const types = this.habits.map((h) => {
+        return h.type_id;
+      });
+      const tempNum = types[Math.floor(Math.random() * types.length)];
+      this.typeService.getMessage(tempNum).subscribe((resp: any) => {
+        if (resp.helpful_link === null) {
+          this.currentLink = 'There is no link available';
+        } else {
+          this.currentLink = resp.helpful_link;
+        }
+      });
+      const filtered = mes.filter((f) => {
+        return types.includes(f.type);
+      });
+      const res = filtered.map((i) => {
+        return i.message;
+      });
+      const randomMessage = res[Math.floor(Math.random() * res.length)];
+      return this.dailyMessage = randomMessage;
+    });
+
   }
 
   getCategorySymbol(type: number) {

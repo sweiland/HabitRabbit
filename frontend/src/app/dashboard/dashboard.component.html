@@ -202,18 +202,18 @@
             </mat-tab-group>
           </mat-card>
         </mat-card-content>
-        <mat-card *ngIf="card.title === 'Daily Message'" class="dashboard-card">
-          <mat-card class="messageCard">
-            <mat-card-header>
-              <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
-              <mat-card-content>
-                <div class="dailyMessage">"{{dailyMessage}}"<br>
-                  <div class="signature">-Habit Rabbit Team</div>
-                  <div class="helpfullink">Helpful Link: {{currentLink}}</div>
-                </div>
-              </mat-card-content>
-            </mat-card-header>
-          </mat-card>
+      </mat-card>
+      <mat-card *ngIf="card.title === 'Daily Message'" class="dashboard-card">
+        <mat-card class="messageCard">
+          <mat-card-header>
+            <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
+            <mat-card-content>
+              <div class="dailyMessage">"{{dailyMessage}}"<br>
+                <div class="signature">-Habit Rabbit Team</div>
+                <div class="helpfullink">Helpful Link: {{currentLink}}</div>
+              </div>
+            </mat-card-content>
+          </mat-card-header>
         </mat-card>
       </mat-card>
     </mat-grid-tile>
