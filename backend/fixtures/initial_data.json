@@ -8,13 +8,147 @@
     }
   },
   {
+    "model": "HabitRabbit.profilepicture",
+    "pk": 2,
+    "fields": {
+      "color": "y",
+      "picture": 4
+    }
+  },
+  {
+    "model": "HabitRabbit.profilepicture",
+    "pk": 3,
+    "fields": {
+      "color": "b",
+      "picture": 7
+    }
+  },
+  {
+    "model": "HabitRabbit.profilepicture",
+    "pk": 4,
+    "fields": {
+      "color": "w",
+      "picture": 2
+    }
+  },
+  {
     "model": "HabitRabbit.type",
     "pk": 1,
     "fields": {
       "is_custom": false,
-      "name": "Daily Habit",
-      "duration": null,
-      "helpful_link": null
+      "name": "Education",
+      "duration": 30,
+      "helpful_link": "https://www.testtakingcentral.com/why-regular-study-is-important/"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 2,
+    "fields": {
+      "is_custom": false,
+      "name": "Health",
+      "duration": 30,
+      "helpful_link": "https://www.lifehack.org/677367/powerful-daily-routine"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 3,
+    "fields": {
+      "is_custom": false,
+      "name": "Fitness",
+      "duration": 30,
+      "helpful_link": "https://medlineplus.gov/benefitsofexercise.html"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 4,
+    "fields": {
+      "is_custom": false,
+      "name": "Relationships",
+      "duration": 30,
+      "helpful_link": "https://www.nm.org/healthbeat/healthy-tips/5-benefits-of-healthy-relationships"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 5,
+    "fields": {
+      "is_custom": false,
+      "name": "Nutrition",
+      "duration": 30,
+      "helpful_link": "https://nutritionfacts.org"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 6,
+    "fields": {
+      "is_custom": false,
+      "name": "Hygiene",
+      "duration": 30,
+      "helpful_link": "https://www.everydayhealth.com/healthy-living/guide-to-good-hygiene.aspx"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 7,
+    "fields": {
+      "is_custom": false,
+      "name": "Social",
+      "duration": 30,
+      "helpful_link": "https://www.mindwise.org/blog/uncategorized/the-importance-of-social-connection/"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 8,
+    "fields": {
+      "is_custom": false,
+      "name": "Mental Health",
+      "duration": 30,
+      "helpful_link": "https://www.peoplefirstinfo.org.uk/health-and-well-being/mental-health/10-top-tips-for-good-mental-health/"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 9,
+    "fields": {
+      "is_custom": false,
+      "name": "Financial",
+      "duration": 30,
+      "helpful_link": "https://www.themuse.com/advice/50-personal-finance-tips-that-will-change-the-way-you-think-about-money"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 10,
+    "fields": {
+      "is_custom": false,
+      "name": "Time Management",
+      "duration": 30,
+      "helpful_link": "https://corporatefinanceinstitute.com/resources/careers/soft-skills/time-management-list-tips/"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 11,
+    "fields": {
+      "is_custom": true,
+      "name": "Custom",
+      "duration": 30,
+      "helpful_link": "https://corporatefinanceinstitute.com/resources/careers/soft-skills/time-management-list-tips/"
+    }
+  },
+  {
+    "model": "HabitRabbit.type",
+    "pk": 12,
+    "fields": {
+      "is_custom": false,
+      "name": "Hygiene",
+      "duration": 30,
+      "helpful_link": "https://medlineplus.gov/benefitsofexercise.html"
     }
   },
   {
@@ -23,6 +157,86 @@
     "fields": {
       "message": "Great job, keep going!",
       "type": 1
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 2,
+    "fields": {
+      "message": "Health > Everything else",
+      "type": 2
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 3,
+    "fields": {
+      "message": "Consistency is key!",
+      "type": 3
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 4,
+    "fields": {
+      "message": "Active Listening is vital",
+      "type": 4
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 5,
+    "fields": {
+      "message": "Stop eating junk!",
+      "type": 5
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 6,
+    "fields": {
+      "message": "Shrub shrub shrub!",
+      "type": 6
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 7,
+    "fields": {
+      "message": "Get out of your house!",
+      "type": 7
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 8,
+    "fields": {
+      "message": "Get enough sleep!",
+      "type": 8
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 9,
+    "fields": {
+      "message": "Do you really need that fancy item?",
+      "type": 9
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 10,
+    "fields": {
+      "message": "Get up and do not be late!",
+      "type": 10
+    }
+  },
+  {
+    "model": "HabitRabbit.message",
+    "pk": 11,
+    "fields": {
+      "message": "Get up and do not be late!",
+      "type": 11
     }
   },
   {
@@ -72,11 +286,57 @@
       "email": "peter.s@fhj.at",
       "level": 1,
       "score": "0",
-      "profile_picture": 1,
+      "profile_picture": 2,
       "groups": [],
       "user_permissions": [],
       "friends": [],
       "streak": 20
+    }
+  },
+  {
+    "model": "HabitRabbit.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$YhCHL7uNcTt4$2m63QSTEVUK8vUjyf2tngNlsnxeAjibAD6hPqayYPPQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-01-020T12:25:30.644Z",
+      "username": "healhyuser",
+      "first_name": "Kate",
+      "last_name": "Nutrient",
+      "email": "kate.nutrient@habbit.si",
+      "level": 3,
+      "score": "260",
+      "profile_picture": 3,
+      "groups": [],
+      "user_permissions": [],
+      "friends": [],
+      "streak": 5
+    }
+  },
+  {
+    "model": "HabitRabbit.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$YhCHL7uNcTt4$2m63QSTEVUK8vUjyf2tngNlsnxeAjibAD6hPqayYPPQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-01-022T08:01:30.644Z",
+      "username": "Tempuser",
+      "first_name": "Hal",
+      "last_name": "420",
+      "email": "hal.420@gmail.it",
+      "level": 5,
+      "score": "531",
+      "profile_picture": 4,
+      "groups": [],
+      "user_permissions": [],
+      "friends": [],
+      "streak": 17
     }
   },
   {
@@ -106,6 +366,32 @@
     }
   },
   {
+    "model": "HabitRabbit.habit",
+    "pk": 3,
+    "fields": {
+      "start_date": "2020-01-22T11:43:34.535Z",
+      "end_date": null,
+      "name": "Workout Daily",
+      "member": 3,
+      "type": 5,
+      "interval": 7,
+      "priority": 1
+    }
+  },
+  {
+    "model": "HabitRabbit.habit",
+    "pk": 4,
+    "fields": {
+      "start_date": "2020-01-09T10:43:34.535Z",
+      "end_date": null,
+      "name": "Update calendar daily",
+      "member": 4,
+      "type": 10,
+      "interval": 7,
+      "priority": 2
+    }
+  },
+  {
     "model": "HabitRabbit.faq",
     "pk": 1,
     "fields": {
@@ -119,6 +405,22 @@
     "fields": {
       "question": "What is this application about?",
       "answer": "HabitRabbit\u2122 is a revolutionary online habit building tool, based on state-of-the-art gamification technologies, designed to help its users build new, positive habits easily and quickly."
+    }
+  },
+  {
+    "model": "HabitRabbit.faq",
+    "pk": 3,
+    "fields": {
+      "question": "Can I change my profile picture somewhere?",
+      "answer": "Yeah, just hover over your profile picture in the dashboard and click on the button."
+    }
+  },
+  {
+    "model": "HabitRabbit.faq",
+    "pk": 4,
+    "fields": {
+      "question": "How long does it take for a habit to stick?",
+      "answer": "The consensus is about 21 days."
     }
   }
 ]
