@@ -51,14 +51,29 @@ export class DashboardComponent implements OnInit {
   profileImage;
   friends: any[];
   displayedColumnsFriends = ['username', 'score', 'actions'];
-  users;
-  public userForm: any;
+  users: any[] = [];
   dailyMessage;
   currentLink;
+  filteredOptions: Observable<any[]>;
+  typeChart: any[] = [];
+  pointChart: any[] = [];
+  password: string;
+  password_check: string;
+  old_password: string;
+  passwordForm: any;
+  userDataForm: any;
+  friendsForm: FormControl;
+  friendsList: number[];
+  empty: boolean;
+  filteredHabits: any[];
+
 
   colorScheme = {
-    domain: ['#ffea00', '#b388ff', '#ff1744', '#ff9100', '#00e676', '#00e5ff', '#d4e157', '#2979ff', '#f9d95f', '#613db1', '#e15241',
-      '#dcdcdc']
+    domain: [
+      '#ffea00', '#b388ff', '#ff1744', '#ff9100',
+      '#00e676', '#00e5ff', '#d4e157', '#2979ff',
+      '#f9d95f', '#613db1', '#e15241', '#dcdcdc'
+    ]
   };
   pointScheme = {
     domain: ['#ff9100']
@@ -86,18 +101,6 @@ export class DashboardComponent implements OnInit {
       ];
     })
   );
-  filteredOptions: Observable<any[]>;
-  typeChart: any[] = [];
-  pointChart: any[] = [];
-  private password: string;
-  private password_check: string;
-  private old_password: string;
-  private passwordForm: any;
-  private userDataForm: any;
-  private friendsForm: FormControl;
-  private friendsList: number[];
-  private empty: boolean;
-  private filteredHabits: any[];
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
@@ -108,7 +111,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     const data: Data = this.route.snapshot.data;
     if (data.typeOptions) {
       this.typeOptions = data.typeOptions;
@@ -117,16 +120,16 @@ export class DashboardComponent implements OnInit {
     this.userService.getAll().subscribe((res2: any[]) => {
       this.friends = res2.filter(x => data.user.friends.indexOf(x.id) !== -1);
     });
-
     this.friendsForm = new FormControl();
     if (data.users) {
+      console.log(data.users);
       this.users = data.users;
+      this.filteredOptions = this.friendsForm.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
     }
-    this.filteredOptions = this.friendsForm.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
     if (data.habits) {
       this.habits = data.habits;
       this.filteredHabits = this.habits.filter(e => {
@@ -213,11 +216,16 @@ export class DashboardComponent implements OnInit {
       const randomMessage = res[Math.floor(Math.random() * res.length)];
       return this.dailyMessage = randomMessage;
     });
-    console.log(this.filteredHabits);
+  }
+
+  _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.users.filter((u) => {
+      return u.username.toString().toLowerCase().includes(filterValue) || u.email.toString().toLowerCase().includes(filterValue);
+    });
   }
 
   populateInfo(habit: any[]): any[] {
-    console.log(habit);
     return habit.map((x) => {
       const start = moment(x.start_date).startOf('day');
       const end = moment(x.end_date).startOf('day');
@@ -425,15 +433,6 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.users.filter((u) => {
-      return u.username.toString().toLowerCase().includes(filterValue) || u.email.toString().toLowerCase().includes(filterValue);
-    });
-  }
-
 }
 
 

@@ -227,7 +227,7 @@
           <mat-form-field class="friendsFormField">
             <input [formControl]="friendsForm" matInput placeholder="Add Friend" type="text" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option (onSelectionChange)="onEnterFriend(user.id)" (click)="onEnterFriend(user.id)" *ngFor="let user of filteredOptions | async" [value]="user.username">
+              <mat-option (click)="onEnterFriend(user.id)" *ngFor="let user of filteredOptions | async" [value]="user.username">
                 {{ user.username }}
               </mat-option>
             </mat-autocomplete>
