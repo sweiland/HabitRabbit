@@ -37,7 +37,7 @@
     "fields": {
       "is_custom": false,
       "name": "Education",
-      "duration": 30,
+      "duration": 8,
       "helpful_link": "https://www.testtakingcentral.com/why-regular-study-is-important/"
     }
   },
@@ -47,7 +47,7 @@
     "fields": {
       "is_custom": false,
       "name": "Health",
-      "duration": 30,
+      "duration": 16,
       "helpful_link": "https://www.lifehack.org/677367/powerful-daily-routine"
     }
   },
@@ -57,7 +57,7 @@
     "fields": {
       "is_custom": false,
       "name": "Fitness",
-      "duration": 30,
+      "duration": 4,
       "helpful_link": "https://medlineplus.gov/benefitsofexercise.html"
     }
   },
@@ -67,7 +67,7 @@
     "fields": {
       "is_custom": false,
       "name": "Relationships",
-      "duration": 30,
+      "duration": 52,
       "helpful_link": "https://www.nm.org/healthbeat/healthy-tips/5-benefits-of-healthy-relationships"
     }
   },
@@ -77,7 +77,7 @@
     "fields": {
       "is_custom": false,
       "name": "Nutrition",
-      "duration": 30,
+      "duration": 16,
       "helpful_link": "https://nutritionfacts.org"
     }
   },
@@ -87,7 +87,7 @@
     "fields": {
       "is_custom": false,
       "name": "Hygiene",
-      "duration": 30,
+      "duration": 32,
       "helpful_link": "https://www.everydayhealth.com/healthy-living/guide-to-good-hygiene.aspx"
     }
   },
@@ -97,7 +97,7 @@
     "fields": {
       "is_custom": false,
       "name": "Social",
-      "duration": 30,
+      "duration": 52,
       "helpful_link": "https://www.mindwise.org/blog/uncategorized/the-importance-of-social-connection/"
     }
   },
@@ -107,7 +107,7 @@
     "fields": {
       "is_custom": false,
       "name": "Mental Health",
-      "duration": 30,
+      "duration": 52,
       "helpful_link": "https://www.peoplefirstinfo.org.uk/health-and-well-being/mental-health/10-top-tips-for-good-mental-health/"
     }
   },
@@ -117,7 +117,7 @@
     "fields": {
       "is_custom": false,
       "name": "Financial",
-      "duration": 30,
+      "duration": 4,
       "helpful_link": "https://www.themuse.com/advice/50-personal-finance-tips-that-will-change-the-way-you-think-about-money"
     }
   },
@@ -127,7 +127,7 @@
     "fields": {
       "is_custom": false,
       "name": "Time Management",
-      "duration": 30,
+      "duration": 2,
       "helpful_link": "https://corporatefinanceinstitute.com/resources/careers/soft-skills/time-management-list-tips/"
     }
   },
@@ -137,7 +137,7 @@
     "fields": {
       "is_custom": true,
       "name": "Custom",
-      "duration": 30,
+      "duration": 26,
       "helpful_link": "https://corporatefinanceinstitute.com/resources/careers/soft-skills/time-management-list-tips/"
     }
   },
@@ -147,7 +147,7 @@
     "fields": {
       "is_custom": false,
       "name": "Hygiene",
-      "duration": 30,
+      "duration": 26,
       "helpful_link": "https://medlineplus.gov/benefitsofexercise.html"
     }
   },

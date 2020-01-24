@@ -21,6 +21,14 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
+            <mat-select (valueChange)="getEnd($event)" formControlName="type" placeholder="Type">
+              <mat-option disabled>Type</mat-option>
+              <mat-option *ngFor="let typeOption of typeOptions"
+                          [value]="typeOption">{{typeOption.name}}</mat-option>
+            </mat-select>
+            <mat-hint align="end">Add Type here</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-width">
             <input [matDatepicker]="datepicker" [min]="moment()" formControlName="start_date" matInput
                    placeholder="Start Date" required>
             <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
@@ -55,14 +63,6 @@
                           [value]="memberOption.id">{{memberOption.first_name + ' ' + memberOption.last_name}}</mat-option>
             </mat-select>
             <mat-hint align="end">Add Member here</mat-hint>
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <mat-select formControlName="type" placeholder="Type">
-              <mat-option disabled>Type</mat-option>
-              <mat-option *ngFor="let typeOption of typeOptions"
-                          [value]="typeOption.id">{{typeOption.name}}</mat-option>
-            </mat-select>
-            <mat-hint align="end">Add Type here</mat-hint>
           </mat-form-field>
           <div>
             Priority

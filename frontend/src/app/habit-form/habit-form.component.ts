@@ -76,6 +76,7 @@ export class HabitFormComponent implements OnInit {
 
   onSubmit() {
     const habit = this.habitForm.value;
+    habit.type = habit.type.id;
     if (habit.id) {
       this.habitService.updateHabit(habit).subscribe(() => {
         this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
@@ -94,5 +95,16 @@ export class HabitFormComponent implements OnInit {
 
   getMax() {
     return moment(this.habitForm.get('start_date').value).add(1, 'year');
+  }
+
+  getEnd(event: any) {
+    const end_date: moment.Moment = this.habitForm.controls.start_date.value;
+    const unit = event.duration === 52 || event.duration === 39 || event.duration === 26 || event.duration === 13 ? 'year' :
+      event.duration >= 4 ? 'month' : 'week';
+    const duration = unit === 'year' ? event.duration / 52 : unit === 'month' ? event.duration / 4 : event.duration;
+    end_date.add(duration, unit);
+    this.habitForm.patchValue({end_date});
+    console.log(duration, unit);
+    end_date.subtract(duration, unit);
   }
 }
