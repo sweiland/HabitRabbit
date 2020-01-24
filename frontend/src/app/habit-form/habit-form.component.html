@@ -39,7 +39,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width">
-            <input [matDatepicker]="datepicker2" [max]="getMax()" [min]="moment().add(1, 'day')"
+            <input [matDatepicker]="datepicker2" [max]="getMax()" [min]="moment().add(1, 'day').startOf('day')"
                    formControlName="end_date" matInput placeholder="End Date" required>
             <mat-datepicker-toggle [for]="datepicker2" matSuffix></mat-datepicker-toggle>
             <mat-datepicker #datepicker2></mat-datepicker>

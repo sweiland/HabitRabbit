@@ -450,12 +450,13 @@ export class DashboardComponent implements OnInit {
         name: habit.name,
         interval: habit.interval,
         priority: habit.priority,
-        type: habit.type,
+        type: this.typeOptions.filter(t => t.id === habit.type)[0],
         typeOptions: this.typeOptions
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        result.type = result.type.id;
         this.habitService.updateHabit(result).subscribe(() => {
           this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
           location.reload();
@@ -535,10 +536,9 @@ export interface HabitDialogData {
   start_date: string;
   end_date: string;
   name: string;
-  interval: number;
   priority: number;
   typeOptions: any;
-  type: number;
+  type: any;
 }
 
 @Component({
