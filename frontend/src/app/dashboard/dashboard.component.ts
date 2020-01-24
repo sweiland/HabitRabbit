@@ -188,13 +188,22 @@ export class DashboardComponent implements OnInit {
   }
 
   onEnterFriend(id: number) {
-    const friends = Array.from(new Set(this.friendsList.concat(id)).values());
+    const friends = (Array.from(new Set(this.friendsList.concat(id)).values())).filter(f => f !== this.userId);
     this.userService.updateUser({
       id: this.ID,
       friends,
     }).subscribe();
     this.friendsForm.patchValue('');
-    // alert('User has been added to friends list.');
+    switch (id) {
+      case this.userId: {
+        alert('You can\'t add yourself!');
+        break;
+      }
+      default: {
+        alert('User has been ADDED to your friends list!');
+        break;
+      }
+    }
   }
 
   removeFriend(id: number) {
@@ -203,6 +212,7 @@ export class DashboardComponent implements OnInit {
       id: this.ID,
       friends,
     }).subscribe();
+    alert('User has been REMOVED from friends list.');
   }
 
   getCategorySymbol(type: number) {
