@@ -40,7 +40,8 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    resolve: {habits: HabitUserResolver, typeOptions: TypesResolver, users: UsersResolver, user: CurrentUserResolver}
+    resolve: {habits: HabitUserResolver, typeOptions: TypesResolver, user: CurrentUserResolver},
+    runGuardsAndResolvers: 'always'
   },
   {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
   {

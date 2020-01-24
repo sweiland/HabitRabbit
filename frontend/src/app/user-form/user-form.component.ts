@@ -16,6 +16,7 @@ export class UserFormComponent implements OnInit {
   private password_check: string;
   private old_password: string;
   private passwordForm: any;
+  private scoreList: string;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private userService: UserService, private router: Router,
               private snackbar: MatSnackBar, public dialog: MatDialog) {
@@ -45,7 +46,9 @@ export class UserFormComponent implements OnInit {
       password_check: ['']
     }, {validator: this.passwordMatchValidator});
     if (data.user) {
+      this.scoreList = data.user.score.split(',').reverse()[0];
       this.userForm.patchValue(data.user);
+      this.userForm.patchValue({score: this.scoreList});
       this.passwordForm.patchValue(data.user);
       this.passwordForm.patchValue({password: ''});
       this.userForm.patchValue({password: ''});
@@ -57,6 +60,7 @@ export class UserFormComponent implements OnInit {
   onSubmit() {
     const user = this.userForm.value;
     if (user.id) {
+      user.score = this.scoreList.concat(',', user.score);
       this.userService.updateUser(user).subscribe(() => {
         this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
         this.router.navigate(['/user-form/' + user.id]);

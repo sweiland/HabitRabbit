@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FaqItem} from '../faq.item';
 import {FAQService} from '../../service/faq.service';
+import {UserService} from '../../service/user.service';
 
 @Component({
   selector: 'mat-faq-admin',
@@ -16,12 +17,13 @@ export class MatFaqAdminComponent implements OnInit {
   id: string;
   question: string;
   answer: string;
+  isSuperUser: boolean;
 
-  constructor(private faqService: FAQService) {
+  constructor(private faqService: FAQService, private userService: UserService) {
   }
 
   reset() {
-    this.question = this.answer = this.id = undefined;
+    this.question = this.answer = this.id = null;
   }
 
   add(): void {
@@ -43,6 +45,7 @@ export class MatFaqAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.getUser().subscribe((x: any) => this.isSuperUser = x.is_superuser);
     this.faqService.emitter.subscribe((res: FaqItem) => {
       this.id = res.id;
       this.question = res.question;
