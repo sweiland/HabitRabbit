@@ -1,8 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-form',
@@ -28,22 +30,22 @@ export class UserFormComponent implements OnInit {
     const patterns = ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$', '^((?!@).)*'];
     this.userForm = this.fb.group({
       id: [null],
-      username: ['', [Validators.required, Validators.pattern(patterns[1])]],
+      username: ['', [Validators.required, Validators.pattern(patterns[1])], [this.uniqueUsernameValidator()]],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      email: ['', [Validators.email, Validators.pattern(patterns[0])]],
-      level: [1],
-      score: ['0'],
-      is_superuser: [false],
-      is_staff: [false],
-      password: [null],
-      password_check: [null]
+      email: ['', [Validators.email, Validators.pattern(patterns[0])], [this.uniqueEmailValidator()]],
+      level: [1, Validators.required],
+      score: ['0', Validators.required],
+      is_superuser: [false, Validators.required],
+      is_staff: [false, Validators.required],
+      password: [null, Validators.required],
+      password_check: [null, Validators.required]
     }, {validator: this.passwordMatchValidator});
     this.passwordForm = this.fb.group({
       id: [null],
-      old_password: [''],
-      password: [''],
-      password_check: ['']
+      old_password: ['', Validators.minLength(8)],
+      password: ['', Validators.minLength(8)],
+      password_check: ['', Validators.minLength(8)]
     }, {validator: this.passwordMatchValidator});
     if (data.user) {
       this.scoreList = data.user.score.split(',').reverse()[0];
@@ -55,6 +57,32 @@ export class UserFormComponent implements OnInit {
       this.userForm.controls.password.disable();
       this.userForm.controls.password_check.disable();
     }
+  }
+
+  uniqueUsernameValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      return this.userService.getUnique().pipe(map((users: any[]) => {
+        const username = control.value;
+        const userExists = users.find(u => {
+            return username === u.username;
+          }
+        );
+        return userExists ? {usernameExists: true} : null;
+      }));
+    };
+  }
+
+  uniqueEmailValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      return this.userService.getUnique().pipe(map((users: any[]) => {
+        const email = control.value;
+        const userExists = users.find(u => {
+            return email === u.email;
+          }
+        );
+        return userExists ? {emailExists: true} : null;
+      }));
+    };
   }
 
   onSubmit() {

@@ -28,7 +28,7 @@ export class TypeFormComponent implements OnInit {
       id: [null],
       is_custom: [true],
       name: ['', Validators.required],
-      duration: [1, [Validators.max(32767)]],
+      duration: [1, [Validators.max(365)]],
       helpful_link: [null, Validators.pattern(reg)]
     });
     if (data.type) {

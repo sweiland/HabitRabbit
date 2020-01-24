@@ -59,10 +59,10 @@ class Habit(models.Model):
         HIGH = 3, 'high'
 
     start_date = models.DateTimeField(default=timezone.now)
-    end_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField()
     name = models.TextField()
     member = models.ForeignKey(User, on_delete=models.CASCADE)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True, blank=True)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE)
     interval = models.PositiveSmallIntegerField(default=1)
     priority = models.PositiveSmallIntegerField(choices=PrioChoices.choices)
     last_click = models.DateTimeField(null=True, blank=True)
