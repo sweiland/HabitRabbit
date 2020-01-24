@@ -174,7 +174,7 @@ export class DashboardComponent implements OnInit {
       }
     }
     this.messageService.getAll().subscribe((mes: any[]): Promise<any[]> => {
-      const types = this.habits.map((h) => {
+      const types = this.filteredHabits.map((h) => {
         return h.type_id;
       });
       const tempNum = types[Math.floor(Math.random() * types.length)];
