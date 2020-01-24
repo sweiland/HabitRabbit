@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FAQService} from '../../service/faq.service';
 import {FaqComponent} from '../faq.component';
 import {FaqItem} from '../faq.item';
+import {UserService} from '../../service/user.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,7 +10,7 @@ import {FaqItem} from '../faq.item';
   templateUrl: './mat-faq.component.html',
   styleUrls: ['./mat-faq.component.scss']
 })
-export class MatFaqComponent {
+export class MatFaqComponent implements OnInit{
   @Input()
   title = 'FAQ';
   @Input()
@@ -18,8 +19,15 @@ export class MatFaqComponent {
   displayMode = 'default'; // or flat
   @Input()
   faqList: FaqItem[] = [];
+  isSuperuser;
 
-  constructor(private faqService: FAQService, private faqComponent: FaqComponent) {
+  constructor(private faqService: FAQService, private faqComponent: FaqComponent, private userService: UserService) {
+  }
+
+  ngOnInit(): void {
+    this.userService.getUser().subscribe( (res: any) => {
+      this.isSuperuser = res.is_superuser;
+    })
   }
 
   deleteFaq(id: string) {
