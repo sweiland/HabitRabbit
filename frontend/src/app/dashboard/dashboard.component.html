@@ -70,17 +70,17 @@
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
-            <button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="more-button" mat-icon-button>
+            <button *ngIf="!empty" [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="more-button" mat-icon-button>
               <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #menu="matMenu" xPosition="before">
+            <mat-menu *ngIf="!empty" #menu="matMenu" xPosition="before">
               <button (click)="enableEdit()" mat-menu-item><span *ngIf="!habitsEditable">Enable Edit Mode</span><span
                 *ngIf="habitsEditable">Disable Edit Mode</span></button>
               <a mat-menu-item routerLink="../habit-form" type="button">Add Habit</a>
             </mat-menu>
           </mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
+        <mat-card-content *ngIf="!empty" class="dashboard-card-content">
           <mat-card *ngFor="let habit of habits" class="example-card">
             <mat-card-title>{{habit.name}}
               <div class="habitsymbol">{{getCategorySymbol(habit.type)}}</div>
@@ -137,8 +137,18 @@
             </mat-card-actions>
           </mat-card>
         </mat-card-content>
+        <mat-card-content *ngIf="empty" class="dashboard-card-content">
+          <mat-card class="example-card">
+            <mat-card-title>
+              Add your Habits here!
+            </mat-card-title>
+            <mat-card-content>
+              <button mat-fab color="primary" routerLink="../habit-form"><mat-icon>add</mat-icon></button>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
       </mat-card>
-      <mat-card *ngIf="card.title === 'Charts'" class="dashboard-card">
+      <mat-card *ngIf="card.title === 'Charts' && !empty" class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
