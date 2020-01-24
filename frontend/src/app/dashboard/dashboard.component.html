@@ -83,7 +83,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content *ngIf="!empty" class="dashboard-card-content">
-          <mat-card *ngFor="let habit of habits" class="example-card">
+          <mat-card *ngFor="let habit of filteredHabits" class="example-card">
             <mat-card-title>{{habit.name}}
               <div class="habitsymbol">{{getCategorySymbol(habit.type)}}</div>
             </mat-card-title>
@@ -102,7 +102,7 @@
                                     color="accent"
                                     matTooltipHideDelay="100"
                                     matTooltipPosition="below" mode="determinate"></mat-progress-bar>
-                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage <= 50 && habit.is_finished"
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.failed"
                                     [matTooltip]="'(' + habit.percentage + '%)'"
                                     [value]="habit.percentage"
                                     color="warn"
@@ -203,7 +203,7 @@
           </mat-card>
         </mat-card-content>
       </mat-card>
-      <mat-card *ngIf="card.title === 'Daily Message'" class="dashboard-card">
+      <mat-card *ngIf="card.title === 'Daily Message' && !empty" class="dashboard-card">
         <mat-card class="messageCard">
           <mat-card-header>
             <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
