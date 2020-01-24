@@ -68,7 +68,8 @@ export class DashboardComponent implements OnInit {
   friendsList: number[];
   empty: boolean;
   filteredHabits: any[];
-
+  habitList: Array<string> = new Array<string>();
+  formatedHabitList;
 
   colorScheme = {
     domain: [
@@ -197,19 +198,27 @@ export class DashboardComponent implements OnInit {
           }
         });
       }
+      for (const habit of this.filteredHabits) {
+        this.habitList.push('Habit Name: ' + habit.name + '\t' + 'Finished: ' + habit.is_finished);
+      }
+      this.formatedHabitList = this.habitList.join(',');
     }
     this.messageService.getAll().subscribe((mes: any[]): Promise<any[]> => {
       const types = this.filteredHabits.map((h) => {
         return h.type_id;
       });
       const tempNum = types[Math.floor(Math.random() * types.length)];
-      this.typeService.getMessage(tempNum).subscribe((resp: any) => {
-        if (resp.helpful_link === null) {
-          this.currentLink = 'There is no link available';
-        } else {
-          this.currentLink = resp.helpful_link;
-        }
-      });
+      if (tempNum) {
+        this.typeService.getMessage(tempNum).subscribe((resp: any) => {
+          if (resp.helpful_link === null) {
+            this.currentLink = 'There is no link available';
+          } else {
+            this.currentLink = resp.helpful_link;
+          }
+        });
+      } else {
+        this.currentLink = 'There is no link available';
+      }
       const filtered = mes.filter((f) => {
         return types.includes(f.type);
       });
@@ -255,6 +264,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  goHelpfulLink() {
+    window.location.href = this.currentLink;
+  }
+
   generatePdf() {
     const documentDefinition = {
       content: [
@@ -281,7 +294,7 @@ export class DashboardComponent implements OnInit {
               margin: [0, 10, 0, 10]
             },
               {
-                text: 'First Name ' + this.firstname,
+                text: 'First Name: ' + this.firstname,
                 fontSize: 15,
                 margin: [0, 10, 0, 0]
               },
@@ -304,6 +317,17 @@ export class DashboardComponent implements OnInit {
                 text: 'Score: ' + this.score,
                 fontSize: 15,
                 margin: [0, 10, 0, 0],
+              },
+              {
+                text: 'Created Habits: ',
+                fontSize: 18,
+                bold: true,
+                margin: [0, 10, 0, 10],
+              },
+              {
+                columns: [
+                  this.habitList
+                ],
               },
             ],
             [
@@ -408,6 +432,12 @@ export class DashboardComponent implements OnInit {
 
   enableEdit() {
     this.habitsEditable = !this.habitsEditable;
+  }
+
+  deleteHabit(id: number) {
+    this.habitService.deleteHabit(id).subscribe((res: any) => {
+      location.reload();
+    });
   }
 
   openHabitDialog(habit: any) {

@@ -206,10 +206,10 @@ footer {
 
 .dailyMessage {
   position: absolute;
-  left: 2.5em;
-  top: 5em;
+  left: 1.6em;
+  top: 3em;
   font-family: 'Shrikhand', cursive;
-  font-size: 1.4em;
+  font-size: 1.8em;
 }
 
 .signature {
@@ -219,13 +219,19 @@ footer {
   left: 2em;
 }
 
+.helpButton {
+  position: absolute;
+  bottom: 1em;
+  left: 2em;
+}
+
 .message-header::first-letter {
   font-size: 1.5em;
 }
 
 .helpfullink {
   position: relative;
-  top: 2em;
+  top: 1em;
 }
 
 .habitsymbol {
@@ -286,4 +292,8 @@ table.mat-table {
 
 .friendsFormField {
   height: 20px;
+}
+
+.exportPDF {
+  float: right;
 }

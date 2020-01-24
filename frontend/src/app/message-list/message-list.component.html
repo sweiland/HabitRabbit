@@ -7,9 +7,9 @@
         <button (click)="deleteMessage(row.id)" color="warn" mat-button>Delete</button>
       </td>
     </ng-container>
-    <ng-container matColumnDef="title">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>Title</th>
-      <td *matCellDef="let row" mat-cell>{{row.title}}</td>
+    <ng-container matColumnDef="message">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>Message</th>
+      <td *matCellDef="let row" mat-cell>{{row.message}}</td>
     </ng-container>
     <ng-container matColumnDef="type">
       <th *matHeaderCellDef mat-header-cell mat-sort-header>Type</th>
