@@ -2,9 +2,10 @@
  * dashboard.component.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
  */
 
-import {single} from './data';
+
 import {Component, Inject, OnInit} from '@angular/core';
-import {map} from 'rxjs/operators';
+import {map, startWith} from 'rxjs/operators';
+import {single} from './data';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {HabitService} from '../service/habit.service';
 import * as moment from 'moment';
@@ -13,7 +14,8 @@ import {ActivatedRoute, Data, Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 import {ProfilePictureService} from '../service/profile-picture.service';
-import {AbstractControl, FormBuilder} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
 import {MessageService} from '../service/message.service';
 import {TypeService} from '../service/type.service';
 import pdfMake from 'pdfmake/build/pdfmake';
@@ -35,12 +37,6 @@ export class DashboardComponent implements OnInit {
   isDoughnut = true;
   legendPosition = 'right';
   /** Based on the screen size, switch from standard to one column per row */
-
-  export;
-  class;
-  DashboardComponent;
-  implements;
-  OnInit;
   ID = this.userService.getID();
   habits: any[];
   habitsEditable: boolean;
@@ -55,17 +51,36 @@ export class DashboardComponent implements OnInit {
   profileColor;
   profileColorPop;
   profileImage;
+  friends: any[];
+  displayedColumnsFriends = ['username', 'score', 'actions'];
+  users: any[] = [];
   dailyMessage;
   currentLink;
-  public userForm: any;
+  filteredOptions: Observable<any[]>;
+  typeChart: any[] = [];
+  pointChart: any[] = [];
+  password: string;
+  password_check: string;
+  old_password: string;
+  passwordForm: any;
+  userDataForm: any;
+  friendsForm: FormControl;
+  friendsList: number[];
+  empty: boolean;
+  filteredHabits: any[];
+
 
   colorScheme = {
-    domain: ['#ffea00', '#b388ff', '#ff1744', '#ff9100', '#00e676', '#00e5ff', '#d4e157', '#2979ff', '#f9d95f', '#613db1', '#e15241',
-      '#dcdcdc']
+    domain: [
+      '#ffea00', '#b388ff', '#ff1744', '#ff9100',
+      '#00e676', '#00e5ff', '#d4e157', '#2979ff',
+      '#f9d95f', '#613db1', '#e15241', '#dcdcdc'
+    ]
   };
   pointScheme = {
     domain: ['#ff9100']
   };
+
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
@@ -74,6 +89,7 @@ export class DashboardComponent implements OnInit {
           {title: 'User', cols: 1, rows: 1},
           {title: 'Active Habits', cols: 1, rows: 1},
           {title: 'Charts', cols: 1, rows: 2},
+          {title: 'Friends', cols: 1, rows: 2},
           {title: 'Daily Message', cols: 1, rows: 1}
         ];
       }
@@ -81,20 +97,12 @@ export class DashboardComponent implements OnInit {
       return [
         {title: 'User', cols: 1, rows: 1},
         {title: 'Active Habits', cols: 1, rows: 2},
+        {title: 'Friends', cols: 1, rows: 1},
         {title: 'Charts', cols: 1, rows: 2},
         {title: 'Daily Message', cols: 1, rows: 1}
       ];
     })
   );
-  typeChart: any[] = [];
-  pointChart: any[] = [];
-  private password: string;
-  private password_check: string;
-  private old_password: string;
-  private passwordForm: any;
-  private userDataForm: any;
-  private empty: boolean;
-  private filteredHabits: any[];
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
@@ -106,10 +114,24 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     const data: Data = this.route.snapshot.data;
     if (data.typeOptions) {
       this.typeOptions = data.typeOptions;
+    }
+    this.friendsList = data.user.friends;
+    this.userService.getAll().subscribe((res2: any[]) => {
+      this.friends = res2.filter(x => data.user.friends.indexOf(x.id) !== -1);
+    });
+    this.friendsForm = new FormControl();
+    if (data.users) {
+      console.log(data.users);
+      this.users = data.users;
+      this.filteredOptions = this.friendsForm.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
     }
     if (data.habits) {
       this.habits = data.habits;
@@ -197,11 +219,16 @@ export class DashboardComponent implements OnInit {
       const randomMessage = res[Math.floor(Math.random() * res.length)];
       return this.dailyMessage = randomMessage;
     });
-    console.log(this.filteredHabits);
+  }
+
+  _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.users.filter((u) => {
+      return u.username.toString().toLowerCase().includes(filterValue) || u.email.toString().toLowerCase().includes(filterValue);
+    });
   }
 
   populateInfo(habit: any[]): any[] {
-    console.log(habit);
     return habit.map((x) => {
       const start = moment(x.start_date).startOf('day');
       const end = moment(x.end_date).startOf('day');
@@ -289,6 +316,23 @@ export class DashboardComponent implements OnInit {
     pdfMake.createPdf(documentDefinition).download();
   }
 
+  onEnterFriend(id: number) {
+    const friends = Array.from(new Set(this.friendsList.concat(id)).values());
+    this.userService.updateUser({
+      id: this.ID,
+      friends,
+    }).subscribe();
+    this.friendsForm.patchValue('');
+    // alert('User has been added to friends list.');
+  }
+
+  removeFriend(id: number) {
+    const friends = this.friendsList.filter(f => f !== id);
+    this.userService.updateUser({
+      id: this.ID,
+      friends,
+    }).subscribe();
+  }
 
   getCategorySymbol(type: number) {
     if (type === 1) {
@@ -328,6 +372,16 @@ export class DashboardComponent implements OnInit {
 
   isNumber(num: number) {
     return !isNaN(num);
+  }
+
+  passwordMatchValidator(control: AbstractControl) {
+    const password: string = control.get('password').value; // get password from our password form control
+    const confirmPassword: string = control.get('password_check').value; // get password from our confirmPassword form control
+    // compare is the password math
+    if (password !== confirmPassword) {
+      // if they don't match, set an error in our confirmPassword form control
+      control.get('password_check').setErrors({pw_check: true});
+    }
   }
 
   logActive(habit: any) {
@@ -443,17 +497,8 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
-  passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password').value; // get password from our password form control
-    const confirmPassword: string = control.get('password_check').value; // get password from our confirmPassword form control
-    // compare is the password math
-    if (password !== confirmPassword) {
-      // if they don't match, set an error in our confirmPassword form control
-      control.get('password_check').setErrors({pw_check: true});
-    }
-  }
 }
+
 
 export interface HabitDialogData {
   id: number;

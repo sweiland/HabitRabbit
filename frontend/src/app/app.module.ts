@@ -32,6 +32,7 @@ import {TypeFormComponent} from './type-form/type-form.component';
 import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCheckboxModule,
@@ -144,9 +145,9 @@ export function tokenGetter() {
     BarRatingModule,
     CommonModule,
     FlexLayoutModule,
-    MatExpansionModule,
     MatProgressBarModule,
     MatTooltipModule,
+    MatAutocompleteModule,
     MatExpansionModule,
     NgxChartsModule,
     MatTabsModule,

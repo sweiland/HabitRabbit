@@ -217,6 +217,47 @@
           </mat-card-header>
         </mat-card>
       </mat-card>
+
+      <mat-card class="dashboard-card" style="overflow: scroll" *ngIf="card.title === 'Friends'">
+        <mat-card-header class="friendsHeader">
+          <mat-card-title>
+            {{card.title}}
+          </mat-card-title>
+
+          <span class="friendspacer"></span>
+          <mat-form-field class="friendsFormField">
+            <input [formControl]="friendsForm" matInput placeholder="Add Friend" type="text" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option (click)="onEnterFriend(user.id)" *ngFor="let user of filteredOptions | async" [value]="user.username">
+                {{ user.username }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </mat-card-header>
+
+        <mat-card-content class="dashboard-card-content">
+          <table mat-table [dataSource]="friends">
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username </th>
+              <td mat-cell *matCellDef="let friend"> {{friend.username}} </td>
+            </ng-container>
+            <ng-container matColumnDef="score">
+              <th mat-header-cell *matHeaderCellDef> Score </th>
+              <td mat-cell *matCellDef="let friend"> {{friend.username}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell  *matHeaderCellDef ></th>
+              <td mat-cell *matCellDef="let row" class="friendsActions">
+                <button mat-raised-button class="friend-remove-button" (click)="removeFriend(row.id)"><i class="material-icons">delete_forever</i></button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsFriends"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsFriends;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
     </mat-grid-tile>
     <footer>©️ 2020 HabitRabbit Team 🥕🐰</footer>
   </mat-grid-list>

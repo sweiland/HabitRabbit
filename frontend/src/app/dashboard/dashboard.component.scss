@@ -250,3 +250,40 @@ footer {
   left: 0.3em;
   float: left;
 }
+
+.friends-card {
+  margin-bottom: 1rem;
+  height: inherit;
+}
+
+.friend-remove-button {
+  color: white;
+  background-color: #B2102F;
+  padding: 0 0 0 0;
+  min-width: 35px;
+  max-width: 35px;
+}
+
+.friendspacer {
+  flex: auto;
+}
+
+.friendsHeader {
+  margin: 100px 0 10px 0;
+}
+
+table.mat-table {
+  display: table;
+  width: 100%;
+  background-color: #ece6f5;
+}
+
+.friendsActions {
+  display: flex;
+  padding: 6px 0 6px 0;
+  justify-content: flex-end;
+}
+
+.friendsFormField {
+  height: 20px;
+}
