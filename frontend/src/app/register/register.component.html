@@ -20,6 +20,9 @@
               <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
                 Email is required
               </mat-error>
+              <mat-error *ngIf="registerForm.controls['email'].hasError('emailExists')">
+                This Email has already been registered.
+              </mat-error>
             </mat-form-field>
             <mat-form-field>
               <input formControlName="username" matInput placeholder="Username" required type="text">
@@ -28,6 +31,9 @@
               </mat-error>
               <mat-error *ngIf="registerForm.controls['username'].hasError('pattern')">
                 Please don't include @!
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls['username'].hasError('usernameExists')">
+                This username is already taken!
               </mat-error>
             </mat-form-field>
             <div>
@@ -80,6 +86,7 @@
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button routerLink="login" type="button">Cancel</button>
               <button mat-button type="submit">Submit</button>
             </div>
           </form>

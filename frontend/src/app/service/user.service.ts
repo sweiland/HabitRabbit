@@ -81,6 +81,10 @@ export class UserService {
     return this.http.get('/api/user/list');
   }
 
+  getUnique() {
+    return this.http.get('/api/user/unique');
+  }
+
   getAUser(id: string) {
     return this.http.get('/api/user/' + id + '/get');
   }

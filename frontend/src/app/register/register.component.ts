@@ -3,9 +3,11 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -35,8 +37,8 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     const patterns = ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$', '^((?!@).)*'];
     this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email, Validators.pattern(patterns[0])]],
-      username: ['', [Validators.required, Validators.pattern(patterns[1])]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(patterns[0])], [this.uniqueEmailValidator()]],
+      username: ['', [Validators.required, Validators.pattern(patterns[1])], [this.uniqueUsernameValidator()]],
     });
     this.registerForm2 = this.fb.group({
       first_name: ['', Validators.required],
@@ -57,6 +59,32 @@ export class RegisterComponent implements OnInit {
       level: [1],
       score: ['0']
     });
+  }
+
+  uniqueUsernameValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      return this.userService.getUnique().pipe(map((users: any[]) => {
+        const username = control.value;
+        const userExists = users.find(u => {
+            return username === u.username;
+          }
+        );
+        return userExists ? {usernameExists: true} : null;
+      }));
+    };
+  }
+
+  uniqueEmailValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      return this.userService.getUnique().pipe(map((users: any[]) => {
+        const email = control.value;
+        const userExists = users.find(u => {
+            return email === u.email;
+          }
+        );
+        return userExists ? {emailExists: true} : null;
+      }));
+    };
   }
 
   onSubmit() {

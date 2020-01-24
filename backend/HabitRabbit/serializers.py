@@ -88,6 +88,12 @@ class UserNumberSerializer(serializers.ModelSerializer):
         return obj.count()
 
 
+class UniqueUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
 class FaqSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ

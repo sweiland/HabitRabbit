@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from HabitRabbit.models import Habit, Type, Message, ProfilePicture, User, FAQ
 from HabitRabbit.serializers import HabitSerializer, TypeSerializer, MessageSerializer, \
-    ProfilePictureSerializer, UserSerializer, EmailSerializer, UserNumberSerializer, FaqSerializer
+    ProfilePictureSerializer, UserSerializer, EmailSerializer, UserNumberSerializer, FaqSerializer, UniqueUserSerializer
 
 
 # GETs for all
@@ -392,4 +392,13 @@ def get_user_from_email(request, email):
         return Response({'error': 'User does not exist.'}, status=404)
 
     serializer = UserSerializer(user)
+    return Response(serializer.data)
+
+@swagger_auto_schema(method='GET', responses={200: UniqueUserSerializer(many=True)})
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_user_for_unique_validator(request):
+    user = User.objects.all()
+
+    serializer = UniqueUserSerializer(user, many=True)
     return Response(serializer.data)
