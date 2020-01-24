@@ -209,6 +209,7 @@
             <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
             <mat-card-content>
               <div class="dailyMessage">"{{dailyMessage}}"<br>
+                <button (click)="generatePdf()">Open PDF</button>
                 <div class="signature">-Habit Rabbit Team</div>
                 <div class="helpfullink"><a href="{{currentLink}}">Click here for more information</a></div>
               </div>
