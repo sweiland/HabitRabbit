@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,6 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router, private jwtHelperService: JwtHelperService) {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
     if (token) {
-      console.log('Token expiration date: ' + this.jwtHelperService.getTokenExpirationDate(token));
       const tokenValid = !this.jwtHelperService.isTokenExpired(token);
       this.isLoggedIn.next(tokenValid);
     }
@@ -30,7 +30,11 @@ export class UserService {
       .subscribe((res: any) => {
         this.isLoggedIn.next(true);
         localStorage.setItem('access_token', res.token);
-        this.router.navigate(['dashboard']);
+        this.getUser().subscribe((x: any) => {
+          return this.http.patch('/api/user/' + x.id + '/update', {last_login: moment()}).subscribe((x2: any) => {
+            this.router.navigate(['dashboard']);
+          });
+        });
       }, () => {
         alert('wrong username or password');
       });
@@ -51,8 +55,13 @@ export class UserService {
 
   getUser() {
     const token = localStorage.getItem(this.accessTokenLocalStorageKey);
-    const username = this.jwtHelperService.decodeToken(token).username;
-    return this.http.get('api/user/' + username + '/get');
+    const userID = this.jwtHelperService.decodeToken(token).user_id;
+    return this.http.get('api/user/' + userID + '/get');
+  }
+
+  getID() {
+    const token = localStorage.getItem(this.accessTokenLocalStorageKey);
+    return this.jwtHelperService.decodeToken(token).user_id;
   }
 
   register(user: any) {
@@ -86,5 +95,41 @@ export class UserService {
       return this.http.patch('/api/user/' + user.id + '/update', user);
     }
 
+  }
+
+  logActive(ID: number, finished: boolean, penalty: boolean, percentage: number, failed: boolean) {
+    return this.getUser().subscribe((res: any) => {
+      const streak = penalty ? 0 : res.streak + 1;
+      const add: number = this.getsPoints(streak);
+      const scoreList = res.score.split(',');
+      const currentScore: number = +scoreList.reverse()[0];
+      const scoreN: number = failed ? currentScore - 50 : percentage > 50 && finished ?
+        currentScore + add + 50 : currentScore + add;
+      const score = res.score.split(',') + ',' + scoreN;
+      const level = failed ? res.level - 1 : this.getLevel(scoreN);
+      return this.http.patch('/api/user/' + ID + '/update', {
+        streak,
+        score,
+        level
+      }).subscribe();
+    });
+  }
+
+  getsPoints(streak: number): number {
+    if (streak < 14) {
+      return 2;
+    }
+    if (streak < 30) {
+      return 4;
+    }
+    if (streak < 90) {
+      return 8;
+    }
+    return 10;
+  }
+
+  getLevel(score: number) {
+    const withoutModulo = score - (score % 20);
+    return withoutModulo / 20;
   }
 }

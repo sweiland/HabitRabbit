@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder} from '@angular/forms';
+import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -24,14 +24,15 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit(): void {
     const data = this.route.snapshot.data;
+    const patterns = ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$', '^((?!@).)*'];
     this.userForm = this.fb.group({
       id: [null],
-      username: [''],
-      first_name: [''],
-      last_name: [''],
-      email: [''],
+      username: ['', [Validators.required, Validators.pattern(patterns[1])]],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      email: ['', [Validators.email, Validators.pattern(patterns[0])]],
       level: [1],
-      score: [0],
+      score: ['0'],
       is_superuser: [false],
       is_staff: [false],
       password: [null],

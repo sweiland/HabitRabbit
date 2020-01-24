@@ -4,24 +4,203 @@
 
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
+  <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
+      <mat-card *ngIf="card.title === 'User'" class="dashboard-card">
+        <mat-card class="userCard">
+          <mat-card-header>
+            <mat-card-title class="levelTitle">
+              <div class="star">⭐️</div>
+              <div class="level">Level: {{level}}</div>
+              <div class="score">Score: {{score}}x
+                <div class="scoreCount">🥕</div>
+              </div>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div class="userStatsWrapper">
+              <div [ngStyle]="{'background-color': profileColor}" class="profileContainer">
+                <img *ngIf="profileImage" [src]="profileImage" class="profilePicture">
+                <div [ngStyle]="{'background-color': profileColor, 'opacity': 0.8}" class="changePicture">
+                  <button class="buttonPicture" routerLink="../profile-picture-form"></button>
+                  Change Profile Picture
+                </div>
+              </div>
+              <div class="userStats">
+                <div class="userFirst">
+                  <div class="stat statfirst">Username:
+                    <div [ngStyle]="{'color': profileColor}" class="statValue">{{username}}</div>
+                  </div>
+                  <div class="stat statsecond">First Name:
+                    <div class="statValue">{{firstname}}</div>
+                  </div>
+                </div>
+                <div class="userSecond">
+                  <div class="stat statfirst">Last Name:
+                    <div class="statValue">{{lastname}}</div>
+                  </div>
+                  <div class="stat statsecond">E-Mail:
+                    <div class="statValue">{{email}}</div>
+                  </div>
+                </div>
+                <div class="userThird">
+                  <div class="stat statfirst">
+                    <div class="statValue test">
+                      <button (click)="openDialogUser()"
+                              class="userButton" color="primary"
+                              mat-raised-button type="submit">Edit
+                      </button>
+                    </div>
+                  </div>
+                  <div class="stat statsecond">
+                    <div class="statValue">
+                      <button (click)="openDialog()"
+                              class="userButton" color="accent"
+                              mat-raised-button type="submit">Change PW
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-card>
+      <mat-card *ngIf="card.title === 'Active Habits'" class="dashboard-card" style="overflow: scroll">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="more-button" mat-icon-button>
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
+              <button (click)="enableEdit()" mat-menu-item><span *ngIf="!habitsEditable">Enable Edit Mode</span><span
+                *ngIf="habitsEditable">Disable Edit Mode</span></button>
+              <a mat-menu-item routerLink="../habit-form" type="button">Add Habit</a>
             </mat-menu>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+          <mat-card *ngFor="let habit of habits" class="example-card">
+            <mat-card-title>{{habit.name}}
+              <div class="habitsymbol">{{getCategorySymbol(habit.type)}}</div>
+            </mat-card-title>
+            <mat-card-subtitle>You've been going for {{habit.done}} days!
+              <span *ngIf="isNumber(habit.left)">Only {{habit.left}} days left!</span>
+              <br/>
+              <code class="timeframe">{{(habit.start_date | date)}}</code>
+              <code *ngIf="habit.end_date !== null" class="timeframe">{{' ➡️ ' + (habit.end_date | date)}}</code>
+            </mat-card-subtitle>
+            <mat-card-content>
+              <div *ngIf="isNumber(habit.percentage)" class="progress">
+                <div class="row">
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="!habit.is_finished"
+                                    [matTooltip]="'(' + habit.percentage + '%)'"
+                                    [value]="habit.percentage"
+                                    color="accent"
+                                    matTooltipHideDelay="100"
+                                    matTooltipPosition="below" mode="determinate"></mat-progress-bar>
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage <= 50 && habit.is_finished"
+                                    [matTooltip]="'(' + habit.percentage + '%)'"
+                                    [value]="habit.percentage"
+                                    color="warn"
+                                    matTooltipHideDelay="100"
+                                    matTooltipPosition="below" mode="determinate"></mat-progress-bar>
+                  <mat-progress-bar #tooltip="matTooltip" *ngIf="habit.percentage > 50 && habit.is_finished"
+                                    [matTooltip]="'(' + habit.percentage + '%)'"
+                                    [value]="habit.percentage"
+                                    matTooltipHideDelay="100"
+                                    matTooltipPosition="below" mode="determinate"></mat-progress-bar>
+                  <button #tooltip="matTooltip" (click)="logActive(habit)"
+                          *ngIf="!habit.today"
+                          color="primary"
+                          mat-fab
+                          matTooltip="Log your progress here! ⬇️"
+                          matTooltipHideDelay="100"
+                          matTooltipPosition="above">
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button #tooltip="matTooltip" *ngIf="habit.today && !habit.is_finished"
+                          [disabled]="true"
+                          mat-fab
+                          matTooltip="Log your progress here! ⬇️"
+                          matTooltipHideDelay="100"
+                          matTooltipPosition="above"
+                          style="color: green;">
+                    <mat-icon>check</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </mat-card-content>
+            <mat-card-actions *ngIf="habitsEditable && !habit.is_finished">
+              <button (click)="openHabitDialog(habit)" color="primary" mat-raised-button>Edit</button>
+            </mat-card-actions>
+          </mat-card>
         </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="card.title === 'Charts'" class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <mat-card class="example-card">
+            <mat-tab-group>
+              <mat-tab label="Habits">
+                <ngx-charts-pie-chart
+                  [animations]="true"
+                  [doughnut]="isDoughnut"
+                  [gradient]="gradient"
+                  [labels]="showLabels"
+                  [legendPosition]="legendPosition"
+                  [legend]="showLegend"
+                  [results]="habitChart"
+                  [scheme]="colorScheme"
+                  [view]="">
+                </ngx-charts-pie-chart>
+              </mat-tab>
+              <mat-tab label="Points">
+                <ngx-charts-area-chart
+                  [animations]="true"
+                  [legend]="false"
+                  [results]="pointChart"
+                  [scheme]="pointScheme"
+                  [showXAxisLabel]="false"
+                  [showYAxisLabel]="showLabels"
+                  [view]=""
+                  [yAxisLabel]="'Points'"
+                  [yAxis]="true">
+                </ngx-charts-area-chart>
+              </mat-tab>
+              <mat-tab label="Types">
+                <ngx-charts-bar-vertical
+                  [animations]="true"
+                  [gradient]="gradient"
+                  [legendPosition]="legendPosition"
+                  [legend]="showLegend"
+                  [noBarWhenZero]="true"
+                  [results]="typeChart"
+                  [scheme]="colorScheme"
+                  [view]="">
+                </ngx-charts-bar-vertical>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-card>
+        </mat-card-content>
+        <mat-card *ngIf="card.title === 'Daily Message'" class="dashboard-card">
+          <mat-card class="messageCard">
+            <mat-card-header>
+              <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
+              <mat-card-content>
+                <div class="dailyMessage">"{{dailyMessage}}"<br>
+                  <div class="signature">-Habit Rabbit Team</div>
+                  <div class="helpfullink">Helpful Link: {{currentLink}}</div>
+                </div>
+              </mat-card-content>
+            </mat-card-header>
+          </mat-card>
+        </mat-card>
       </mat-card>
 
       <mat-card class="dashboard-card" style="overflow: scroll" *ngIf="card.title === 'Friends'">
@@ -65,5 +244,6 @@
       </mat-card>
 
     </mat-grid-tile>
+    <footer>©️ 2020 HabitRabbit Team 🥕🐰</footer>
   </mat-grid-list>
 </div>

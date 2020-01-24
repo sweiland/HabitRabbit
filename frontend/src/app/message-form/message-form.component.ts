@@ -38,8 +38,8 @@ export class MessageFormComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.http.get('/api/message/' + id + '/get')
-        .subscribe((response: Message) => {
-          const message = JSON.parse(response.message);
+        .subscribe((response: any) => {
+          const message = JSON.parse(response);
           this.messageForm.patchValue(response);
           this.messageForm.patchValue({message});
         });

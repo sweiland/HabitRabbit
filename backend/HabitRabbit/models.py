@@ -1,6 +1,7 @@
 #  models.py Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
 
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import validate_comma_separated_integer_list
 from django.db import models
 from django.utils import timezone
 
@@ -29,8 +30,9 @@ class User(AbstractUser):
     last_name = models.TextField()
     email = models.EmailField(unique=True)
     level = models.PositiveSmallIntegerField(default=1)
-    score = models.PositiveSmallIntegerField(default=0)
+    score = models.CharField(validators=[validate_comma_separated_integer_list], default=[0], max_length=65535)
     friends = models.ManyToManyField('self', blank=True)
+    streak = models.PositiveSmallIntegerField(default=0)
 
     profile_picture = models.ForeignKey(ProfilePicture, on_delete=models.CASCADE, null=True)
     USERNAME_FIELD = 'email'
@@ -61,8 +63,11 @@ class Habit(models.Model):
     name = models.TextField()
     member = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True, blank=True)
-    interval = models.PositiveSmallIntegerField(null=True, blank=True)
+    interval = models.PositiveSmallIntegerField(default=1)
     priority = models.PositiveSmallIntegerField(choices=PrioChoices.choices)
+    last_click = models.DateTimeField(null=True, blank=True)
+    is_finished = models.BooleanField(default=False)
+    clicked = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return '%s (since %s)' % (self.name, self.start_date)

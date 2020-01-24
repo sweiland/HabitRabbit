@@ -43,8 +43,6 @@ export class ProfilePictureFormComponent implements OnInit {
             this.picturesource = '../../assets/Resources/profile_pictures/carrot' + response.picture + '.svg';
           });
       }
-      console.log('id=' + res.id);
-      console.log('id=' + res.profile_picture);
     });
     this.colorForm = this.fb.group({
       color: [null]
@@ -65,16 +63,12 @@ export class ProfilePictureFormComponent implements OnInit {
             });
           this.colorPP = this.getColorVal(colorValue);
           this.changeColor();
-          console.log('colorchange');
         } else {
           this.http.post('/api/profilepicture/create', {color: colorValue})
             .subscribe((response: any) => {
               this.http.patch('/api/user/' + this.currentId + '/update', {profile_picture: response.id}).subscribe(() => {
               });
-              console.log(colorValue, response.id, response);
               this.router.navigate(['/profile-picture-form/' + response.id]);
-              console.log('patched' + profilepicture.color);
-              console.log(colorValue, this.colorPP);
               this.colorPP = this.getColorVal(colorValue);
               this.changeColor();
               if (this.pictureId) {
@@ -93,12 +87,10 @@ export class ProfilePictureFormComponent implements OnInit {
         if (this.pictureId !== null) {
           this.profilePictureService.getPicture(this.pictureId).subscribe((resp: any) => {
             this.currentColor = resp.color;
-            console.log(resp.color);
             this.http.patch('/api/profilepicture/' + this.pictureId + '/update', {color: this.currentColor, picture: image})
               .subscribe((boop: any) => {
                 this.picturesource = '../../assets/Resources/profile_pictures/carrot' + image + '.svg';
                 this.changePicture();
-                console.log('here');
               });
           });
         } else {
@@ -110,7 +102,6 @@ export class ProfilePictureFormComponent implements OnInit {
               this.router.navigate(['/profile-picture-form/' + response.id]);
               this.enablePicture();
               this.changePicture();
-              console.log('what');
             });
         }
       });
@@ -138,7 +129,6 @@ export class ProfilePictureFormComponent implements OnInit {
 
   changePicture() {
     this.navbar.changePicture.emit(this.picturesource);
-    console.log('changedpicture');
   }
 
   getColorVal(letter: string) {
