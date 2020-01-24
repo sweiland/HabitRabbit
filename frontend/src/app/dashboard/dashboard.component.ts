@@ -90,6 +90,7 @@ export class DashboardComponent implements OnInit {
   private old_password: string;
   private passwordForm: any;
   private userDataForm: any;
+  private empty: boolean;
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
@@ -103,6 +104,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     const data = this.route.snapshot.data;
     if (data.habits) {
+      this.empty = data.habits.length === 0;
       this.habits = data.habits;
     }
     if (data.typeOptions) {
