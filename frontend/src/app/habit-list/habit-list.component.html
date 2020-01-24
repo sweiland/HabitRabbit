@@ -11,6 +11,10 @@
         <button (click)="deleteHabit(row.id)" color="warn" mat-button>Delete</button>
       </td>
     </ng-container>
+    <ng-container matColumnDef="member_id">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>Member</th>
+      <td *matCellDef="let row" mat-cell>{{row.member_id}}</td>
+    </ng-container>
     <ng-container matColumnDef="name">
       <th *matHeaderCellDef mat-header-cell mat-sort-header>Name</th>
       <td *matCellDef="let row" mat-cell>{{row.name | titlecase}}</td>

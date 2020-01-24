@@ -28,16 +28,15 @@ export class HabitListComponent implements OnInit {
   dataSource: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'start_date', 'end_date', 'priority', 'id'];
+  displayedColumns = ['member_id', 'name', 'start_date', 'end_date', 'priority', 'id'];
 
   constructor(private habitService: HabitService) {
   }
 
   ngOnInit() {
-    this.habitService.getAll().subscribe((res) => {
-      // @ts-ignore
+    this.habitService.getAll().subscribe((res: any) => {
+
       this.paginator.length = res.length;
-      // @ts-ignore
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
