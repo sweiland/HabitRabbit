@@ -132,7 +132,7 @@ def profilepicture_form_get(request, pk):
 # POSTs
 @swagger_auto_schema(method='POST', request_body=UserSerializer, responses={200: UserSerializer()})
 @api_view(['POST'])
-@permission_required('HabitRabbit.add_user', raise_exception=True)
+@permission_required([AllowAny], raise_exception=True)
 def user_form_create(request):
     data = JSONParser().parse(request)
     serializer = UserSerializer(data=data)
@@ -392,7 +392,7 @@ def remove_faq(request, pk):
 # Purpose built views
 @swagger_auto_schema(method='GET', responses={200: EmailSerializer()})
 @api_view(['GET'])
-@permission_required('HabitRabbit.view_user', raise_exception=True)
+@permission_required([AllowAny], raise_exception=True)
 def get_email_from_username(request, username):
     try:
         user = User.objects.get(username=username)
@@ -405,7 +405,7 @@ def get_email_from_username(request, username):
 
 @swagger_auto_schema(method='GET', responses={200: UserNumberSerializer()})
 @api_view(['GET'])
-@permission_required('HabitRabbit.view_user', raise_exception=True)
+@permission_required([AllowAny], raise_exception=True)
 def get_number_of_users(request):
     user = User.objects.all()
 
@@ -428,7 +428,7 @@ def get_user_from_email(request, email):
 
 @swagger_auto_schema(method='GET', responses={200: UniqueUserSerializer(many=True)})
 @api_view(['GET'])
-@permission_required('HabitRabbit.view_user', raise_exception=True)
+@permission_required([AllowAny], raise_exception=True)
 def get_user_for_unique_validator(request):
     user = User.objects.all()
 
