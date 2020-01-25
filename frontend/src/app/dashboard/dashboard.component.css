@@ -203,10 +203,10 @@ footer {
 
 .dailyMessage {
   position: absolute;
-  left: 2.5em;
-  top: 5em;
+  left: 1.6em;
+  top: 3em;
   font-family: "Shrikhand", cursive;
-  font-size: 1.4em;
+  font-size: 1.8em;
 }
 
 .signature {
@@ -216,13 +216,19 @@ footer {
   left: 2em;
 }
 
+.helpButton {
+  position: absolute;
+  bottom: 1em;
+  left: 2em;
+}
+
 .message-header::first-letter {
   font-size: 1.5em;
 }
 
 .helpfullink {
   position: relative;
-  top: 2em;
+  top: 1em;
 }
 
 .habitsymbol {
@@ -265,14 +271,9 @@ footer {
   flex: auto;
 }
 
-.friendsHeader {
-  margin: 100px 0 10px 0;
-}
-
 table.mat-table {
   display: table;
   width: 100%;
-  background-color: #ece6f5;
 }
 
 .friendsActions {
@@ -283,6 +284,11 @@ table.mat-table {
 
 .friendsFormField {
   height: 20px;
+  margin: -15px 5px 20px 0;
+}
+
+.exportPDF {
+  float: right;
 }
 
 /*# sourceMappingURL=dashboard.component.css.map */

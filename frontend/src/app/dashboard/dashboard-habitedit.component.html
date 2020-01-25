@@ -18,13 +18,10 @@
       <mat-hint align="end">End Date for the journey to this habit</mat-hint>
     </mat-form-field>
     <mat-form-field>
-      <input [(ngModel)]="data.interval" matInput name="interval" placeholder="Interval" type="number">
-    </mat-form-field>
-    <mat-form-field>
       <mat-select [(ngModel)]="data.type" name="type" placeholder="Type">
         <mat-option disabled>Type</mat-option>
         <mat-option *ngFor="let typeOption of data.typeOptions"
-                    [value]="typeOption.id">{{typeOption.name}}</mat-option>
+                    [value]="typeOption">{{typeOption.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <bar-rating [(ngModel)]="data.priority" [max]="3" [theme]="'square'" matInput name="priority"></bar-rating>
