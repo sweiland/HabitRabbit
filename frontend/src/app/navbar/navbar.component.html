@@ -7,48 +7,49 @@
     <mat-toolbar color="primary">
       <button mat-button style="padding: 0.1% 0.1% 0.3% 0.1%; min-width: 35px; line-height: 30px"><i
         class="material-icons pointer" routerLink="dashboard">home</i></button>
-      <span routerLink="dashboard" class="title">HabitRabbit</span>
+      <span class="title" routerLink="dashboard">HabitRabbit</span>
       <span class="menuspacer"></span>
-      <mat-divider vertical style="height:50%"></mat-divider>
-      <button mat-button [matMenuTriggerFor]="habitMenu"><i class="material-icons">playlist_add_check</i> Habit</button>
-      <mat-menu #habitMenu="matMenu">
-        <button mat-menu-item routerLink="habit-list">Habit List</button>
-        <button mat-menu-item routerLink="habit-form">Create Habit</button>
-      </mat-menu>
-      <mat-divider vertical style="height:50%"></mat-divider>
-
-      <button *ngIf="isSuperUser" [matMenuTriggerFor]="userMenu" mat-button><i class="material-icons">person</i> User
+      <mat-divider style="height:50%" vertical></mat-divider>
+      <ng-container *ngIf="isSuperUser">
+        <button [matMenuTriggerFor]="habitMenu" mat-button><i class="material-icons">playlist_add_check</i> Habit
+        </button>
+        <mat-menu #habitMenu="matMenu">
+          <button mat-menu-item routerLink="habit-list">Habit List</button>
+          <button mat-menu-item routerLink="habit-form">Create Habit</button>
+        </mat-menu>
+        <mat-divider style="height:50%" vertical></mat-divider>
+        <button [matMenuTriggerFor]="userMenu" mat-button><i class="material-icons">person</i> User
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="user-list">User List</button>
+          <button mat-menu-item routerLink="user-form">Create User</button>
+        </mat-menu>
+        <mat-divider style="height:50%" vertical></mat-divider>
+        <button [matMenuTriggerFor]="messageMenu" mat-button><i class="material-icons">comment</i>
+          Message
+        </button>
+        <mat-menu #messageMenu="matMenu">
+          <button mat-menu-item routerLink="message-list">Message List</button>
+          <button mat-menu-item routerLink="message-form">Create Message</button>
+        </mat-menu>
+        <mat-divider style="height:50%" vertical></mat-divider>
+        <button [matMenuTriggerFor]="typeMenu" mat-button><i class="material-icons">subject</i> Type
+        </button>
+        <mat-menu #typeMenu="matMenu">
+          <button mat-menu-item routerLink="type-list">Type List</button>
+          <button mat-menu-item routerLink="type-form">Create Type</button>
+        </mat-menu>
+        <mat-divider style="height:50%" vertical></mat-divider>
+      </ng-container>
+      <ng-container *ngIf="!isSuperUser">
+        <button mat-button routerLink="habit-form"><i class="material-icons">playlist_add_check</i> Habit</button>
+        <mat-divider style="height:50%" vertical></mat-divider>
+      </ng-container>
+      <button mat-button routerLink="profile-picture-form"><i class="material-icons">camera_alt</i> Profile Picture
       </button>
-      <mat-menu #userMenu="matMenu">
-        <button mat-menu-item routerLink="user-list">User List</button>
-        <button mat-menu-item routerLink="user-form">Create User</button>
-      </mat-menu>
-      <mat-divider vertical style="height:50%"></mat-divider>
-      <button *ngIf="isSuperUser" [matMenuTriggerFor]="messageMenu" mat-button><i class="material-icons">comment</i>
-        Message
-      </button>
-      <mat-menu #messageMenu="matMenu">
-        <button mat-menu-item routerLink="message-list">Message List</button>
-        <button mat-menu-item routerLink="message-form">Create Message</button>
-      </mat-menu>
-      <mat-divider vertical style="height:50%"></mat-divider>
-      <button *ngIf="isSuperUser" [matMenuTriggerFor]="typeMenu" mat-button><i class="material-icons">subject</i> Type
-      </button>
-      <mat-menu #typeMenu="matMenu">
-        <button mat-menu-item routerLink="type-list">Type List</button>
-        <button mat-menu-item routerLink="type-form">Create Type</button>
-      </mat-menu>
-      <mat-divider vertical style="height:50%"></mat-divider>
-      <button mat-button [matMenuTriggerFor]="profilePictureMenu"><i class="material-icons">camera_alt</i>
-        ProfilePicture
-      </button>
-      <mat-menu #profilePictureMenu="matMenu">
-        <button mat-menu-item routerLink="profile-picture-list">ProfilePicture List</button>
-        <button mat-menu-item routerLink="profile-picture-form">Create ProfilePicture</button>
-      </mat-menu>
-      <mat-divider vertical style="height:50%"></mat-divider>
+      <mat-divider style="height:50%" vertical></mat-divider>
       <button mat-button routerLink="faq"><i class="material-icons">help</i> FAQ</button>
-      <mat-divider vertical style="height:50%"></mat-divider>
+      <mat-divider style="height:50%" vertical></mat-divider>
       <span class="menuspacer"></span>
       <div class="navLevel">
         <span class="levelText">{{level}}</span>

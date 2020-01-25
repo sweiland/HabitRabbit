@@ -18,23 +18,23 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    this.loggedIn = this.userService.isLoggedIn.pipe(
+    return this.loggedIn = this.userService.isLoggedIn.pipe(
       map((isLoggedIn) => {
+        this.loggedIn = isLoggedIn;
+        if (!this.loggedIn) {
+          this.router.navigate(['login']);
+        } else {
+          this.userService.getUser().subscribe((res: any) => {
+            if (!res.is_superuser) {
+              this.router.navigate(['dashboard']);
+              this.loggedIn = false;
+            } else {
+              this.loggedIn = true;
+            }
+          });
+        }
         return isLoggedIn;
       })
     );
-    if (this.loggedIn === false) {
-      this.router.navigate(['login']);
-    } else {
-      this.userService.getUser().subscribe((res: any) => {
-        if (!res.is_superuser) {
-          this.router.navigate(['dashboard']);
-          this.access = false;
-        } else {
-          this.access = true;
-        }
-      });
-      return this.access;
-    }
   }
 }

@@ -10,7 +10,7 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {HabitService} from '../service/habit.service';
 import * as moment from 'moment';
 import {UserService} from '../service/user.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Data, Router} from '@angular/router';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 import {ProfilePictureService} from '../service/profile-picture.service';
@@ -51,13 +51,29 @@ export class DashboardComponent implements OnInit {
   profileImage;
   friends: any[];
   displayedColumnsFriends = ['username', 'score', 'actions'];
-  users;
-  public userForm: any;
+  users: any[] = [];
   dailyMessage;
   currentLink;
+  filteredOptions: Observable<any[]>;
+  typeChart: any[] = [];
+  pointChart: any[] = [];
+  password: string;
+  password_check: string;
+  old_password: string;
+  passwordForm: any;
+  userDataForm: any;
+  friendsForm: FormControl;
+  friendsList: number[];
+  empty: boolean;
+  filteredHabits: any[];
+
 
   colorScheme = {
-    domain: ['#ffea00', '#b388ff', '#ff1744', '#ff9100', '#00e676', '#00e5ff', '#d4e157', '#2979ff', '#f9d95f', '#613db1', '#e15241', '#dcdcdc']
+    domain: [
+      '#ffea00', '#b388ff', '#ff1744', '#ff9100',
+      '#00e676', '#00e5ff', '#d4e157', '#2979ff',
+      '#f9d95f', '#613db1', '#e15241', '#dcdcdc'
+    ]
   };
   pointScheme = {
     domain: ['#ff9100']
@@ -85,16 +101,6 @@ export class DashboardComponent implements OnInit {
       ];
     })
   );
-  filteredOptions: Observable<any[]>;
-  typeChart: any[] = [];
-  pointChart: any[] = [];
-  private password: string;
-  private password_check: string;
-  private old_password: string;
-  private passwordForm: any;
-  private userDataForm: any;
-  private friendsForm: FormControl;
-  private friendsList: number[];
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
@@ -105,11 +111,8 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-    const data = this.route.snapshot.data;
-    if (data.habits) {
-      this.habits = data.habits;
-    }
+  ngOnInit(): void {
+    const data: Data = this.route.snapshot.data;
     if (data.typeOptions) {
       this.typeOptions = data.typeOptions;
     }
@@ -117,16 +120,53 @@ export class DashboardComponent implements OnInit {
     this.userService.getAll().subscribe((res2: any[]) => {
       this.friends = res2.filter(x => data.user.friends.indexOf(x.id) !== -1);
     });
-
     this.friendsForm = new FormControl();
     if (data.users) {
-      this.users = data.users.filter(f => f.id !== this.ID);
+      this.users = data.users;
+      this.filteredOptions = this.friendsForm.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
     }
-    this.filteredOptions = this.friendsForm.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    if (data.habits) {
+      this.habits = data.habits;
+      this.filteredHabits = this.habits.filter(e => {
+        return e.member === this.ID ? e : null;
+      });
+      this.empty = this.filteredHabits.length === 0;
+      this.populateInfo(this.filteredHabits);
+      this.habitChart = [
+        {name: 'Active', value: this.filteredHabits.filter(h => !h.is_finished).length},
+        {name: 'Finished', value: this.filteredHabits.filter(h => h.is_finished && !h.failed).length},
+        {name: 'Failed', value: this.filteredHabits.filter(h => h.failed).length},
+        {name: 'Late', value: this.filteredHabits.filter(h => h.late).length},
+      ];
+      const assignedTypes = new Map();
+      this.filteredHabits.forEach((t) => {
+        if (assignedTypes.has(t.type)) {
+          let old = assignedTypes.get(t.type) + 1;
+          assignedTypes.set(t.type, old++);
+        } else {
+          assignedTypes.set(t.type, 1);
+        }
+      });
+      assignedTypes.forEach((value, key) => {
+        const name = this.typeOptions.filter(o => o.id === key)[0].name;
+        this.typeChart.push({name, value});
+      });
+      const series = [];
+      data.user.score.split(',').forEach((s, i) => {
+        series.push({
+          name: i,
+          value: s
+        });
+      });
+      this.pointChart.push({
+        name: this.username,
+        series
+      });
+    }
     if (data.user) {
       this.userId = data.user.id;
       this.level = data.user.level;
@@ -153,37 +193,62 @@ export class DashboardComponent implements OnInit {
           }
         });
       }
-      this.habitChart = [
-        {name: 'Active', value: this.habits.filter(h => !h.is_finished).length},
-        {name: 'Finished', value: this.habits.filter(h => h.is_finished && !h.failed).length},
-        {name: 'Failed', value: this.habits.filter(h => h.failed).length},
-        {name: 'Late', value: this.habits.filter(h => h.late).length},
-      ];
-      const assignedTypes = new Map();
-      this.habits.forEach((t) => {
-        if (assignedTypes.has(t.type)) {
-          let old = assignedTypes.get(t.type) + 1;
-          assignedTypes.set(t.type, old++);
+    }
+    this.messageService.getAll().subscribe((mes: any[]): Promise<any[]> => {
+      const types = this.filteredHabits.map((h) => {
+        return h.type_id;
+      });
+      const tempNum = types[Math.floor(Math.random() * types.length)];
+      this.typeService.getMessage(tempNum).subscribe((resp: any) => {
+        if (resp.helpful_link === null) {
+          this.currentLink = 'There is no link available';
         } else {
-          assignedTypes.set(t.type, 1);
+          this.currentLink = resp.helpful_link;
         }
       });
-      assignedTypes.forEach((value, key) => {
-        const name = this.typeOptions.filter(o => o.id === key)[0].name;
-        this.typeChart.push({name, value});
+      const filtered = mes.filter((f) => {
+        return types.includes(f.type);
       });
-      const series = [];
-      data.user.score.split(',').forEach((s, i) => {
-        series.push({
-          name: i,
-          value: s
-        });
+      const res = filtered.map((i) => {
+        return i.message;
       });
-      this.pointChart.push({
-        name: this.username,
-        series
-      });
-    }
+      const randomMessage = res[Math.floor(Math.random() * res.length)];
+      return this.dailyMessage = randomMessage;
+    });
+  }
+
+  _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.users.filter((u) => {
+      return u.username.toString().toLowerCase().includes(filterValue) || u.email.toString().toLowerCase().includes(filterValue);
+    });
+  }
+
+  populateInfo(habit: any[]): any[] {
+    return habit.map((x) => {
+      const start = moment(x.start_date).startOf('day');
+      const end = moment(x.end_date).startOf('day');
+      const today = moment().startOf('day');
+      const duration = end.diff(start, 'day');
+      const percentage = (x.clicked / duration * 100);
+      x.late = moment().endOf('day').isAfter(moment(x.last_click).add(x.interval + 3, 'day'));
+      x.clicked = x.late ? x.clicked - 1 : x.clicked;
+      x.percentage = percentage < 0 || percentage > 100 || isNaN(percentage) ? '0' : percentage.toFixed(0);
+      x.duration = duration < 0 ? duration * -1 : duration;
+      if (moment().startOf('day').isSameOrAfter(end.startOf('day'))) {
+        x.is_finished = true;
+        x.today = true;
+        x.failed = x.is_finished && x.percentage <= 50;
+        x.left = 0;
+        return x;
+      } else {
+        x.today = today.isSameOrAfter(start) ? moment(x.last_click).add(x.interval - 1, 'day').startOf('day')
+          .isSameOrAfter(today) : true;
+        const left = end.diff(today, 'day');
+        x.left = left < 0 ? left * -1 : left;
+        return x;
+      }
+    });
   }
 
   onEnterFriend(user: any) {
@@ -257,7 +322,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logActive(habit: any) {
-    const is_finished = moment().startOf('day').isSameOrAfter(moment(habit.end_date).endOf('day'));
+    const is_finished = moment().startOf('day').isSameOrAfter(moment(habit.end_date).startOf('day'));
     this.userService.logActive(this.ID, is_finished, habit.late, habit.percentage, habit.failed);
     this.habitService.updateHabit({
       clicked: habit.clicked + 1,
@@ -265,7 +330,7 @@ export class DashboardComponent implements OnInit {
       last_click: moment().endOf('day'),
       is_finished,
     }).subscribe(() => {
-      this.habits.filter((x) => {
+      this.filteredHabits.filter((x) => {
         return x.id === habit.id;
       }).map((x) => {
         x.today = true;
@@ -274,8 +339,8 @@ export class DashboardComponent implements OnInit {
         x.failed = x.is_finished && x.percentage <= 50;
         return x;
       });
-      this.ngOnInit();
     });
+    this.ngOnInit();
   }
 
   enableEdit() {
@@ -369,14 +434,6 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.users.filter((u) => {
-      return u.username.toString().toLowerCase().includes(filterValue) || u.email.toString().toLowerCase().includes(filterValue);
-    });
-  }
-
 }
 
 

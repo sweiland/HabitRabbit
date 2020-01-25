@@ -1,3 +1,9 @@
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 9 | @import '~ngx-bar-rating-odilo/themes/br-square-theme';
+ *   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   styles.scss 9:9  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -7,6 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 9 \2502  @import '~ngx-bar-rating/themes/br-square-theme';\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   styles.scss 9:9  root stylesheet";
-
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 9 \2502  @import '~ngx-bar-rating-odilo/themes/br-square-theme';\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   styles.scss 9:9  root stylesheet";
 }

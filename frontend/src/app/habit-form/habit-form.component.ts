@@ -49,11 +49,15 @@ export class HabitFormComponent implements OnInit {
     const endDate = moment(control.get('end_date').value);
     const date_check_se: boolean = startDate.startOf('day').isSameOrAfter(endDate.endOf('day'));
     const date_check_le: boolean = startDate.add(1, 'year').startOf('day').isBefore(endDate.startOf('day'));
+    const date_check_du: boolean = startDate.startOf('day').diff(endDate.startOf('day'), 'day') === 366;
     if (date_check_se) {
       control.get('end_date').setErrors({date_check_se});
     }
     if (date_check_le) {
       control.get('end_date').setErrors({date_check_le});
+    }
+    if (date_check_du) {
+      control.get('end_date').setErrors({date_check_du});
     }
   }
 

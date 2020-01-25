@@ -87,9 +87,8 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input formControlName="score" matInput placeholder="Score" required type="number">
+            <input formControlName="score" matInput placeholder="Score" required type="text">
             <mat-hint align="end">Score of the User</mat-hint>
-            <mat-error *ngIf="userForm.controls.score.hasError('max')">Max score is 32767</mat-error>
           </mat-form-field>
         </div>
       </div>
