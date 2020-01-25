@@ -11,6 +11,7 @@ import {MessageService} from '../service/message.service';
 export interface MessageListItem {
   id: number;
   message: string;
+  title: string;
   type: number;
 }
 
@@ -26,7 +27,7 @@ export class MessageListComponent implements OnInit {
   dataSource: any;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['type', 'title', 'id'];
+  displayedColumns = ['type', 'message', 'id'];
 
   constructor(private messageService: MessageService) {
   }

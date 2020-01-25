@@ -20,6 +20,7 @@ export class HabitFormComponent implements OnInit {
   habitForm;
   memberOptions;
   typeOptions;
+  isSuperuser;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private habitService: HabitService, private router: Router,
               private snackbar: MatSnackBar, private userService: UserService) {
@@ -27,6 +28,9 @@ export class HabitFormComponent implements OnInit {
 
   ngOnInit(): void {
     const userID = this.userService.getID();
+    this.userService.getUser().subscribe((response: any) => {
+      this.isSuperuser = response.is_superuser;
+    });
     const data = this.route.snapshot.data;
     this.memberOptions = data.memberOptions;
     this.typeOptions = data.typeOptions;

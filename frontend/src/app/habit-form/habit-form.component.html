@@ -48,7 +48,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width">
+          <mat-form-field *ngIf="isSuperuser" class="full-width">
             <mat-select formControlName="member" placeholder="Member">
               <mat-option disabled>Member</mat-option>
               <mat-option *ngFor="let memberOption of memberOptions"
@@ -77,7 +77,6 @@
         Submit
       </button>
       <button *ngIf="habitForm.value.id" color="primary" mat-raised-button type="submit">Update</button>
-
     </mat-card-actions>
   </mat-card>
 </form>

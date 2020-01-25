@@ -3,7 +3,10 @@
   -->
 
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
+  <h1 class="mat-h1">Dashboard
+    <button (click)="generatePdf()" class="exportPDF" color="primary" mat-raised-button type="submit">Export Profile
+    </button>
+  </h1>
   <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card *ngIf="card.title === 'User'" class="dashboard-card">
@@ -136,6 +139,7 @@
             </mat-card-content>
             <mat-card-actions *ngIf="habitsEditable && !habit.is_finished">
               <button (click)="openHabitDialog(habit)" color="primary" mat-raised-button>Edit</button>
+              <button (click)="deleteHabit(habit.id)" color="warn" mat-raised-button>Delete</button>
             </mat-card-actions>
           </mat-card>
         </mat-card-content>
@@ -210,13 +214,13 @@
             <mat-card-content>
               <div class="dailyMessage">"{{dailyMessage}}"<br>
                 <div class="signature">-Habit Rabbit Team</div>
-                <div class="helpfullink"><a href="{{currentLink}}">Click here for more information</a></div>
               </div>
+              <button (click)=goHelpfulLink() class="helpButton" color="primary" mat-raised-button>Find out more
+              </button>
             </mat-card-content>
           </mat-card-header>
         </mat-card>
       </mat-card>
-
       <mat-card class="dashboard-card" style="overflow: scroll" *ngIf="card.title === 'Friends'">
         <mat-card-header class="friendsHeader">
           <mat-card-title>

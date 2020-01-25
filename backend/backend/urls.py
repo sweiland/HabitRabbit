@@ -72,6 +72,7 @@ urlpatterns = [
     path('faq/<int:pk>/delete', views.remove_faq),
     path('email/<str:username>/get', views.get_email_from_username),
     path('users/number', views.get_number_of_users),
+    path('user/unique', views.get_user_for_unique_validator),
 
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

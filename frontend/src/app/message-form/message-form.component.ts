@@ -3,11 +3,9 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, ValidatorFn} from '@angular/forms';
-import * as moment from 'moment';
+import {FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../service/message.service';
-import {Message} from '../message';
 import {HttpClient} from '@angular/common/http';
 import {TypeService} from '../service/type.service';
 
@@ -31,9 +29,9 @@ export class MessageFormComponent implements OnInit {
     this.typeOptions = data.typeOptions;
     this.messageForm = this.fb.group({
       id: [null],
-      title: [''],
-      message: [''],
-      type: [[]],
+      title: ['', Validators.required],
+      message: ['', Validators.required],
+      type: [[], Validators.required],
     });
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
