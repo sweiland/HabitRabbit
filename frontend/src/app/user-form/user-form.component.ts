@@ -62,7 +62,6 @@ export class UserFormComponent implements OnInit {
       this.userForm.patchValue({password: ''});
       this.userForm.controls.password.disable();
       this.userForm.controls.password_check.disable();
-      console.log(this.userForm.errors);
     }
   }
 
