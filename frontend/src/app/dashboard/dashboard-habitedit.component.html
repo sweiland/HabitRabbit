@@ -1,7 +1,6 @@
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~ dashboard-habitedit.component.html Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
-  ~                                                                                                                   ~
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ dashboard-habitedit.component.html Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 <form>
   <div mat-dialog-content>
@@ -25,7 +24,8 @@
       <mat-hint align="end">Start Date for the journey to this habit</mat-hint>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input [(ngModel)]="data.end_date" [matDatepicker]="datepicker2" [max]="getMax()" [min]="moment().add(1, 'day').startOf('day')"
+      <input [(ngModel)]="data.end_date" [matDatepicker]="datepicker2" [max]="getMax()"
+             [min]="moment().add(1, 'day').startOf('day')"
              matInput
              name="end_date" placeholder="End Date" required>
       <mat-datepicker-toggle [for]="datepicker2" matSuffix></mat-datepicker-toggle>

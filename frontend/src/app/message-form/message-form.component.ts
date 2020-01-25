@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * message-form.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * message-form.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
@@ -9,6 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MessageService} from '../service/message.service';
 import {HttpClient} from '@angular/common/http';
 import {TypeService} from '../service/type.service';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-message-form',
@@ -19,12 +19,14 @@ export class MessageFormComponent implements OnInit {
   messageForm;
   memberOptions;
   typeOptions;
+  isSuperUser: boolean;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private messageService: MessageService,
-              private router: Router, private http: HttpClient, private typeService: TypeService) {
+              private router: Router, private http: HttpClient, private typeService: TypeService, private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.userService.getUser().subscribe((x: any) => this.isSuperUser = x.is_superuser);
     const data = this.route.snapshot.data;
     this.memberOptions = data.memberOptions;
     this.typeOptions = data.typeOptions;

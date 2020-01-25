@@ -54,6 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
     is_superuser = serializers.BooleanField
     level = serializers.IntegerField
     score = serializers.IntegerField
+    groups = serializers.ListField
 
     def create(self, validated_data):
         user = User.objects.create_user(username=validated_data['username'], email=validated_data['email'],
@@ -63,6 +64,7 @@ class UserSerializer(serializers.ModelSerializer):
                                         is_superuser=validated_data['is_superuser'],
                                         level=validated_data['level'],
                                         score=validated_data['score'])
+        user.groups.set(validated_data['groups'])
         return user
 
     class Meta:
@@ -91,7 +93,7 @@ class UserNumberSerializer(serializers.ModelSerializer):
 class UniqueUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'id']
 
 
 class FaqSerializer(serializers.ModelSerializer):

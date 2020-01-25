@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * dashboard.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * dashboard.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 
 import {Component, Inject, OnInit} from '@angular/core';
@@ -275,7 +274,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goHelpfulLink() {
-    window.location.href = this.currentLink;
+    window.open(this.currentLink, '_blank');
   }
 
   generatePdf() {

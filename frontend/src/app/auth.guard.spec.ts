@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * auth.guard.spec.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).   *
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * auth.guard.spec.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import { TestBed, async, inject } from '@angular/core/testing';
 

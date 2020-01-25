@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * navbar.service.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).    *
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * navbar.service.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {EventEmitter, Injectable} from '@angular/core';
 

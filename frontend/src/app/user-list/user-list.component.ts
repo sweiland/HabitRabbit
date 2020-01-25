@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * user-list.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * user-list.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
@@ -32,6 +31,7 @@ export class UserListComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<UserListItem>;
   dataSource: any;
+  isSuperUser: boolean;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['username', 'first_name', 'last_name', 'email', 'level', 'score', 'date_joined', 'is_superuser', 'id'];
@@ -42,6 +42,7 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getUser().subscribe((x: any) => this.isSuperUser = x.is_superuser);
     this.userService.getUser().subscribe((response: any) => {
       this.userId = response.id;
     });

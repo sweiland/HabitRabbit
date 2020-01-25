@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * httperror.interceptor.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * httperror.interceptor.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -24,7 +23,7 @@ export class HttperrorInterceptor implements HttpInterceptor {
             // client-side error
             errorMessage = `Error: ${error.error.message}`;
           } else if (error.status === 409) {
-            errorMessage = `Your old password is not correct.`;
+            errorMessage = 'Your old password is not correct.';
           } else {
             // server-side error
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
