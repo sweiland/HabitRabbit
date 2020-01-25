@@ -1,4 +1,4 @@
-#  views.py Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+#  views.py Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import JSONParser

@@ -1,4 +1,4 @@
-#  models.py Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+#  models.py Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
 
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_comma_separated_integer_list
