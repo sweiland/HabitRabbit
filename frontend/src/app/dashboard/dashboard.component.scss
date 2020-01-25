@@ -274,14 +274,10 @@ footer {
   flex: auto;
 }
 
-.friendsHeader {
-  margin: 100px 0 10px 0;
-}
 
 table.mat-table {
   display: table;
   width: 100%;
-  background-color: #ece6f5;
 }
 
 .friendsActions {
@@ -292,6 +288,7 @@ table.mat-table {
 
 .friendsFormField {
   height: 20px;
+  margin: -15px 5px 20px 0;
 }
 
 .exportPDF {

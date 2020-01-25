@@ -127,6 +127,8 @@ export class DashboardComponent implements OnInit {
     this.friendsList = data.user.friends;
     this.userService.getAll().subscribe((res2: any[]) => {
       this.friends = res2.filter(x => data.user.friends.indexOf(x.id) !== -1);
+      this.friends.forEach(f => f.score = f.score.split(',').reverse()[0]);
+      this.friendsList = this.friends.map(f => f.id);
     });
     this.friendsForm = new FormControl();
     if (data.users) {
@@ -238,6 +240,7 @@ export class DashboardComponent implements OnInit {
 
   _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
+    this.users = this.users.filter(f => f.id !== this.ID);
     return this.users.filter((u) => {
       return u.username.toString().toLowerCase().includes(filterValue) || u.email.toString().toLowerCase().includes(filterValue);
     });
@@ -346,21 +349,31 @@ export class DashboardComponent implements OnInit {
     pdfMake.createPdf(documentDefinition).download();
   }
 
-  onEnterFriend(id: number) {
-    const friends = Array.from(new Set(this.friendsList.concat(id)).values());
+  onEnterFriend(user: any) {
+    const friendsplus = this.friends.filter(f => f.id !== user.id).concat(user).filter(f => f.id !== this.ID);
+    const friends = this.friendsList.concat(user.id).filter(f => f !== this.ID);
     this.userService.updateUser({
       id: this.ID,
       friends,
     }).subscribe();
     this.friendsForm.patchValue('');
+    this.friendsList = friends;
+    this.friends = friendsplus;
+    this.friends.forEach(f => f.score = f.score.split(',').reverse()[0]);
+    this.friends.reverse();
   }
 
   removeFriend(id: number) {
+    this.users = this.users.concat(this.friends.filter(f => f === id));
+    this.friends = this.friends.filter((f) => {
+      return f.id !== id;
+    });
     const friends = this.friendsList.filter(f => f !== id);
     this.userService.updateUser({
       id: this.ID,
       friends,
     }).subscribe();
+    this.friendsList = friends;
   }
 
   getCategorySymbol(type: number) {
