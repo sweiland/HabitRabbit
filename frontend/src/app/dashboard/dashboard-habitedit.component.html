@@ -4,11 +4,11 @@
 
 <form>
   <div mat-dialog-content>
-    <mat-form-field class="full-width">
+    <mat-form-field style="display: block">
       <input [(ngModel)]="data.name" matInput name="name" placeholder="Name" required type="text">
       <mat-hint align="end">Name of the Habit</mat-hint>
     </mat-form-field>
-    <mat-form-field class="full-width">
+    <mat-form-field style="display: block">
       <mat-select (valueChange)="getEnd($event)" [(ngModel)]="data.type" name="type" placeholder="Type">
         <mat-option disabled>Type</mat-option>
         <mat-option *ngFor="let typeOption of data.typeOptions"
@@ -16,14 +16,14 @@
       </mat-select>
       <mat-hint align="end">Add Type here</mat-hint>
     </mat-form-field>
-    <mat-form-field class="full-width">
+    <mat-form-field style="display: block">
       <input [(ngModel)]="data.start_date" [matDatepicker]="datepicker" [min]="moment()" matInput name="start_date"
              placeholder="Start Date" required>
       <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #datepicker></mat-datepicker>
       <mat-hint align="end">Start Date for the journey to this habit</mat-hint>
     </mat-form-field>
-    <mat-form-field class="full-width">
+    <mat-form-field style="display: block">
       <input [(ngModel)]="data.end_date" [matDatepicker]="datepicker2" [max]="getMax()"
              [min]="moment().add(1, 'day').startOf('day')"
              matInput
