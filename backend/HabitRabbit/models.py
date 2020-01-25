@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_comma_separated_integer_list
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
 
 
 class ProfilePicture(models.Model):
@@ -17,8 +18,8 @@ class ProfilePicture(models.Model):
         BLUE = 'b', '#3876cf'
         BROWN = 'w', '#c49052'
 
-    color = models.TextField(choices=ColorChoices.choices, null=True)
-    picture = models.PositiveSmallIntegerField(null=True)
+    color = models.TextField(choices=ColorChoices.choices, null=True, blank=True)
+    picture = models.PositiveSmallIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.color
@@ -31,15 +32,19 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     level = models.PositiveSmallIntegerField(default=1)
     score = models.CharField(validators=[validate_comma_separated_integer_list], default=[0], max_length=65535)
-    friends = models.ManyToManyField('self', blank=True)
+    friends = models.ManyToManyField('self', blank=True, null=True)
     streak = models.PositiveSmallIntegerField(default=0)
 
-    profile_picture = models.ForeignKey(ProfilePicture, on_delete=models.CASCADE, null=True)
+    profile_picture = models.ForeignKey(ProfilePicture, on_delete=models.CASCADE, null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
     def __str__(self):
         return self.username
+
+
+class UserAdmin(admin.ModelAdmin):
+    pass
 
 
 class Type(models.Model):

@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Component({
@@ -26,12 +26,10 @@ export class RegisterComponent implements OnInit {
   }
 
   passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password').value; // get password from our password form control
-    const confirmPassword: string = control.get('password_check').value; // get password from our confirmPassword form control
-    // compare is the password math
+    const confirmPassword: string = control.get('password_check').value;
+    const password: string = control.get('password').value;
     if (password !== confirmPassword) {
-      // if they don't match, set an error in our confirmPassword form control
-      control.get('password_check').setErrors({pw_check: true});
+      control.get('password_check').setErrors({pwCheck: true});
     }
   }
 
@@ -47,8 +45,8 @@ export class RegisterComponent implements OnInit {
     });
     this.registerForm3 = this.fb.group({
       password: ['', [Validators.required, Validators.minLength(8)]],
-      password_check: ['', Validators.required, Validators.minLength(8)],
-    }, {validator: this.passwordMatchValidator});
+      password_check: ['', [Validators.required, Validators.minLength(8)]],
+    }, {validator: [this.passwordMatchValidator]});
     this.registerFormFinal = this.fb.group({
       email: [''],
       username: [''],
