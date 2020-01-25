@@ -1,13 +1,14 @@
-/**********************************************************************************************************************
- * type-form.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * type-form.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TypeService} from '../service/type.service';
 import {MatSnackBar} from '@angular/material';
+import {FAQService} from '../service/faq.service';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-type-form',
@@ -17,12 +18,14 @@ import {MatSnackBar} from '@angular/material';
 
 export class TypeFormComponent implements OnInit {
   typeForm;
+  isSuperUser: boolean;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private typeService: TypeService,
-              private router: Router, private snackbar: MatSnackBar) {
+              private router: Router, private snackbar: MatSnackBar, private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.userService.getUser().subscribe((x: any) => this.isSuperUser = x.is_superuser);
     const data = this.route.snapshot.data;
     const reg = '(https?://)([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.typeForm = this.fb.group({

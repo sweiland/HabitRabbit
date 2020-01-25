@@ -1,10 +1,10 @@
 #  models.py Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
 
+from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_comma_separated_integer_list
 from django.db import models
 from django.utils import timezone
-from django.contrib import admin
 
 
 class ProfilePicture(models.Model):

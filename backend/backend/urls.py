@@ -26,15 +26,15 @@ from rest_framework_jwt.views import obtain_jwt_token
 from HabitRabbit import views
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="HabitRabbit API",
-      default_version='v1',
-      description="The API for HabitRabbit",
-      contact=openapi.Contact(email="hello@sweiland.at"),
-      license=openapi.License(name="AGPL License"),
-   ),
-   public=True,
-   permission_classes=(permissions.DjangoModelPermissions,)
+    openapi.Info(
+        title="HabitRabbit API",
+        default_version='v1',
+        description="The API for HabitRabbit",
+        contact=openapi.Contact(email="hello@sweiland.at"),
+        license=openapi.License(name="AGPL License"),
+    ),
+    public=True,
+    permission_classes=(permissions.DjangoModelPermissions,)
 )
 
 urlpatterns = [
@@ -76,5 +76,5 @@ urlpatterns = [
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    url(r'^api-token-auth.json/', obtain_jwt_token),
+    url(r'^api-token-auth/', obtain_jwt_token),
 ]

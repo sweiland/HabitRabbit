@@ -10,7 +10,6 @@ import re
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -30,7 +29,9 @@ class Migration(migrations.Migration):
             name='ProfilePicture',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('color', models.TextField(blank=True, choices=[('r', '#d4002d'), ('g', '#76b82a'), ('t', '#00afcb'), ('y', '#f8ff2e'), ('o', '#ec6608'), ('v', '#673ab7'), ('b', '#3876cf'), ('w', '#c49052')], null=True)),
+                ('color', models.TextField(blank=True, choices=[('r', '#d4002d'), ('g', '#76b82a'), ('t', '#00afcb'),
+                                                                ('y', '#f8ff2e'), ('o', '#ec6608'), ('v', '#673ab7'),
+                                                                ('b', '#3876cf'), ('w', '#c49052')], null=True)),
                 ('picture', models.PositiveSmallIntegerField(blank=True, null=True)),
             ],
         ),
@@ -50,21 +51,37 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
+                ('is_superuser', models.BooleanField(default=False,
+                                                     help_text='Designates that this user has all permissions without explicitly assigning them.',
+                                                     verbose_name='superuser status')),
+                ('is_staff', models.BooleanField(default=False,
+                                                 help_text='Designates whether the user can log into this admin site.',
+                                                 verbose_name='staff status')),
+                ('is_active', models.BooleanField(default=True,
+                                                  help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.',
+                                                  verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('username', models.TextField(unique=True)),
                 ('first_name', models.TextField()),
                 ('last_name', models.TextField()),
                 ('email', models.EmailField(max_length=254, unique=True)),
                 ('level', models.PositiveSmallIntegerField(default=1)),
-                ('score', models.CharField(default=[0], max_length=65535, validators=[django.core.validators.RegexValidator(re.compile('^\\d+(?:,\\d+)*\\Z'), code='invalid', message='Enter only digits separated by commas.')])),
+                ('score', models.CharField(default=[0], max_length=65535, validators=[
+                    django.core.validators.RegexValidator(re.compile('^\\d+(?:,\\d+)*\\Z'), code='invalid',
+                                                          message='Enter only digits separated by commas.')])),
                 ('streak', models.PositiveSmallIntegerField(default=0)),
-                ('friends', models.ManyToManyField(blank=True, null=True, related_name='_user_friends_+', to=settings.AUTH_USER_MODEL)),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
-                ('profile_picture', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='HabitRabbit.ProfilePicture')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
+                ('friends', models.ManyToManyField(blank=True, null=True, related_name='_user_friends_+',
+                                                   to=settings.AUTH_USER_MODEL)),
+                ('groups', models.ManyToManyField(blank=True,
+                                                  help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+                                                  related_name='user_set', related_query_name='user', to='auth.Group',
+                                                  verbose_name='groups')),
+                ('profile_picture',
+                 models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                   to='HabitRabbit.ProfilePicture')),
+                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.',
+                                                            related_name='user_set', related_query_name='user',
+                                                            to='auth.Permission', verbose_name='user permissions')),
             ],
             options={
                 'verbose_name': 'user',

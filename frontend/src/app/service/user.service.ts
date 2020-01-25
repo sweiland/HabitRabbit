@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * user.service.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).      *
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * user.service.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
@@ -26,13 +25,13 @@ export class UserService {
     }
   }
 
-  login(userData: { username: string, password: string }) {
+  login(userData: { username: string; password: string }) {
     this.http.post('/api/api-token-auth/', userData)
       .subscribe((res: any) => {
         this.isLoggedIn.next(true);
         localStorage.setItem('access_token', res.token);
         this.getUser().subscribe((x: any) => {
-          return this.http.patch('/api/user/' + x.id + '/update', {last_login: moment()}).subscribe((x2: any) => {
+          return this.http.patch('/api/user/' + x.id + '/update', {last_login: moment()}).subscribe(() => {
             this.router.navigate(['dashboard']);
           });
         });

@@ -1,10 +1,9 @@
-/**********************************************************************************************************************
- * user-form.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * user-form.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Component, Inject, OnInit} from '@angular/core';
-import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -17,8 +16,9 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  public userForm: any;
+  public userForm: FormGroup;
   pressedPassword: boolean;
+  isSuperUser: boolean;
   private password: string;
   private password_check: string;
   private old_password: string;
@@ -31,6 +31,7 @@ export class UserFormComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.userService.getUser().subscribe((x: any) => this.isSuperUser = x.is_superuser);
     const data = this.route.snapshot.data;
     const patterns = ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$', '^((?!@).)*'];
     this.userForm = this.fb.group({
@@ -61,6 +62,7 @@ export class UserFormComponent implements OnInit {
       this.userForm.patchValue({password: ''});
       this.userForm.controls.password.disable();
       this.userForm.controls.password_check.disable();
+      console.log(this.userForm.errors);
     }
   }
 
@@ -69,7 +71,7 @@ export class UserFormComponent implements OnInit {
       return this.userService.getUnique().pipe(map((users: any[]) => {
         const username = control.value;
         const userExists = users.find(u => {
-            return username === u.username;
+            return username === u.username && u.id !== this.userForm.controls.id.value;
           }
         );
         return userExists ? {usernameExists: true} : null;
@@ -82,7 +84,7 @@ export class UserFormComponent implements OnInit {
       return this.userService.getUnique().pipe(map((users: any[]) => {
         const email = control.value;
         const userExists = users.find(u => {
-            return email === u.email;
+            return email === u.email && u.id !== this.userForm.controls.id.value;
           }
         );
         return userExists ? {emailExists: true} : null;
@@ -92,6 +94,7 @@ export class UserFormComponent implements OnInit {
 
   onSubmit() {
     const user = this.userForm.value;
+    user.groups = user.is_superuser ? [1] : [2];
     if (user.id) {
       user.score = this.scoreList.concat(',', user.score);
       this.userService.updateUser(user).subscribe(() => {
