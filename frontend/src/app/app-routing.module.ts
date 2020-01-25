@@ -45,19 +45,19 @@ const routes: Routes = [
   },
   {path: 'faq', component: FaqComponent, canActivate: [AuthGuard]},
   {
-    path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard],
+    path: 'habit-form', component: HabitFormComponent, canActivate: [AuthGuard, AdminGuard],
     resolve: {memberOptions: UsersResolver, typeOptions: TypesResolver}
   },
   {
-    path: 'habit-form/:id', component: HabitFormComponent, canActivate: [AuthGuard], resolve: {
+    path: 'habit-form/:id', component: HabitFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {
       habit: HabitResolver,
       memberOptions: UsersResolver, typeOptions: TypesResolver
     }
   },
-  {path: 'habit-list', component: HabitListComponent, canActivate: [AuthGuard]},
-  {path: 'message-form', component: MessageFormComponent, canActivate: [AdminGuard], resolve: {typeOptions: TypesResolver}},
-  {path: 'message-form/:id', component: MessageFormComponent, canActivate: [AdminGuard], resolve: {typeOptions: TypesResolver}},
-  {path: 'message-list', component: MessageListComponent, canActivate: [AdminGuard]},
+  {path: 'habit-list', component: HabitListComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'message-form', component: MessageFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {typeOptions: TypesResolver}},
+  {path: 'message-form/:id', component: MessageFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {typeOptions: TypesResolver}},
+  {path: 'message-list', component: MessageListComponent, canActivate: [AuthGuard, AdminGuard]},
   {path: 'profile-form', component: ProfileFormComponent, canActivate: [AuthGuard]},
   {path: 'profile-form/:id', component: ProfileFormComponent, canActivate: [AuthGuard]},
   {path: 'profile-page', component: ProfilePageComponent, canActivate: [AuthGuard]},
@@ -65,12 +65,12 @@ const routes: Routes = [
   {path: 'profile-picture-form/:id', component: ProfilePictureFormComponent, canActivate: [AuthGuard]},
   {path: 'profile-picture-list', component: ProfilePictureListComponent, canActivate: [AuthGuard]},
   {path: 'score-list', component: ScoreListComponent, canActivate: [AuthGuard]},
-  {path: 'type-form', component: TypeFormComponent, canActivate: [AdminGuard]},
-  {path: 'type-form/:id', component: TypeFormComponent, canActivate: [AdminGuard], resolve: {type: TypeResolver}},
-  {path: 'type-list', component: TypeListComponent, canActivate: [AdminGuard]},
-  {path: 'user-list', component: UserListComponent, canActivate: [AdminGuard]},
-  {path: 'user-form', component: UserFormComponent, canActivate: [AdminGuard]},
-  {path: 'user-form/:id', component: UserFormComponent, canActivate: [AdminGuard], resolve: {user: UserResolver}},
+  {path: 'type-form', component: TypeFormComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'type-form/:id', component: TypeFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {type: TypeResolver}},
+  {path: 'type-list', component: TypeListComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'user-list', component: UserListComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'user-form', component: UserFormComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'user-form/:id', component: UserFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {user: UserResolver}},
 
 ];
 
