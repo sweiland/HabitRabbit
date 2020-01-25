@@ -309,7 +309,7 @@ export class DashboardComponent implements OnInit {
                 margin: [0, 10, 0, 0]
               },
               {
-                text: 'Last Name:' + this.lastname,
+                text: 'Last Name: ' + this.lastname,
                 fontSize: 15,
                 margin: [0, 10, 0, 0]
               },
@@ -459,6 +459,7 @@ export class DashboardComponent implements OnInit {
       return x.id !== id;
     });
     this.habitsEditable = false;
+    this.empty = this.filteredHabits.length === 0;
   }
 
   openHabitDialog(habit: any) {
@@ -562,17 +563,46 @@ export class DashboardComponent implements OnInit {
     const color: string = habit.late ? '❗️' : '❕';
     return color + (habit.priority === 3 ? '3️⃣' : habit.priority === 2 ? '2️⃣' : '1️⃣');
   }
+
+  openAddDialog() {
+    const dialogRef = this.dialog.open(DashboardHabitEditComponent, {
+      width: '500px',
+      data: {
+        start_date: moment(),
+        end_date: null,
+        name: '',
+        priority: 1,
+        type: 0,
+        typeOptions: this.typeOptions,
+        member: this.ID
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        result.type = result.type.id;
+        this.habitService.saveHabit(result).subscribe();
+        this.snackbar.open('Successfully Created!', 'close', {duration: 1000});
+        this.filteredHabits = this.filteredHabits.filter((h) => {
+          return h.id !== result.id;
+        }).concat(result).sort((a, b) => {
+          return moment(a.start_date).diff(moment(b.start_date));
+        });
+        this.populateInfo(this.filteredHabits);
+        this.empty = this.filteredHabits.length === 0;
+      }
+    });
+  }
 }
 
 
 export interface HabitDialogData {
   id: number;
-  start_date: string;
-  end_date: string;
+  start_date: any;
+  end_date: any;
   name: string;
   priority: number;
   typeOptions: any;
-  type: any;
+  type: number;
 }
 
 @Component({
@@ -592,6 +622,23 @@ export class DashboardHabitEditComponent {
 
   disableCheck() {
     return false;
+  }
+
+  moment() {
+    return moment();
+  }
+
+  getMax() {
+    return moment(this.data.start_date).add(1, 'year');
+  }
+
+  getEnd(event: any) {
+    const end_date = moment(this.data.start_date);
+    const unit = event.duration === 52 || event.duration === 39 || event.duration === 26 || event.duration === 13 ? 'year' :
+      event.duration >= 4 ? 'month' : 'week';
+    const duration = unit === 'year' ? (event.duration / 52) : unit === 'month' ? (event.duration / 4) : event.duration;
+    end_date.add(duration, unit).endOf('day');
+    this.data.end_date = end_date;
   }
 }
 

@@ -81,7 +81,7 @@
               <mat-menu #menu="matMenu" xPosition="before">
                 <button (click)="enableEdit()" mat-menu-item><span *ngIf="!habitsEditable">Enable Edit Mode</span><span
                   *ngIf="habitsEditable">Disable Edit Mode</span></button>
-                <a mat-menu-item routerLink="../habit-form" type="button">Add Habit</a>
+                <a mat-menu-item (click)="openAddDialog()" type="button">Add Habit</a>
               </mat-menu>
             </ng-container>
           </mat-card-title>
@@ -150,7 +150,7 @@
               Add your Habits here!
             </mat-card-title>
             <mat-card-content>
-              <button color="primary" mat-fab routerLink="../habit-form">
+              <button color="primary" mat-fab (click)="openAddDialog()">
                 <mat-icon>add</mat-icon>
               </button>
             </mat-card-content>
@@ -236,14 +236,14 @@
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option (click)="onEnterFriend(user)" *ngFor="let user of filteredOptions | async"
                           [value]="user.username">
-                {{ user.username }}
+                {{user.username }}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </mat-card-header>
 
         <mat-card-content class="dashboard-card-content">
-          <mat-card>
+          <mat-card *ngIf="friends !== undefined && friends.length !== 0">
             <mat-card-content>
               <table mat-table [dataSource]="friends">
                 <ng-container matColumnDef="username">

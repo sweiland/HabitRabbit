@@ -5,31 +5,38 @@
 
 <form>
   <div mat-dialog-content>
-    <mat-form-field>
-      <input [(ngModel)]="data.name" matInput name="name" placeholder="Name" type="text">
+    <mat-form-field class="full-width">
+      <input [(ngModel)]="data.name" matInput name="name" placeholder="Name" required type="text">
+      <mat-hint align="end">Name of the Habit</mat-hint>
     </mat-form-field>
-    <mat-form-field>
-      <input [(ngModel)]="data.start_date" [matDatepicker]="datepicker" matInput name="start_date"
+    <mat-form-field class="full-width">
+      <mat-select (valueChange)="getEnd($event)" [(ngModel)]="data.type" name="type" placeholder="Type">
+        <mat-option disabled>Type</mat-option>
+        <mat-option *ngFor="let typeOption of data.typeOptions"
+                    [value]="typeOption">{{typeOption.name}}</mat-option>
+      </mat-select>
+      <mat-hint align="end">Add Type here</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input [(ngModel)]="data.start_date" [matDatepicker]="datepicker" [min]="moment()" matInput name="start_date"
              placeholder="Start Date" required>
       <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #datepicker></mat-datepicker>
       <mat-hint align="end">Start Date for the journey to this habit</mat-hint>
     </mat-form-field>
-    <mat-form-field>
-      <input [(ngModel)]="data.end_date" [matDatepicker]="datepicker2" matInput name="end_date" placeholder="End Date"
-             required>
+    <mat-form-field class="full-width">
+      <input [(ngModel)]="data.end_date" [matDatepicker]="datepicker2" [max]="getMax()" [min]="moment().add(1, 'day').startOf('day')"
+             matInput
+             name="end_date" placeholder="End Date" required>
       <mat-datepicker-toggle [for]="datepicker2" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #datepicker2></mat-datepicker>
       <mat-hint align="end">End Date for the journey to this habit</mat-hint>
     </mat-form-field>
-    <mat-form-field>
-      <mat-select [(ngModel)]="data.type" name="type" placeholder="Type">
-        <mat-option disabled>Type</mat-option>
-        <mat-option *ngFor="let typeOption of data.typeOptions"
-                    [value]="typeOption">{{typeOption.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <bar-rating [(ngModel)]="data.priority" [max]="3" [theme]="'square'" matInput name="priority"></bar-rating>
+    <div>
+      Priority
+      <bar-rating [(ngModel)]="data.priority" [max]="3" [theme]="'square'" matInput name="priority"></bar-rating>
+      <br/>
+    </div>
   </div>
   <div mat-dialog-actions>
     <button (click)="onNoClick()" color="warn" mat-button type="button">Cancel</button>
