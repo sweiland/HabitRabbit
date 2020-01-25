@@ -1,6 +1,7 @@
-/*
- * profile-picture-form.component.spec.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+/**********************************************************************************************************************
+ * profile-picture-form.component.spec.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';

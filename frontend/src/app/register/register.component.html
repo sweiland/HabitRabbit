@@ -1,13 +1,14 @@
-<!--
-  ~ register.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
-  -->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ register.component.html Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+  ~                                                                                                                   ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div class="bg">
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-vertical-stepper #stepper linear="true">
+      <mat-vertical-stepper #stepper linear="false">
         <mat-step [stepControl]="registerForm">
           <form [formGroup]="registerForm">
             <ng-template matStepLabel>Fill out your name</ng-template>
@@ -80,8 +81,11 @@
               <mat-error *ngIf="registerForm3.controls['password_check'].hasError('required')">
                 Confirm password is required
               </mat-error>
-              <mat-error *ngIf="registerForm3.controls['password_check'].hasError('pw_check')">
+              <mat-error *ngIf="registerForm3.controls['password_check'].hasError('pwCheck')">
                 Passwords have to match.
+              </mat-error>
+              <mat-error *ngIf="registerForm3.controls['password_check'].hasError('minlength')">
+                Password has to be 8 characters long
               </mat-error>
             </mat-form-field>
             <div>

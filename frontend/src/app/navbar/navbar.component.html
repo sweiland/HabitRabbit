@@ -1,6 +1,7 @@
-<!--
-  ~ navbar.component.html Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
-  -->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ navbar.component.html Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+  ~                                                                                                                   ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav-content>
@@ -39,10 +40,6 @@
           <button mat-menu-item routerLink="type-list">Type List</button>
           <button mat-menu-item routerLink="type-form">Create Type</button>
         </mat-menu>
-        <mat-divider style="height:50%" vertical></mat-divider>
-      </ng-container>
-      <ng-container *ngIf="!isSuperUser">
-        <button mat-button routerLink="habit-form"><i class="material-icons">playlist_add_check</i> Habit</button>
         <mat-divider style="height:50%" vertical></mat-divider>
       </ng-container>
       <button mat-button routerLink="profile-picture-form"><i class="material-icons">camera_alt</i> Profile Picture

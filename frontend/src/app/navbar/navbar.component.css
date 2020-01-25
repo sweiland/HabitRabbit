@@ -1,6 +1,8 @@
-/*!
- * navbar.component.scss Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+@charset "UTF-8";
+/*!*********************************************************************************************************************
+ * navbar.component.scss Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).*
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 .sidenav {
   width: 200px;
 }

@@ -1,6 +1,7 @@
-/*
- * profile-picture-form.component.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+/**********************************************************************************************************************
+ * profile-picture-form.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';

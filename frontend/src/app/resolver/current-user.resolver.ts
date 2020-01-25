@@ -1,6 +1,7 @@
-/*
- * user.resolver.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+/**********************************************************************************************************************
+ * current-user.resolver.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
