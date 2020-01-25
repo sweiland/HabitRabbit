@@ -1,6 +1,7 @@
-/*
- * profile-picture.service.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+/**********************************************************************************************************************
+ * profile-picture.service.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';

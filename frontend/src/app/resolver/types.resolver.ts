@@ -1,6 +1,7 @@
-/*
- * types.resolver.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+/**********************************************************************************************************************
+ * types.resolver.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).    *
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 
 import {Injectable} from '@angular/core';
 import {Resolve} from '@angular/router';

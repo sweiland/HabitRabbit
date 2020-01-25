@@ -1,3 +1,8 @@
+/**********************************************************************************************************************
+ * admin.guard.spec.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).  *
+ *                                                                                                                    *
+ **********************************************************************************************************************/
+
 import {inject, TestBed} from '@angular/core/testing';
 
 import {AdminGuard} from './admin.guard';

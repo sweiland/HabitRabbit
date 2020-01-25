@@ -1,6 +1,7 @@
-/*
- * navbar.component.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+/**********************************************************************************************************************
+ * navbar.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).  *
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 
 import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';

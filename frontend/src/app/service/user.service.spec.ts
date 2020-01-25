@@ -1,6 +1,7 @@
-/*
- * user.service.spec.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+/**********************************************************************************************************************
+ * user.service.spec.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle). *
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 
 import { TestBed } from '@angular/core/testing';
 
