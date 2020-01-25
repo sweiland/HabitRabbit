@@ -77,7 +77,7 @@ export class HabitFormComponent implements OnInit {
   onSubmit() {
     const habit = this.habitForm.value;
     habit.type = habit.type.id;
-    habit.interval = habit.priority === 3 ? 1 : habit.priority === 2 ? 3 : 7;
+    habit.interval = habit.priority === 3 ? 7 : habit.priority === 2 ? 3 : 1;
     if (habit.id) {
       this.habitService.updateHabit(habit).subscribe(() => {
         this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
