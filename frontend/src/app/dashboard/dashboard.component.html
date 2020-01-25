@@ -233,7 +233,7 @@
           <mat-form-field class="friendsFormField">
             <input [formControl]="friendsForm" [matAutocomplete]="auto" matInput placeholder="Add Friend" type="text">
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option (click)="onEnterFriend(user.id)" *ngFor="let user of filteredOptions | async"
+              <mat-option (click)="onEnterFriend(user)" *ngFor="let user of filteredOptions | async"
                           [value]="user.username">
                 {{ user.username }}
               </mat-option>
@@ -260,7 +260,6 @@
                       class="material-icons">delete_forever</i></button>
                   </td>
                 </ng-container>
-
                 <tr mat-header-row *matHeaderRowDef="displayedColumnsFriends"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumnsFriends;"></tr>
               </table>

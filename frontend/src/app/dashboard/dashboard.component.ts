@@ -93,18 +93,18 @@ export class DashboardComponent implements OnInit {
         return [
           {title: 'User', cols: 1, rows: 1},
           {title: 'Active Habits', cols: 1, rows: 1},
+          {title: 'Daily Message', cols: 1, rows: 1},
           {title: 'Charts', cols: 1, rows: 2},
           {title: 'Friends', cols: 1, rows: 2},
-          {title: 'Daily Message', cols: 1, rows: 1}
         ];
       }
 
       return [
         {title: 'User', cols: 1, rows: 1},
         {title: 'Active Habits', cols: 1, rows: 2},
-        {title: 'Friends', cols: 1, rows: 1},
+        {title: 'Daily Message', cols: 1, rows: 1},
         {title: 'Charts', cols: 1, rows: 2},
-        {title: 'Daily Message', cols: 1, rows: 1}
+        {title: 'Friends', cols: 1, rows: 2},
       ];
     })
   );
