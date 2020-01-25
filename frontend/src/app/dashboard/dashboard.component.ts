@@ -274,7 +274,11 @@ export class DashboardComponent implements OnInit {
   }
 
   goHelpfulLink() {
-    window.open(this.currentLink, '_blank');
+    if (this.currentLink !== 'There is no link available' || this.currentLink !== null) {
+      window.open(this.currentLink, '_blank');
+    } else {
+      this.snackbar.open(this.currentLink, 'close', {duration: 1000});
+    }
   }
 
   generatePdf() {
