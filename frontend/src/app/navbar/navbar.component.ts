@@ -45,14 +45,12 @@ export class NavbarComponent implements OnInit {
     this.navbar.changePicture.subscribe((data) => {
       this.imageExists = true;
       this.picturesource = data;
-      console.log(data);
     });
     this.navbar.disablePicture.subscribe(data => {
       this.imageExists = data;
     });
     this.navbar.showPicture.subscribe((data) => {
       this.pictureId = data;
-      console.log(this.pictureId, this.colorPP, this.picturesource);
     });
     this.userService.isLoggedIn.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
