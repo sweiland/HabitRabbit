@@ -120,14 +120,13 @@ export class DashboardComponent implements OnInit {
 
     this.friendsForm = new FormControl();
     if (data.users) {
-      this.users = data.users;
+      this.users = data.users.filter(f => f.id !== this.ID);
     }
     this.filteredOptions = this.friendsForm.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
       );
-
     if (data.user) {
       this.userId = data.user.id;
       this.level = data.user.level;
@@ -187,32 +186,24 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  onEnterFriend(id: number) {
-    const friends = (Array.from(new Set(this.friendsList.concat(id)).values())).filter(f => f !== this.userId);
+  onEnterFriend(user: any) {
+    this.friends = (Array.from(new Set(this.friends.concat(user).values())).filter(f => f.id !== this.userId));
+    const friends = (Array.from(new Set(this.friendsList.concat(user.id)).values())).filter(f => f !== this.userId);
     this.userService.updateUser({
       id: this.ID,
       friends,
     }).subscribe();
     this.friendsForm.patchValue('');
-    switch (id) {
-      case this.userId: {
-        alert('You can\'t add yourself!');
-        break;
-      }
-      default: {
-        alert('User has been ADDED to your friends list!');
-        break;
-      }
-    }
   }
 
   removeFriend(id: number) {
+    this.users = this.users.concat(this.friends.filter(f => f === id));
+    this.friends = this.friends.filter(f => f === id);
     const friends = this.friendsList.filter(f => f !== id);
     this.userService.updateUser({
       id: this.ID,
       friends,
     }).subscribe();
-    alert('User has been REMOVED from friends list.');
   }
 
   getCategorySymbol(type: number) {
@@ -381,7 +372,6 @@ export class DashboardComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.users.filter((u) => {
       return u.username.toString().toLowerCase().includes(filterValue) || u.email.toString().toLowerCase().includes(filterValue);
     });

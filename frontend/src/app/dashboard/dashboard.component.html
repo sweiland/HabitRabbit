@@ -213,7 +213,7 @@
           <mat-form-field class="friendsFormField">
             <input [formControl]="friendsForm" matInput placeholder="Add Friend" type="text" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option (click)="onEnterFriend(user.id)" *ngFor="let user of filteredOptions | async"
+              <mat-option (click)="onEnterFriend(user)" *ngFor="let user of filteredOptions | async"
                           [value]="user.username">
                 {{ user.username }}
               </mat-option>
@@ -231,12 +231,12 @@
                 </ng-container>
                 <ng-container matColumnDef="score">
                   <th mat-header-cell *matHeaderCellDef> Score</th>
-                  <td mat-cell *matCellDef="let friend"> {{friend.username}} </td>
+                  <td mat-cell *matCellDef="let friend"> {{friend.score}}🥕 </td>
                 </ng-container>
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell *matHeaderCellDef></th>
-                  <td mat-cell *matCellDef="let row" class="friendsActions">
-                    <button mat-raised-button class="friend-remove-button" (click)="removeFriend(row.id)"><i
+                  <td mat-cell *matCellDef="let friend" class="friendsActions">
+                    <button mat-raised-button class="friend-remove-button" (click)="removeFriend(friend.id)"><i
                       class="material-icons">delete_forever</i></button>
                   </td>
                 </ng-container>
