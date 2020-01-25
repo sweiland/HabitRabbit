@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * mat-faq-admin.component.spec.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * mat-faq-admin.component.spec.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
@@ -12,7 +11,7 @@ import {MatButtonModule, MatCardModule, MatExpansionModule, MatIconModule, MatIn
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-describe('NgxMaterialFaqComponent', function () {
+describe('NgxMaterialFaqComponent', function() {
   let de: DebugElement;
   let comp: MatFaqAdminComponent;
   let fixture: ComponentFixture<MatFaqAdminComponent>;

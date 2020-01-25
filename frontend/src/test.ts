@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * test.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).              *
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * test.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 

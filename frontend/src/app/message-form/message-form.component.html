@@ -1,9 +1,9 @@
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~ message-form.component.html Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
-  ~                                                                                                                   ~
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ message-form.component.html Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-<form [formGroup]="messageForm" novalidate (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" *ngIf="userService.hasPermission('HabitRabbit.change_message') && isSuperUser" [formGroup]="messageForm"
+      novalidate>
   <mat-card class="message-card">
     <mat-card-header>
       <mat-card-title>Edit Message</mat-card-title>
@@ -24,15 +24,14 @@
         </div>
       </div>
       <div class="row">
-         <mat-form-field class="widthclass">
-            <input formControlName="message" matInput placeholder="Message">
-            <mat-hint align="end">The message to be displayed</mat-hint>
-<!--            <mat-error *ngIf="songFormGroup.controls.lyrics.hasError('required')">Lyrics is required</mat-error>-->
-          </mat-form-field>
+        <mat-form-field class="widthclass">
+          <input formControlName="message" matInput placeholder="Message">
+          <mat-hint align="end">The message to be displayed</mat-hint>
+        </mat-form-field>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button color="primary" mat-raised-button type="submit">Submit</button>
     </mat-card-actions>
   </mat-card>
 </form>

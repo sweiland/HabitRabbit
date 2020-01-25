@@ -26,15 +26,15 @@ from rest_framework_jwt.views import obtain_jwt_token
 from HabitRabbit import views
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="HabitRabbit API",
-      default_version='v1',
-      description="The API for HabitRabbit",
-      contact=openapi.Contact(email="hello@sweiland.at"),
-      license=openapi.License(name="AGPL License"),
-   ),
-   public=True,
-   permission_classes=(permissions.DjangoModelPermissions,)
+    openapi.Info(
+        title="HabitRabbit API",
+        default_version='v1',
+        description="The API for HabitRabbit",
+        contact=openapi.Contact(email="hello@sweiland.at"),
+        license=openapi.License(name="AGPL License"),
+    ),
+    public=True,
+    permission_classes=(permissions.DjangoModelPermissions,)
 )
 
 urlpatterns = [

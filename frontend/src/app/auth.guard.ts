@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * auth.guard.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).        *
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * auth.guard.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
