@@ -13,11 +13,7 @@ import {HabitFormComponent} from './habit-form/habit-form.component';
 import {HabitListComponent} from './habit-list/habit-list.component';
 import {MessageFormComponent} from './message-form/message-form.component';
 import {MessageListComponent} from './message-list/message-list.component';
-import {ProfileFormComponent} from './profile-form/profile-form.component';
-import {ProfilePageComponent} from './profile-page/profile-page.component';
 import {ProfilePictureFormComponent} from './profile-picture-form/profile-picture-form.component';
-import {ProfilePictureListComponent} from './profile-picture-list/profile-picture-list.component';
-import {ScoreListComponent} from './score-list/score-list.component';
 import {RegisterComponent} from './register/register.component';
 import {TypeFormComponent} from './type-form/type-form.component';
 import {TypeListComponent} from './type-list/type-list.component';
@@ -59,13 +55,7 @@ const routes: Routes = [
   {path: 'message-form', component: MessageFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {typeOptions: TypesResolver}},
   {path: 'message-form/:id', component: MessageFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {typeOptions: TypesResolver}},
   {path: 'message-list', component: MessageListComponent, canActivate: [AuthGuard, AdminGuard]},
-  {path: 'profile-form', component: ProfileFormComponent, canActivate: [AuthGuard]},
-  {path: 'profile-form/:id', component: ProfileFormComponent, canActivate: [AuthGuard]},
-  {path: 'profile-page', component: ProfilePageComponent, canActivate: [AuthGuard]},
   {path: 'profile-picture-form', component: ProfilePictureFormComponent, canActivate: [AuthGuard]},
-  {path: 'profile-picture-form/:id', component: ProfilePictureFormComponent, canActivate: [AuthGuard]},
-  {path: 'profile-picture-list', component: ProfilePictureListComponent, canActivate: [AuthGuard]},
-  {path: 'score-list', component: ScoreListComponent, canActivate: [AuthGuard]},
   {path: 'type-form', component: TypeFormComponent, canActivate: [AuthGuard, AdminGuard]},
   {path: 'type-form/:id', component: TypeFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {type: TypeResolver}},
   {path: 'type-list', component: TypeListComponent, canActivate: [AuthGuard, AdminGuard]},

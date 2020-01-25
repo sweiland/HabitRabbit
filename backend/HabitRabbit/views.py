@@ -132,7 +132,7 @@ def profilepicture_form_get(request, pk):
 # POSTs
 @swagger_auto_schema(method='POST', request_body=UserSerializer, responses={200: UserSerializer()})
 @api_view(['POST'])
-@permission_required('HabitRabbit.add_user', raise_exception=True)
+@permission_classes([AllowAny])
 def user_form_create(request):
     data = JSONParser().parse(request)
     serializer = UserSerializer(data=data)
@@ -328,6 +328,7 @@ def user_delete(request, pk):
         return Response(status=204)
     return Response(serializer.errors, status=400)
 
+
 @swagger_auto_schema(method='DELETE', responses={204: HabitSerializer()})
 @api_view(['DELETE'])
 @permission_required('HabitRabbit.delete_habit', raise_exception=True)
@@ -339,6 +340,7 @@ def habit_delete(request, pk):
 
     habit.delete()
     return Response(status=204)
+
 
 @swagger_auto_schema(method='DELETE', responses={204: TypeSerializer()})
 @api_view(['DELETE'])
@@ -352,6 +354,7 @@ def type_delete(request, pk):
     type.delete()
     return Response(status=204)
 
+
 @swagger_auto_schema(method='DELETE', responses={204: MessageSerializer()})
 @api_view(['DELETE'])
 @permission_required('HabitRabbit.delete_message', raise_exception=True)
@@ -364,6 +367,7 @@ def message_delete(request, pk):
     message.delete()
     return Response(status=204)
 
+
 @swagger_auto_schema(method='DELETE', responses={204: ProfilePictureSerializer()})
 @api_view(['DELETE'])
 @permission_required('HabitRabbit.delete_profilepicture', raise_exception=True)
@@ -375,6 +379,7 @@ def profilepicture_delete(request, pk):
 
     profilepicture.delete()
     return Response(status=204)
+
 
 @swagger_auto_schema(method='DELETE', responses={204: FaqSerializer()})
 @api_view(['DELETE'])
@@ -392,7 +397,7 @@ def remove_faq(request, pk):
 # Purpose built views
 @swagger_auto_schema(method='GET', responses={200: EmailSerializer()})
 @api_view(['GET'])
-@permission_required('HabitRabbit.view_user', raise_exception=True)
+@permission_classes([AllowAny])
 def get_email_from_username(request, username):
     try:
         user = User.objects.get(username=username)
@@ -405,7 +410,7 @@ def get_email_from_username(request, username):
 
 @swagger_auto_schema(method='GET', responses={200: UserNumberSerializer()})
 @api_view(['GET'])
-@permission_required('HabitRabbit.view_user', raise_exception=True)
+@permission_classes([AllowAny])
 def get_number_of_users(request):
     user = User.objects.all()
 
@@ -428,7 +433,7 @@ def get_user_from_email(request, email):
 
 @swagger_auto_schema(method='GET', responses={200: UniqueUserSerializer(many=True)})
 @api_view(['GET'])
-@permission_required('HabitRabbit.view_user', raise_exception=True)
+@permission_classes([AllowAny])
 def get_user_for_unique_validator(request):
     user = User.objects.all()
 
