@@ -361,6 +361,7 @@ export class DashboardComponent implements OnInit {
     this.friends = friendsplus;
     this.friends.forEach(f => f.score = f.score.split(',').reverse()[0]);
     this.friends.reverse();
+    document.getElementById('mat-input-0').blur();
   }
 
   removeFriend(id: number) {
