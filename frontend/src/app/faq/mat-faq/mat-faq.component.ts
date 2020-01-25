@@ -1,3 +1,8 @@
+/**********************************************************************************************************************
+ * mat-faq.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle). *
+ *                                                                                                                    *
+ **********************************************************************************************************************/
+
 import {Component, Input, OnInit} from '@angular/core';
 import {FAQService} from '../../service/faq.service';
 import {FaqComponent} from '../faq.component';

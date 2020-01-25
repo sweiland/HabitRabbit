@@ -1,6 +1,7 @@
-/*
- * score-list.component.ts Copyright (c) 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- */
+/**********************************************************************************************************************
+ * score-list.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ *                                                                                                                    *
+ **********************************************************************************************************************/
 
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
