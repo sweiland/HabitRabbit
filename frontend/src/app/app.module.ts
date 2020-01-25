@@ -23,12 +23,8 @@ import {LogoutComponent} from './logout/logout.component';
 import {MessageFormComponent} from './message-form/message-form.component';
 import {MessageListComponent} from './message-list/message-list.component';
 import {NavbarComponent} from './navbar/navbar.component';
-import {ProfileFormComponent} from './profile-form/profile-form.component';
-import {ProfilePageComponent} from './profile-page/profile-page.component';
 import {ProfilePictureFormComponent} from './profile-picture-form/profile-picture-form.component';
-import {ProfilePictureListComponent} from './profile-picture-list/profile-picture-list.component';
 import {RegisterComponent} from './register/register.component';
-import {ScoreListComponent} from './score-list/score-list.component';
 import {TypeFormComponent} from './type-form/type-form.component';
 import {TypeListComponent} from './type-list/type-list.component';
 import {UserListComponent} from './user-list/user-list.component';
@@ -44,7 +40,8 @@ import {
   MatProgressBarModule,
   MatSnackBar,
   MatSnackBarModule,
-  MatStepperModule, MatTabsModule,
+  MatStepperModule,
+  MatTabsModule,
   MatTooltipModule
 } from '@angular/material';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -89,12 +86,8 @@ export function tokenGetter() {
     MessageFormComponent,
     MessageListComponent,
     NavbarComponent,
-    ProfileFormComponent,
-    ProfilePageComponent,
     ProfilePictureFormComponent,
-    ProfilePictureListComponent,
     RegisterComponent,
-    ScoreListComponent,
     TypeFormComponent,
     TypeListComponent,
     UserListComponent,

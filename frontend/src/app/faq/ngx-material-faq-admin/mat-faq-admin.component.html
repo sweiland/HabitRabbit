@@ -3,7 +3,7 @@
   ~                                                                                                                   ~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-<ng-container *ngIf="isSuperUser">
+<ng-container *ngIf="userService.hasPermission('HabitRabbit.change_faq')">
   <mat-toolbar color="primary">{{title}}</mat-toolbar>
   <mat-card>
     <mat-card-content fxLayout="column">
