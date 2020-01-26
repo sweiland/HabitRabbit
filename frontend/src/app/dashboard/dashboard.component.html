@@ -71,8 +71,8 @@
       </mat-card>
       <mat-card *ngIf="card.title === 'Active Habits'" class="dashboard-card" style="overflow: scroll">
         <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
+          <mat-card-title class="message-header">
+            🗓 {{card.title}}
             <ng-container *ngIf="!empty">
               <button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="more-button" mat-icon-button>
                 <mat-icon>more_vert</mat-icon>
@@ -158,8 +158,8 @@
       </mat-card>
       <mat-card *ngIf="card.title === 'Charts' && !empty" class="dashboard-card">
         <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
+          <mat-card-title class="message-header">
+            📊 {{card.title}}
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
@@ -211,7 +211,7 @@
       <mat-card *ngIf="card.title === 'Daily Message' && !empty" class="dashboard-card">
         <mat-card class="messageCard">
           <mat-card-header>
-            <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
+            <mat-card-title class="message-header">📫 {{card.title}}</mat-card-title>
             <mat-card-content>
               <div class="dailyMessage">"{{dailyMessage}}"<br>
                 <div class="signature">-Habit Rabbit Team</div>
@@ -225,8 +225,8 @@
       </mat-card>
       <mat-card *ngIf="card.title === 'Friends'" class="dashboard-card" style="overflow: scroll">
         <mat-card-header class="friendsHeader">
-          <mat-card-title>
-            {{card.title}}
+          <mat-card-title class="message-header">
+            👨‍👩‍👧‍👦 {{card.title}}
           </mat-card-title>
 
           <span class="friendspacer"></span>
