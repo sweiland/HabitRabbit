@@ -36,7 +36,4 @@ export class TypeService {
 
   }
 
-  getMessage(type: number) {
-    return this.http.get('api/type/' + type + '/get');
-  }
 }

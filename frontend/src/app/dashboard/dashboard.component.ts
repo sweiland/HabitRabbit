@@ -205,30 +205,17 @@ export class DashboardComponent implements OnInit {
   }
 
   updateMessage() {
-    this.messageService.getAll().subscribe((mes: any[]): Promise<any[]> => {
-      const types = this.filteredHabits.map((h) => {
-        return h.type_id;
+    const types = this.filteredHabits.map((h) => {
+      return h.type_id;
+    });
+    const type = types[Math.floor(Math.random() * types.length)];
+    return this.typeService.getType(type).subscribe((t: any) => {
+      return this.messageService.getAll().subscribe((m: any) => {
+        this.dailyMessage = m.filter((i: any) => {
+          return i.type === type;
+        })[0].message;
+        return this.currentLink = t.helpful_link;
       });
-      const tempNum = types[Math.floor(Math.random() * types.length)];
-      if (tempNum) {
-        this.typeService.getMessage(tempNum).subscribe((resp: any) => {
-          if (resp.helpful_link === null) {
-            this.currentLink = 'There is no link available';
-          } else {
-            this.currentLink = resp.helpful_link;
-          }
-        });
-      } else {
-        this.currentLink = 'There is no link available';
-      }
-      const filtered = mes.filter((f) => {
-        return types.includes(f.type);
-      });
-      const res = filtered.map((i) => {
-        return i.message;
-      });
-      const randomMessage = res[Math.floor(Math.random() * res.length)];
-      return this.dailyMessage = randomMessage;
     });
   }
 
@@ -268,10 +255,10 @@ export class DashboardComponent implements OnInit {
   }
 
   goHelpfulLink() {
-    if (this.currentLink !== 'There is no link available' || this.currentLink !== null) {
+    if (this.currentLink !== null) {
       window.open(this.currentLink, '_blank');
     } else {
-      this.snackbar.open(this.currentLink, 'close', {duration: 1000});
+      this.snackbar.open('There is no link available!', 'close', {duration: 1000});
     }
   }
 
@@ -639,7 +626,7 @@ export class DashboardComponent implements OnInit {
 
   getPrioSym(habit: any): string {
     const color: string = habit.late ? '❗️' : '❕';
-    return color + (habit.priority === 3 ? '3️⃣' : habit.priority === 2 ? '2️⃣' : '1️⃣');
+    return color + (habit.priority === 3 ? '3️' : habit.priority === 2 ? '2️' : '1️');
   }
 
   openAddDialog() {
