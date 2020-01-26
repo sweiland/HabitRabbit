@@ -15,4 +15,13 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.br-square .br-units {
+  counter-reset: counter 4;
+}
+
+.br-square .br-unit:after {
+  content: counter(counter);
+  counter-increment: counter -1;
+}
+
 /*# sourceMappingURL=styles.css.map */

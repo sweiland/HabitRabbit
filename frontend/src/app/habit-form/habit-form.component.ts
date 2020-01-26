@@ -44,6 +44,7 @@ export class HabitFormComponent implements OnInit {
       priority: [1, Validators.required]
     }, {validator: this.dateValidator});
     if (data.habit) {
+      data.habit.priority = data.habit.priority === 3 ? 1 : data.habit.priority === 2 ? 2 : 3;
       this.habitForm.patchValue(data.habit);
     }
   }
@@ -77,6 +78,7 @@ export class HabitFormComponent implements OnInit {
   onSubmit() {
     const habit = this.habitForm.value;
     habit.type = habit.type.id;
+    habit.priority = habit.priority === 3 ? 1 : habit.priority === 2 ? 2 : 3;
     habit.interval = habit.priority === 3 ? 7 : habit.priority === 2 ? 3 : 1;
     if (habit.id) {
       this.habitService.updateHabit(habit).subscribe(() => {

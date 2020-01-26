@@ -511,13 +511,14 @@ export class DashboardComponent implements OnInit {
         end_date: habit.end_date,
         name: habit.name,
         interval: habit.interval,
-        priority: habit.priority,
+        priority: habit.priority === 3 ? 1 : habit.priority === 2 ? 2 : 3,
         type: this.typeOptions.filter(t => t.id === habit.type)[0],
         typeOptions: this.typeOptions
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        result.priority = result.priority === 3 ? 1 : result.priority === 2 ? 2 : 3;
         result.type = result.type.id;
         this.habitService.updateHabit(result).subscribe();
         this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
@@ -656,6 +657,7 @@ export class DashboardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        result.priority = result.priority === 3 ? 1 : result.priority === 2 ? 2 : 3;
         result.type = result.type.id;
         this.habitService.saveHabit(result).subscribe((res: any) => {
           this.snackbar.open('Successfully Created!', 'close', {duration: 1000});
