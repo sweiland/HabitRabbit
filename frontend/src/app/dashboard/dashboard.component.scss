@@ -20,13 +20,6 @@
   max-height: 100%;
 }
 
-.score {
-  position: absolute;
-  float: right;
-  top: 1.5em;
-  right: 25px;
-}
-
 .more-button {
   position: absolute;
   top: 5px;
@@ -57,15 +50,27 @@
 }
 
 footer {
-  background-color: rgba(255, 0, 0, 0);
-  height: 30px;
+  background-color: #613DB1;
+  height: 50px;
   font-size: larger;
   text-align: center;
-  position: fixed;
-  bottom: 0;
+  vertical-align: middle;
+  color: white;
   width: 100%;
 }
 
+.footertext {
+  position: relative;
+  top: 25%;
+  left: 2%;
+}
+
+.faqbutton {
+  position: relative;
+  float: right;
+  right: 1em;
+  top: 15%;
+}
 
 .headerCard {
   background-color: blue;
@@ -75,14 +80,14 @@ footer {
 
 .profileContainer {
   position: relative;
-  width: 8rem;
-  height: 8rem;
-  left: 2.5rem;
+  top: 1em;
+  right: 10%;
+  width: 18vw;
+  height: 18vw;
   border-radius: 400px 400px 400px 400px;
   border-style: solid;
-  background-color: green;
+  float: right;
   overflow: hidden;
-  float: left;
 }
 
 .profileContainer:hover > .changePicture {
@@ -96,13 +101,14 @@ footer {
 
 .changePicture {
   position: absolute;
-  padding-top: 6px;
-  padding-bottom: 0px;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
   left: 5px;
   right: 5px;
   bottom: 0px;
   color: black;
-  font-size: 0.8rem;
+  font-size: 1vw;
+  font-weight: bold;
   text-align: center;
   border-top: 3px solid black;
   visibility: hidden;
@@ -126,35 +132,16 @@ footer {
   cursor: pointer;
 }
 
-.userStatsWrapper {
-  position: relative;
-}
-
-.userStats {
-  width: 28rem;
-  position: relative;
-  right: 0px;
-  left: 4em;
-  padding-left: 20px;
-  border-left: black 3px solid;
-  float: right;
-}
-
 .stat {
   text-align: left;
   font-weight: bold;
   font-size: 1.2em;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   width: 200px;
 }
 
-.statfirst {
-  float: left;
-}
-
-.statsecond {
-  float: right;
-  padding-right: 2em;
+.stats {
+  color: black;
 }
 
 .statValue {
@@ -167,14 +154,24 @@ footer {
 }
 
 .userCard {
-  top: 0px;
-  height: 13rem;
-  overflow: hidden;
+  height: 90%;
+  overflow: scroll;
+}
+
+.userWrapper {
+
+}
+
+.userStats {
+  float: left;
 }
 
 .messageCard {
   top: 0px;
   height: 13rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
 }
 
 .userButton {
@@ -201,23 +198,19 @@ footer {
   width: 130px;
 }
 
-.userThird {
-  background-color: #673AB7;
+.dailyMessage {
+  font-family: 'Shrikhand', cursive;
+  font-size: 200%;
 }
 
-.dailyMessage {
-  position: absolute;
-  left: 1.6em;
-  top: 3em;
-  font-family: 'Shrikhand', cursive;
-  font-size: 1.8em;
+.dailyMessageC {
+  padding-top: 0.5em;
+  color: black;
 }
 
 .signature {
-  position: relative;
   font-family: Roboto, serif;
-  font-size: 0.8em;
-  left: 2em;
+  font-size: 50%;
 }
 
 .helpButton {
@@ -249,13 +242,6 @@ footer {
   position: relative;
   float: left;
   font-size: 2em;
-}
-
-.level {
-  position: relative;
-  top: 0.7em;
-  left: 0.3em;
-  float: left;
 }
 
 .friends-card {

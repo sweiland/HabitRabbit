@@ -6,16 +6,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {ProfilePictureService} from '../service/profile-picture.service';
 import {NavbarService} from '../service/navbar.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-profile-picture-form',
   templateUrl: './profile-picture-form.component.html',
   styleUrls: ['./profile-picture-form.component.scss']
 })
+
 export class ProfilePictureFormComponent implements OnInit {
 
   colorForm;
@@ -29,7 +30,7 @@ export class ProfilePictureFormComponent implements OnInit {
   picturesource;
   hoverActive;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private userService: UserService,
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private userService: UserService,
               private profilePictureService: ProfilePictureService, private navbar: NavbarService) {
   }
 
@@ -69,7 +70,6 @@ export class ProfilePictureFormComponent implements OnInit {
             .subscribe((response: any) => {
               this.http.patch('/api/user/' + this.currentId + '/update', {profile_picture: response.id}).subscribe(() => {
               });
-              this.router.navigate(['/profile-picture-form/' + response.id]);
               this.colorPP = this.getColorVal(colorValue);
               this.changeColor();
               if (this.pictureId) {
@@ -85,10 +85,11 @@ export class ProfilePictureFormComponent implements OnInit {
     const profilepicture = this.pictureForm.value;
     this.http.get('api/user/' + this.currentId + '/get')
       .subscribe((res: any) => {
-        if (this.pictureId !== null) {
-          this.profilePictureService.getPicture(this.pictureId).subscribe((resp: any) => {
+        if (res.profile_picture !== null) {
+          console.log(res.profile_picture);
+          this.profilePictureService.getPicture(res.profile_picture).subscribe((resp: any) => {
             this.currentColor = resp.color;
-            this.http.patch('/api/profilepicture/' + this.pictureId + '/update', {color: this.currentColor, picture: image})
+            this.http.patch('/api/profilepicture/' + res.profile_picture + '/update', {picture: image})
               .subscribe((boop: any) => {
                 this.picturesource = '../../assets/Resources/profile_pictures/carrot' + image + '.svg';
                 this.changePicture();
@@ -100,7 +101,6 @@ export class ProfilePictureFormComponent implements OnInit {
               this.http.patch('/api/user/' + this.currentId + '/update', {profile_picture: response.id}).subscribe(() => {
               });
               this.picturesource = '../../assets/Resources/profile_pictures/carrot' + image + '.svg';
-              this.router.navigate(['/profile-picture-form/' + response.id]);
               this.enablePicture();
               this.changePicture();
             });

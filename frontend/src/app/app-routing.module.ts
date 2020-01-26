@@ -62,6 +62,13 @@ const routes: Routes = [
   {path: 'user-list', component: UserListComponent, canActivate: [AuthGuard, AdminGuard]},
   {path: 'user-form', component: UserFormComponent, canActivate: [AuthGuard, AdminGuard]},
   {path: 'user-form/:id', component: UserFormComponent, canActivate: [AuthGuard, AdminGuard], resolve: {user: UserResolver}},
+  {
+    path: '**', component: DashboardComponent, canActivate: [AuthGuard], resolve: {
+      habits: HabitUserResolver, typeOptions: TypesResolver,
+      user: CurrentUserResolver, users: UsersResolver
+    }, runGuardsAndResolvers: 'always'
+  }
+
 
 ];
 

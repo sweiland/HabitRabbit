@@ -8,28 +8,23 @@
     <button (click)="generatePdf()" class="exportPDF" color="primary" mat-raised-button type="submit">Export Profile
     </button>
   </h1>
-  <mat-grid-list cols="2" rowHeight="300px">
+  <mat-grid-list (window:resize)="onResize($event)" [cols]="breakpoint" rowHeight="300px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card *ngIf="card.title === 'User'" class="dashboard-card">
         <mat-card class="userCard">
           <mat-card-header>
-            <mat-card-title class="levelTitle">
-              <div class="star">⭐️</div>
-              <div class="level">Level: {{level}}</div>
-              <div class="score">Score: {{score}}x
-                <div class="scoreCount">🥕</div>
-              </div>
-            </mat-card-title>
           </mat-card-header>
+          <mat-card-title class="levelTitle">
+            STATS
+          </mat-card-title>
+          <mat-card-subtitle class="stats">
+            <h2>⭐️ Level: {{level}} &emsp; 🥕 Score: {{score}}</h2>
+          </mat-card-subtitle>
+          <mat-card-title>
+            USER INFORMATION
+          </mat-card-title>
           <mat-card-content class="dashboard-card-content">
-            <div class="userStatsWrapper">
-              <div [ngStyle]="{'background-color': profileColor}" class="profileContainer">
-                <img *ngIf="profileImage" [src]="profileImage" class="profilePicture">
-                <div [ngStyle]="{'background-color': profileColor, 'opacity': 0.8}" class="changePicture">
-                  <button class="buttonPicture" routerLink="../profile-picture-form"></button>
-                  Change Profile Picture
-                </div>
-              </div>
+            <div class="userWrapper">
               <div class="userStats">
                 <div class="userFirst">
                   <div class="stat statfirst">Username:
@@ -56,14 +51,21 @@
                       </button>
                     </div>
                   </div>
-                  <div class="stat statsecond">
-                    <div class="statValue">
+                  <div>
+                    <div>
                       <button (click)="openDialog()"
                               class="userButton" color="accent"
                               mat-raised-button type="submit">Change PW
                       </button>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div [ngStyle]="{'background-color': profileColor}" class="profileContainer">
+                <img *ngIf="profileImage" [src]="profileImage" class="profilePicture">
+                <div [ngStyle]="{'background-color': profileColor, 'opacity': 0.8}" class="changePicture">
+                  <button class="buttonPicture" routerLink="../profile-picture-form"></button>
+                  Change Profile<br>Picture
                 </div>
               </div>
             </div>
@@ -213,10 +215,13 @@
         <mat-card class="messageCard">
           <mat-card-header>
             <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
+            <mat-card-subtitle class="dailyMessageC">
+              <span class="dailyMessage">"{{dailyMessage}}"<br>
+                <span class="signature">-Habit Rabbit Team</span>
+              </span>
+            </mat-card-subtitle>
             <mat-card-content>
-              <div class="dailyMessage">"{{dailyMessage}}"<br>
-                <div class="signature">-Habit Rabbit Team</div>
-              </div>
+
               <button (click)=goHelpfulLink() class="helpButton" color="primary" mat-raised-button type="button">Find
                 out more
               </button>
@@ -271,4 +276,6 @@
     </mat-grid-tile>
   </mat-grid-list>
 </div>
-<footer>©️ 2020 HabitRabbit Team 🥕🐰</footer>
+<footer><span class="footertext">&#9400;&ensp;️2020 HabitRabbit Team 🥕🐰</span>
+  <button class="faqbutton" color="warn" mat-raised-button routerLink="../faq">FAQ</button>
+</footer>

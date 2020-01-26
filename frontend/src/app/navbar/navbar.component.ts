@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
   isSuperUser;
   picturesource = '';
   pictureId;
+  windowsize = 'block';
   imageExists = false;
   showComponent;
   levelIcon = '../../assets/Resources/navbar/level_icon.png';
@@ -75,6 +76,13 @@ export class NavbarComponent implements OnInit {
           });
       }
     });
+    if (window.screen.width < 500) { // 768px portrait
+      this.windowsize = 'none';
+    }
+  }
+
+  onResize(event) {
+    this.windowsize = (event.target.innerWidth <= 500) ? 'none' : 'block';
   }
 
   getColorVal(letter: string) {

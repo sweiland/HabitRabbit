@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit {
   filteredHabits: any[];
   habitList: Array<string> = new Array<string>();
   formatedHabitList;
+  breakpoint;
 
   colorScheme = {
     domain: [
@@ -92,7 +93,7 @@ export class DashboardComponent implements OnInit {
     map(({matches}) => {
       if (matches) {
         return [
-          {title: 'User', cols: 1, rows: 1},
+          {title: 'User', cols: 1, rows: 2},
           {title: 'Active Habits', cols: 1, rows: 1},
           {title: 'Daily Message', cols: 1, rows: 1},
           {title: 'Charts', cols: 1, rows: 2},
@@ -101,7 +102,7 @@ export class DashboardComponent implements OnInit {
       }
 
       return [
-        {title: 'User', cols: 1, rows: 1},
+        {title: 'User', cols: 1, rows: 2},
         {title: 'Active Habits', cols: 1, rows: 2},
         {title: 'Daily Message', cols: 1, rows: 1},
         {title: 'Charts', cols: 1, rows: 2},
@@ -121,6 +122,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.breakpoint = 2;
     const data: Data = this.route.snapshot.data;
     if (data.typeOptions) {
       this.typeOptions = data.typeOptions;
@@ -195,6 +197,7 @@ export class DashboardComponent implements OnInit {
       } else {
         this.profilePictureService.getColor(data.user.profile_picture).subscribe((response: any) => {
           if (response.color === null) {
+            console.log('thisthisthis');
             this.profileColor = '#613DB1';
           } else {
             this.profileColor = this.profilePictureService.getColorVal(response.color);
@@ -237,6 +240,7 @@ export class DashboardComponent implements OnInit {
       const randomMessage = res[Math.floor(Math.random() * res.length)];
       return this.dailyMessage = randomMessage;
     });
+    this.breakpoint = (innerWidth <= 1050) ? 1 : 2;
   }
 
   _filter(value: string): string[] {
@@ -245,6 +249,10 @@ export class DashboardComponent implements OnInit {
     return this.users.filter((u) => {
       return u.username.toString().toLowerCase().includes(filterValue) || u.email.toString().toLowerCase().includes(filterValue);
     });
+  }
+
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 1050) ? 1 : 2;
   }
 
   populateInfo(habit: any[]): any[] {
