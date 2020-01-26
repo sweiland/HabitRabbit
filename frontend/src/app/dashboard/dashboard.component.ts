@@ -450,9 +450,44 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  getsPoints(streak: number): number {
+    if (streak < 14) {
+      return 2;
+    }
+    if (streak < 30) {
+      return 4;
+    }
+    if (streak < 90) {
+      return 8;
+    }
+    return 10;
+  }
+
+  getLevel(score: number): number {
+    const withoutModulo = score - (score % 20);
+    return withoutModulo / 20 !== 0 ? withoutModulo / 20 : 1;
+  }
+
   logActive(habit: any): void {
     const is_finished = moment().startOf('day').isSameOrAfter(moment(habit.end_date).startOf('day'));
-    this.userService.logActive(this.ID, is_finished, habit.late, habit.percentage, habit.failed);
+    this.userService.getUser().subscribe((res: any) => {
+      const streak = habit.late ? 0 : res.streak + 1;
+      const add: number = this.getsPoints(streak);
+      const scoreList = res.score.split(',');
+      const currentScore: number = +scoreList.reverse()[0];
+      const scoreN: number = habit.failed ? currentScore - 50 : habit.percentage > 50 && is_finished ?
+        currentScore + add + 50 : currentScore + add;
+      const score = res.score.split(',') + ',' + scoreN;
+      const level = habit.failed ? res.level - 1 : this.getLevel(scoreN);
+      return this.http.patch('/api/user/' + this.ID + '/update', {
+        streak,
+        score,
+        level
+      }).subscribe((res2: any) => {
+        this.score = res2.score.split(',').reverse()[0];
+        this.level = res2.level;
+      });
+    });
     this.habitService.updateHabit({
       clicked: habit.clicked + 1,
       id: habit.id,
@@ -602,15 +637,16 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         result.type = result.type.id;
-        this.habitService.saveHabit(result).subscribe();
-        this.snackbar.open('Successfully Created!', 'close', {duration: 1000});
-        this.filteredHabits = this.filteredHabits.filter((h) => {
-          return h.id !== result.id;
-        }).concat(result).sort((a, b) => {
-          return moment(a.start_date).diff(moment(b.start_date));
+        this.habitService.saveHabit(result).subscribe((res: any) => {
+          this.snackbar.open('Successfully Created!', 'close', {duration: 1000});
+          this.filteredHabits = this.filteredHabits.filter((h) => {
+            return h.id !== res.id;
+          }).concat(res).sort((a, b) => {
+            return moment(a.start_date).diff(moment(b.start_date));
+          });
+          this.filteredHabits = this.populateInfo(this.filteredHabits);
+          this.empty = this.filteredHabits.length === 0;
         });
-        this.populateInfo(this.filteredHabits);
-        this.empty = this.filteredHabits.length === 0;
       }
     });
   }
@@ -643,7 +679,9 @@ export class DashboardHabitEditComponent {
   }
 
   disableCheck() {
-    return false;
+    const startDate = moment(this.data.start_date).startOf('day');
+    const endDate = moment(this.data.end_date).startOf('day');
+    return (startDate.diff(endDate, 'day') === 0 || !this.data.name || !this.data.end_date || !this.data.start_date);
   }
 
   moment() {

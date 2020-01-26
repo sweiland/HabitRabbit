@@ -5,7 +5,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import * as moment from 'moment';
 
@@ -95,45 +95,9 @@ export class UserService {
   }
 
   updatePassword(user: any) {
-    if (user.password !== undefined) {
+    if (user.password !== null) {
       return this.http.patch('/api/user/' + user.id + '/update', user);
     }
 
-  }
-
-  logActive(ID: number, finished: boolean, penalty: boolean, percentage: number, failed: boolean) {
-    return this.getUser().subscribe((res: any) => {
-      const streak = penalty ? 0 : res.streak + 1;
-      const add: number = this.getsPoints(streak);
-      const scoreList = res.score.split(',');
-      const currentScore: number = +scoreList.reverse()[0];
-      const scoreN: number = failed ? currentScore - 50 : percentage > 50 && finished ?
-        currentScore + add + 50 : currentScore + add;
-      const score = res.score.split(',') + ',' + scoreN;
-      const level = failed ? res.level - 1 : this.getLevel(scoreN);
-      return this.http.patch('/api/user/' + ID + '/update', {
-        streak,
-        score,
-        level
-      }).subscribe();
-    });
-  }
-
-  getsPoints(streak: number): number {
-    if (streak < 14) {
-      return 2;
-    }
-    if (streak < 30) {
-      return 4;
-    }
-    if (streak < 90) {
-      return 8;
-    }
-    return 10;
-  }
-
-  getLevel(score: number) {
-    const withoutModulo = score - (score % 20);
-    return withoutModulo / 20;
   }
 }
