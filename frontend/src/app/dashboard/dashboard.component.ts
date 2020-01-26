@@ -119,6 +119,7 @@ export class DashboardComponent implements OnInit {
       ];
     })
   );
+  private isErroneos: boolean;
 
   constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute,
               private http: HttpClient, private userService: UserService,
@@ -569,29 +570,38 @@ export class DashboardComponent implements OnInit {
 
     const dialogRef = this.dialog.open(UserDataChangeComponent, {
       width: '250px',
-      data: {username: this.username, first_name: this.firstname, last_name: this.lastname, email: this.email}
+      data: {id: this.userId, username: this.username, first_name: this.firstname, last_name: this.lastname, email: this.email}
     });
 
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userDataForm.patchValue(result);
-        if (this.userDataForm.controls.email.hasError('email_check')) {
-          this.snackbar.open('Sorry, wrong email pattern', 'close', {duration: 1000});
-        } else if (result.email !== this.email) {
-          this.userService.updateUser(this.userDataForm.value).subscribe(() => {
-            this.snackbar.open('You need to log in again!', 'close', {duration: 1000});
-            this.userService.logout();
+        this.isErroneos = false;
+        this.userService.getUnique().subscribe((r: any[]) => {
+          r.forEach((u) => {
+            if (u.id !== result.id && (u.username === result.username || u.email === result.email)) {
+              this.isErroneos = true;
+              this.snackbar.open('Username or Email has already been taken!', 'close', {duration: 1000});
+            }
           });
-        } else {
-          this.userService.updateUser(this.userDataForm.value).subscribe((res: any) => {
-            this.email = res.email;
-            this.username = res.username;
-            this.firstname = res.first_name;
-            this.lastname = res.last_name;
-            this.snackbar.open('Updated successfully!', 'close', {duration: 1000});
-          });
-        }
+          this.userDataForm.patchValue(result);
+          if (this.userDataForm.controls.email.hasError('email_check')) {
+            this.snackbar.open('Sorry, wrong email pattern', 'close', {duration: 1000});
+          } else if (result.email !== this.email && !this.isErroneos) {
+            this.userService.updateUser(this.userDataForm.value).subscribe(() => {
+              this.snackbar.open('You need to log in again!', 'close', {duration: 1000});
+              this.userService.logout();
+            });
+          } else if (!this.isErroneos) {
+            this.userService.updateUser(this.userDataForm.value).subscribe((res: any) => {
+              this.email = res.email;
+              this.username = res.username;
+              this.firstname = res.first_name;
+              this.lastname = res.last_name;
+              this.snackbar.open('Updated successfully!', 'close', {duration: 1000});
+            });
+          }
+        });
       }
     });
   }
@@ -749,6 +759,7 @@ export class PasswordChangeComponentDash {
 }
 
 export interface UserData {
+  id: number;
   username: string;
   first_name: string;
   last_name: string;

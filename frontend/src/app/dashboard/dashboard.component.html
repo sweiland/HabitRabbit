@@ -213,15 +213,13 @@
       <mat-card *ngIf="card.title === 'Daily Message' && !empty" class="dashboard-card">
         <mat-card class="messageCard">
           <mat-card-header>
-            <mat-card-title class="message-header">📫 Daily Message</mat-card-title>
+            <mat-card-title class="message-header">📫 {{card.title}}</mat-card-title>
             <mat-card-subtitle class="dailyMessageC">
               <span class="dailyMessage">"{{dailyMessage}}"<br>
                 <span class="signature">-Habit Rabbit Team</span>
               </span>
             </mat-card-subtitle>
-            <mat-card-title class="message-header">📫 {{card.title}}</mat-card-title>
             <mat-card-content>
-
               <button (click)=goHelpfulLink() class="helpButton" color="primary" mat-raised-button type="button">Find
                 out more
               </button>

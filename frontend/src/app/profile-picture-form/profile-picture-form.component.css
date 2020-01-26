@@ -12,11 +12,6 @@ mat-card-title {
   width: 100%;
 }
 
-.shipping-card {
-  min-width: 120px;
-  margin: 20px auto;
-}
-
 .mat-radio-button {
   display: block;
   margin: 5px 0;
@@ -94,7 +89,7 @@ mat-form-field {
   padding-top: 5%;
 }
 
-button {
+.selector {
   width: 18.5rem;
   height: 12rem;
   color: transparent;
@@ -104,7 +99,27 @@ button {
   outline: none;
 }
 
-button:hover {
+.deleteS {
+  padding-top: 3%;
+  align-content: center;
+  margin-left: 44.7%;
+}
+
+.delete {
+  position: relative;
+  width: 10rem;
+  height: 3rem;
+  color: white;
+  text-shadow: -1px 1px black;
+  font-size: 1.5em;
+  background-color: #673AB7;
+}
+
+.delete:hover {
+  cursor: pointer;
+}
+
+.selector:hover {
   color: white;
   text-shadow: -1px 1px black;
   cursor: pointer;
@@ -152,29 +167,27 @@ img {
   margin-left: 10%;
 }
 
-.deleteS {
-  padding-top: 5%;
-  align-content: center;
-  margin-left: 44.7%;
-}
-
-.delete {
-  width: 10rem;
-  height: 3rem;
+footer {
+  background-color: #613DB1;
+  height: 50px;
+  font-size: larger;
+  text-align: center;
+  vertical-align: middle;
   color: white;
-  text-shadow: -1px 1px black;
-  font-size: 1.5em;
-  background-color: #673AB7;
-  border: none;
-  outline: none;
-  border-radius: 20px 20px 20px 20px;
-  border-width: 3px;
-  border-color: black;
-  border-style: solid;
+  width: 100%;
 }
 
-.delete:hover {
-  cursor: pointer;
+.footertext {
+  position: relative;
+  top: 25%;
+  left: 2%;
+}
+
+.faqbutton {
+  position: relative;
+  float: right;
+  right: 1em;
+  top: 15%;
 }
 
 /*# sourceMappingURL=profile-picture-form.component.css.map */
