@@ -1,10 +1,9 @@
-/**********************************************************************************************************************
- * dashboard.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * dashboard.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {map, startWith} from 'rxjs/operators';
 import {single} from './data';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
@@ -23,6 +22,10 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import {HabitUserResolver} from '../resolver/habit-user.resolver';
 import * as d3 from 'd3';
 import {ActivatedRoute, Data} from '@angular/router';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MessageListItem} from '../message-list/message-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -49,6 +52,7 @@ export class DashboardComponent implements OnInit {
   userId;
   level;
   score;
+  chartScore;
   email;
   username = '';
   firstname;
@@ -76,6 +80,11 @@ export class DashboardComponent implements OnInit {
   habitList: Array<string> = new Array<string>();
   formatedHabitList;
   breakpoint;
+
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatTable, {static: false}) table: MatTable<MessageListItem>;
+  dataSource: MatTableDataSource<any>;
 
   colorScheme = {
     domain: [
@@ -132,6 +141,7 @@ export class DashboardComponent implements OnInit {
       this.friends = res2.filter(x => data.user.friends.indexOf(x.id) !== -1);
       this.friends.forEach(f => f.score = f.score.split(',').reverse()[0]);
       this.friendsList = this.friends.map(f => f.id);
+      this.friendsTable();
     });
     this.friendsForm = new FormControl();
     if (data.users) {
@@ -152,40 +162,11 @@ export class DashboardComponent implements OnInit {
         return moment(a.start_date).diff(moment(b.start_date));
       });
       this.populateInfo(this.filteredHabits);
-      this.habitChart = [
-        {name: 'Active', value: this.filteredHabits.filter(h => !h.is_finished).length},
-        {name: 'Finished', value: this.filteredHabits.filter(h => h.is_finished && !h.failed).length},
-        {name: 'Failed', value: this.filteredHabits.filter(h => h.failed).length},
-        {name: 'Late', value: this.filteredHabits.filter(h => h.late).length},
-      ];
-      const assignedTypes = new Map();
-      this.filteredHabits.forEach((t) => {
-        if (assignedTypes.has(t.type)) {
-          let old = assignedTypes.get(t.type) + 1;
-          assignedTypes.set(t.type, old++);
-        } else {
-          assignedTypes.set(t.type, 1);
-        }
-      });
-      assignedTypes.forEach((value, key) => {
-        const name = this.typeOptions.filter(o => o.id === key)[0].name;
-        this.typeChart.push({name, value});
-      });
-      const series = [];
-      data.user.score.split(',').forEach((s, i) => {
-        series.push({
-          name: i,
-          value: s
-        });
-      });
-      this.pointChart.push({
-        name: this.username,
-        series
-      });
     }
     if (data.user) {
       this.userId = data.user.id;
       this.level = data.user.level;
+      this.chartScore = data.user.score;
       this.score = data.user.score.split(',').reverse()[0];
       this.email = data.user.email;
       this.username = data.user.username;
@@ -215,30 +196,29 @@ export class DashboardComponent implements OnInit {
       }
       this.formatedHabitList = this.habitList.join(',');
     }
-    this.messageService.getAll().subscribe((mes: any[]): Promise<any[]> => {
-      const types = this.filteredHabits.map((h) => {
-        return h.type_id;
+    this.updateMessage();
+    this.updateCharts();
+  }
+
+  friendsTable() {
+    this.paginator.length = this.friends.length;
+    this.dataSource = new MatTableDataSource(this.friends);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  updateMessage() {
+    const types = this.filteredHabits.map((h) => {
+      return h.type_id;
+    });
+    const type = types[Math.floor(Math.random() * types.length)];
+    return this.typeService.getType(type).subscribe((t: any) => {
+      return this.messageService.getAll().subscribe((m: any) => {
+        this.dailyMessage = m.filter((i: any) => {
+          return i.type === type;
+        })[0].message;
+        return this.currentLink = t.helpful_link;
       });
-      const tempNum = types[Math.floor(Math.random() * types.length)];
-      if (tempNum) {
-        this.typeService.getMessage(tempNum).subscribe((resp: any) => {
-          if (resp.helpful_link === null) {
-            this.currentLink = 'There is no link available';
-          } else {
-            this.currentLink = resp.helpful_link;
-          }
-        });
-      } else {
-        this.currentLink = 'There is no link available';
-      }
-      const filtered = mes.filter((f) => {
-        return types.includes(f.type);
-      });
-      const res = filtered.map((i) => {
-        return i.message;
-      });
-      const randomMessage = res[Math.floor(Math.random() * res.length)];
-      return this.dailyMessage = randomMessage;
     });
     this.breakpoint = (innerWidth <= 1050) ? 1 : 2;
   }
@@ -283,7 +263,11 @@ export class DashboardComponent implements OnInit {
   }
 
   goHelpfulLink() {
-    window.location.href = this.currentLink;
+    if (this.currentLink !== null) {
+      window.open(this.currentLink, '_blank');
+    } else {
+      this.snackbar.open('There is no link available!', 'close', {duration: 1000});
+    }
   }
 
   generatePdf() {
@@ -371,6 +355,7 @@ export class DashboardComponent implements OnInit {
     this.friends.forEach(f => f.score = f.score.split(',').reverse()[0]);
     this.friends.reverse();
     document.getElementById('mat-input-0').blur();
+    this.friendsTable();
   }
 
   removeFriend(id: number) {
@@ -378,6 +363,7 @@ export class DashboardComponent implements OnInit {
     this.friends = this.friends.filter((f) => {
       return f.id !== id;
     });
+    this.friendsTable();
     const friends = this.friendsList.filter(f => f !== id);
     this.userService.updateUser({
       id: this.ID,
@@ -436,17 +422,55 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  getsPoints(streak: number): number {
+    if (streak < 14) {
+      return 2;
+    }
+    if (streak < 30) {
+      return 4;
+    }
+    if (streak < 90) {
+      return 8;
+    }
+    return 10;
+  }
+
+  getLevel(score: number): number {
+    const withoutModulo = score - (score % 20);
+    return withoutModulo / 20 !== 0 ? withoutModulo / 20 : 1;
+  }
+
   logActive(habit: any): void {
     const is_finished = moment().startOf('day').isSameOrAfter(moment(habit.end_date).startOf('day'));
-    this.userService.logActive(this.ID, is_finished, habit.late, habit.percentage, habit.failed);
+    this.userService.getUser().subscribe((res: any) => {
+      const streak = habit.late ? 0 : res.streak + 1;
+      const add: number = this.getsPoints(streak);
+      const scoreList = res.score.split(',');
+      const currentScore: number = +scoreList.reverse()[0];
+      const scoreN: number = habit.failed ? currentScore - 50 : habit.percentage > 50 && is_finished ?
+        currentScore + add + 50 : currentScore + add;
+      const score = res.score.split(',') + ',' + scoreN;
+      const level = habit.failed ? res.level - 1 : this.getLevel(scoreN);
+      return this.http.patch('/api/user/' + this.ID + '/update', {
+        streak,
+        score,
+        level
+      }).subscribe((res2: any) => {
+        this.chartScore = res2.score;
+        this.score = res2.score.split(',').reverse()[0];
+        this.level = res2.level;
+        this.updateCharts();
+        this.updateMessage();
+      });
+    });
     this.habitService.updateHabit({
       clicked: habit.clicked + 1,
       id: habit.id,
       last_click: moment().endOf('day'),
       is_finished,
-    }).subscribe(() => {
+    }).subscribe((res: any) => {
       this.filteredHabits.filter((x) => {
-        return x.id === habit.id;
+        return x.id === res.id;
       }).map((x) => {
         x.today = true;
         x.clicked++;
@@ -454,6 +478,8 @@ export class DashboardComponent implements OnInit {
         x.failed = x.is_finished && x.percentage <= 50;
         return x;
       });
+      this.updateCharts();
+      this.updateMessage();
     });
   }
 
@@ -466,8 +492,9 @@ export class DashboardComponent implements OnInit {
     this.filteredHabits = this.filteredHabits.filter((x) => {
       return x.id !== id;
     });
-    this.habitsEditable = false;
     this.empty = this.filteredHabits.length === 0;
+    this.updateCharts();
+    this.updateMessage();
   }
 
   openHabitDialog(habit: any) {
@@ -479,13 +506,14 @@ export class DashboardComponent implements OnInit {
         end_date: habit.end_date,
         name: habit.name,
         interval: habit.interval,
-        priority: habit.priority,
+        priority: habit.priority === 3 ? 1 : habit.priority === 2 ? 2 : 3,
         type: this.typeOptions.filter(t => t.id === habit.type)[0],
         typeOptions: this.typeOptions
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        result.priority = result.priority === 3 ? 1 : result.priority === 2 ? 2 : 3;
         result.type = result.type.id;
         this.habitService.updateHabit(result).subscribe();
         this.snackbar.open('Successfully Updated!', 'close', {duration: 1000});
@@ -495,7 +523,8 @@ export class DashboardComponent implements OnInit {
           return moment(a.start_date).diff(moment(b.start_date));
         });
         this.populateInfo(this.filteredHabits);
-        this.habitsEditable = false;
+        this.updateCharts();
+        this.updateMessage();
       }
     });
   }
@@ -567,9 +596,45 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  updateCharts(): void {
+    this.habitChart = [];
+    this.typeChart = [];
+    this.pointChart = [];
+    this.habitChart = [
+      {name: 'Active', value: this.filteredHabits.filter(h => !h.is_finished).length},
+      {name: 'Finished', value: this.filteredHabits.filter(h => h.is_finished && !h.failed).length},
+      {name: 'Failed', value: this.filteredHabits.filter(h => h.failed).length},
+      {name: 'Late', value: this.filteredHabits.filter(h => h.late).length},
+    ];
+    const assignedTypes = new Map();
+    this.filteredHabits.forEach((t) => {
+      if (assignedTypes.has(t.type)) {
+        let old = assignedTypes.get(t.type) + 1;
+        assignedTypes.set(t.type, old++);
+      } else {
+        assignedTypes.set(t.type, 1);
+      }
+    });
+    assignedTypes.forEach((value, key) => {
+      const name = this.typeOptions.filter(o => o.id === key)[0].name;
+      this.typeChart.push({name, value});
+    });
+    const series = [];
+    this.chartScore.split(',').forEach((s, i) => {
+      series.push({
+        name: i,
+        value: s
+      });
+    });
+    this.pointChart.push({
+      name: this.username,
+      series
+    });
+  }
+
   getPrioSym(habit: any): string {
     const color: string = habit.late ? '❗️' : '❕';
-    return color + (habit.priority === 3 ? '3️⃣' : habit.priority === 2 ? '2️⃣' : '1️⃣');
+    return color + (habit.priority === 3 ? '3️' : habit.priority === 2 ? '2️' : '1️');
   }
 
   openAddDialog() {
@@ -587,16 +652,19 @@ export class DashboardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        result.priority = result.priority === 3 ? 1 : result.priority === 2 ? 2 : 3;
         result.type = result.type.id;
-        this.habitService.saveHabit(result).subscribe();
-        this.snackbar.open('Successfully Created!', 'close', {duration: 1000});
-        this.filteredHabits = this.filteredHabits.filter((h) => {
-          return h.id !== result.id;
-        }).concat(result).sort((a, b) => {
-          return moment(a.start_date).diff(moment(b.start_date));
+        this.habitService.saveHabit(result).subscribe((res: any) => {
+          this.snackbar.open('Successfully Created!', 'close', {duration: 1000});
+          this.filteredHabits = this.filteredHabits.filter((h) => {
+            return h.id !== res.id;
+          }).concat(this.populateInfo([res])).sort((a, b) => {
+            return moment(a.start_date).diff(moment(b.start_date));
+          });
+          this.empty = this.filteredHabits.length === 0;
+          this.updateCharts();
+          this.updateMessage();
         });
-        this.populateInfo(this.filteredHabits);
-        this.empty = this.filteredHabits.length === 0;
       }
     });
   }
@@ -629,7 +697,9 @@ export class DashboardHabitEditComponent {
   }
 
   disableCheck() {
-    return false;
+    const startDate = moment(this.data.start_date).startOf('day');
+    const endDate = moment(this.data.end_date).startOf('day');
+    return (startDate.diff(endDate, 'day') === 0 || !this.data.name || !this.data.end_date || !this.data.start_date);
   }
 
   moment() {

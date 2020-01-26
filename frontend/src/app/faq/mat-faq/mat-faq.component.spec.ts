@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * mat-faq.component.spec.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * mat-faq.component.spec.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
@@ -10,7 +9,7 @@ import {DebugElement} from '@angular/core';
 import {MatFaqComponent} from './mat-faq.component';
 import {MatExpansionModule, MatToolbarModule} from '@angular/material';
 
-describe('MatFaqComponent', function () {
+describe('MatFaqComponent', function() {
   let de: DebugElement;
   let comp: MatFaqComponent;
   let fixture: ComponentFixture<MatFaqComponent>;

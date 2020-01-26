@@ -1,19 +1,19 @@
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~ mat-faq.component.html Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
-  ~                                                                                                                   ~
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-<mat-toolbar color="primary">{{title | uppercase}}</mat-toolbar>
-<mat-accordion [displayMode]="displayMode" [multi]="multi"
-               class="faq-container">
-  <mat-expansion-panel *ngFor="let faqItem of faqList">
-    <mat-expansion-panel-header>{{faqItem.question}}</mat-expansion-panel-header>
-    <p>{{faqItem.answer}}</p>
-    <button *ngIf="isSuperuser" (click)="deleteFaq(faqItem.id)" color="warn" mat-mini-fab>
-      <mat-icon>remove</mat-icon>
-    </button>
-    <button *ngIf="isSuperuser" (click)="edit(faqItem)" color="primary" mat-mini-fab>
-      <mat-icon>edit</mat-icon>
-    </button>
-  </mat-expansion-panel>
-</mat-accordion>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ mat-faq.component.html Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<ng-container *ngIf="userService.hasPermission('HabitRabbit.view_faq')">
+  <mat-toolbar color="primary">{{title | uppercase}}</mat-toolbar>
+  <mat-accordion [displayMode]="displayMode" [multi]="multi"
+                 class="faq-container">
+    <mat-expansion-panel *ngFor="let faqItem of faqList">
+      <mat-expansion-panel-header>{{faqItem.question}}</mat-expansion-panel-header>
+      <p>{{faqItem.answer}}</p>
+      <button (click)="deleteFaq(faqItem.id)" *ngIf="isSuperuser" color="warn" mat-mini-fab>
+        <mat-icon>remove</mat-icon>
+      </button>
+      <button (click)="edit(faqItem)" *ngIf="isSuperuser" color="primary" mat-mini-fab>
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>

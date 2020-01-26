@@ -2,7 +2,7 @@
   ~ profile-picture-form.component.html Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
   ~                                                                                                                   ~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<mat-card class="shipping-card">
+<mat-card *ngIf="userService.hasPermission('HabitRabbit.add_profilepicture')" class="shipping-card">
   <mat-card-content>
     <mat-card-title>Choose your profile picture color</mat-card-title>
       <div class="colors">

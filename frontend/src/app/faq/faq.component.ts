@@ -1,11 +1,11 @@
-/**********************************************************************************************************************
- * faq.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).     *
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * faq.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Component, OnInit} from '@angular/core';
 import {FAQService} from '../service/faq.service';
 import {FaqItem} from './faq.item';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-faq',
@@ -17,7 +17,7 @@ export class FaqComponent implements OnInit {
   list: FaqItem[] = [];
   faqItem: FaqItem;
 
-  constructor(private faqService: FAQService) {
+  constructor(private faqService: FAQService, private userService: UserService) {
   }
 
   onNewFaqItem(faqItem: FaqItem) {

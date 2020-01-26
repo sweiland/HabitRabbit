@@ -1,17 +1,27 @@
-/* Error: Can't find stylesheet to import.
- *    ,
- * 10 | @import '~ngx-bar-rating-odilo/themes/br-square-theme';
- *    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- *    '
- *   styles.scss 10:9  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a    \2577 \a 10 \2502  @import '~ngx-bar-rating-odilo/themes/br-square-theme';\a    \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   styles.scss 10:9  root stylesheet";
+@charset "UTF-8";
+/*!*****************************************************************************
+ * styles.scss Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~material-design-icons/iconfont/material-icons.css';
+@import '~ngx-bar-rating-odilo/themes/br-square-theme.css';
+html, body {
+  height: 100%;
 }
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.br-square .br-units {
+  counter-reset: counter 4;
+}
+
+.br-square .br-unit:after {
+  content: counter(counter);
+  counter-increment: counter -1;
+}
+
+/*# sourceMappingURL=styles.css.map */

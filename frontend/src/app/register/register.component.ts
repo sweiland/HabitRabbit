@@ -1,13 +1,12 @@
-/**********************************************************************************************************************
- * register.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).*
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * register.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Component({
@@ -56,7 +55,8 @@ export class RegisterComponent implements OnInit {
       is_staff: [false],
       is_superuser: [false],
       level: [1],
-      score: ['0']
+      score: ['0'],
+      groups: [[2]]
     });
   }
 
@@ -93,6 +93,7 @@ export class RegisterComponent implements OnInit {
       first_name: this.registerForm2.value.first_name,
       last_name: this.registerForm2.value.last_name,
       password: this.registerForm3.value.password,
+      groups: [2]
     });
     this.userService.register(this.registerFormFinal.value).subscribe(() => {
       this.router.navigate(['/login']);

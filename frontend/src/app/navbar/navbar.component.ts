@@ -1,7 +1,6 @@
-/**********************************************************************************************************************
- * navbar.component.ts Copyright © 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).  *
- *                                                                                                                    *
- **********************************************************************************************************************/
+/** ****************************************************************************
+ * navbar.component.ts Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
+ ******************************************************************************/
 
 import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
@@ -35,6 +34,7 @@ export class NavbarComponent implements OnInit {
   imageExists = false;
   showComponent;
   levelIcon = '../../assets/Resources/navbar/level_icon.png';
+
   constructor(private http: HttpClient, private userService: UserService, private profilePictureService: ProfilePictureService,
               private navbar: NavbarService) {
   }
@@ -46,14 +46,12 @@ export class NavbarComponent implements OnInit {
     this.navbar.changePicture.subscribe((data) => {
       this.imageExists = true;
       this.picturesource = data;
-      console.log(data);
     });
     this.navbar.disablePicture.subscribe(data => {
       this.imageExists = data;
     });
     this.navbar.showPicture.subscribe((data) => {
       this.pictureId = data;
-      console.log(this.pictureId, this.colorPP, this.picturesource);
     });
     this.userService.isLoggedIn.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
