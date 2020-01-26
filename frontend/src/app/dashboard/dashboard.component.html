@@ -2,7 +2,7 @@
   ~ dashboard.component.html Copyright ©️ 2020 by the HabitRabbit developers (ardianq, lachchri16, sweiland, YellowIcicle).
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-<div class="grid-container" *ngIf="userService.hasPermission('HabitRabbit.view_habit')">
+<div *ngIf="userService.hasPermission('HabitRabbit.view_habit')" class="grid-container">
   <h1 class="mat-h1">Dashboard
     <button (click)="generatePdf()" class="exportPDF" color="primary" mat-raised-button type="submit">Export Profile
     </button>
@@ -231,7 +231,8 @@
 
           <span class="friendspacer"></span>
           <mat-form-field class="friendsFormField">
-            <input [formControl]="friendsForm" [matAutocomplete]="auto" matInput placeholder="Add Friend" type="text">
+            <input [formControl]="friendsForm" [matAutocomplete]="auto" id="mat-input-0" matInput
+                   placeholder="Add Friend" type="text">
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option (click)="onEnterFriend(user)" *ngFor="let user of filteredOptions | async"
                           [value]="user.username">
@@ -240,21 +241,20 @@
             </mat-autocomplete>
           </mat-form-field>
         </mat-card-header>
-
         <mat-card-content class="dashboard-card-content">
           <mat-card *ngIf="friends !== undefined && friends.length !== 0">
             <mat-card-content>
-              <table [dataSource]="friends" mat-table>
+              <table [dataSource]="dataSource" mat-table matSort>
                 <ng-container matColumnDef="username">
-                  <th *matHeaderCellDef mat-header-cell> Username</th>
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header> Username</th>
                   <td *matCellDef="let friend" mat-cell> {{friend.username}} </td>
                 </ng-container>
                 <ng-container matColumnDef="score">
-                  <th *matHeaderCellDef mat-header-cell> Score</th>
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header> Score</th>
                   <td *matCellDef="let friend" mat-cell> {{friend.score}}🥕</td>
                 </ng-container>
                 <ng-container matColumnDef="actions">
-                  <th *matHeaderCellDef mat-header-cell></th>
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
                   <td *matCellDef="let friend" class="friendsActions" mat-cell>
                     <button (click)="removeFriend(friend.id)" class="friend-remove-button" mat-raised-button><i
                       class="material-icons">delete_forever</i></button>
@@ -265,6 +265,10 @@
               </table>
             </mat-card-content>
           </mat-card>
+          <mat-paginator #paginator
+                         [pageIndex]="0"
+                         [pageSize]="7">
+          </mat-paginator>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

@@ -37,7 +37,7 @@
               </mat-error>
             </mat-form-field>
             <div>
-              <button mat-button matStepperNext type="submit">Next</button>
+              <button mat-button matStepperNext [disabled]="!registerForm.valid" type="submit">Next</button>
             </div>
           </form>
         </mat-step>
@@ -59,7 +59,7 @@
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious type="button">Back</button>
-              <button mat-button matStepperNext type="submit">Next</button>
+              <button mat-button matStepperNext [disabled]="!registerForm2.valid" type="submit">Next</button>
             </div>
           </form>
         </mat-step>
@@ -89,7 +89,7 @@
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious type="button">Back</button>
-              <button mat-button type="submit">Submit</button>
+              <button mat-button [disabled]="!registerForm3.valid" type="submit">Submit</button>
             </div>
           </form>
         </mat-step>

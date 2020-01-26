@@ -3,7 +3,7 @@
  ******************************************************************************/
 
 
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {map, startWith} from 'rxjs/operators';
 import {single} from './data';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
@@ -22,6 +22,10 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import {HabitUserResolver} from '../resolver/habit-user.resolver';
 import * as d3 from 'd3';
 import {ActivatedRoute, Data} from '@angular/router';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MessageListItem} from '../message-list/message-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -74,6 +78,11 @@ export class DashboardComponent implements OnInit {
   filteredHabits: any[];
   habitList: Array<string> = new Array<string>();
   formatedHabitList;
+
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatTable, {static: false}) table: MatTable<MessageListItem>;
+  dataSource: MatTableDataSource<any>;
 
   colorScheme = {
     domain: [
@@ -129,6 +138,7 @@ export class DashboardComponent implements OnInit {
       this.friends = res2.filter(x => data.user.friends.indexOf(x.id) !== -1);
       this.friends.forEach(f => f.score = f.score.split(',').reverse()[0]);
       this.friendsList = this.friends.map(f => f.id);
+      this.friendsTable();
     });
     this.friendsForm = new FormControl();
     if (data.users) {
@@ -236,6 +246,13 @@ export class DashboardComponent implements OnInit {
       const randomMessage = res[Math.floor(Math.random() * res.length)];
       return this.dailyMessage = randomMessage;
     });
+  }
+
+  friendsTable() {
+    this.paginator.length = this.friends.length;
+    this.dataSource = new MatTableDataSource(this.friends);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   _filter(value: string): string[] {
@@ -366,6 +383,7 @@ export class DashboardComponent implements OnInit {
     this.friends.forEach(f => f.score = f.score.split(',').reverse()[0]);
     this.friends.reverse();
     document.getElementById('mat-input-0').blur();
+    this.friendsTable();
   }
 
   removeFriend(id: number) {
@@ -373,6 +391,7 @@ export class DashboardComponent implements OnInit {
     this.friends = this.friends.filter((f) => {
       return f.id !== id;
     });
+    this.friendsTable();
     const friends = this.friendsList.filter(f => f !== id);
     this.userService.updateUser({
       id: this.ID,
