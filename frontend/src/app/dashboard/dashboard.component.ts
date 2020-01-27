@@ -179,7 +179,6 @@ export class DashboardComponent implements OnInit {
       } else {
         this.profilePictureService.getColor(data.user.profile_picture).subscribe((response: any) => {
           if (response.color === null) {
-            console.log('thisthisthis');
             this.profileColor = '#613DB1';
           } else {
             this.profileColor = this.profilePictureService.getColorVal(response.color);
@@ -209,19 +208,21 @@ export class DashboardComponent implements OnInit {
   }
 
   updateMessage() {
-    const types = this.filteredHabits.map((h) => {
-      return h.type_id;
-    });
-    const type = types[Math.floor(Math.random() * types.length)];
-    return this.typeService.getType(type).subscribe((t: any) => {
-      return this.messageService.getAll().subscribe((m: any) => {
-        this.dailyMessage = m.filter((i: any) => {
-          return i.type === type;
-        })[0].message;
-        return this.currentLink = t.helpful_link;
+    if (this.filteredHabits.length !== 0) {
+      const types = this.filteredHabits.map((h) => {
+        return h.type_id;
       });
-    });
-    this.breakpoint = (innerWidth <= 1050) ? 1 : 2;
+      const type = types[Math.floor(Math.random() * types.length)];
+      return this.typeService.getType(type).subscribe((t: any) => {
+        return this.messageService.getAll().subscribe((m: any) => {
+          this.dailyMessage = m.filter((i: any) => {
+            return i.type === type;
+          })[0].message;
+          return this.currentLink = t.helpful_link;
+        });
+      });
+      this.breakpoint = (innerWidth <= 1050) ? 1 : 2;
+    }
   }
 
   _filter(value: string): string[] {
