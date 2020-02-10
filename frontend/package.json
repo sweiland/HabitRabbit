@@ -24,7 +24,7 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "^8.2.14",
-    "@auth0/angular-jwt": "^3.0.1",
+    "@auth0/angular-jwt": "^4.0.0",
     "@swimlane/ngx-charts": "^13.0.2",
     "d3": "^5.15.0",
     "eslint-plugin-json-format": "^2.0.1",
