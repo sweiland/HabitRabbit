@@ -2,6 +2,9 @@
 
 HabitRabbit™ is a revolutionary online habit building tool, based on state-of-the-art gamification technologies, designed to help its users build new, positive habits easily and quickly. It is an Angular/Django project conducted by students of the UAS JOANNEUM as part of the Software-Engeneering Selectiv project of [Information Management](https://www.fh-joanneum.at/ima).
 
+# Download
+Get the latest release from [here](https://github.com/sweiland/HabitRabbit/releases/latest)!
+
 ## Team Members
 - Michael Derler
 - Christian Lach
