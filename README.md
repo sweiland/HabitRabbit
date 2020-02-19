@@ -5,13 +5,13 @@ HabitRabbit™ is a revolutionary online habit building tool, based on state-of-
 # Download
 Get the latest release from [here](https://github.com/sweiland/HabitRabbit/releases/latest)!
 
-## Team Members
+# Team Members
 - Michael Derler
 - Christian Lach
 - Ardian Qerimi
 - Sebastian Weiland
 
-### FH-JOANNEUM lecturer
+## FH-JOANNEUM lecturer
 - DI Stefan Krausler-Baumann, BSc
 - Mag. Karl Kreiner
 
@@ -23,7 +23,7 @@ Get the latest release from [here](https://github.com/sweiland/HabitRabbit/relea
 * PyCharm 2019.3.2 as IDE recommended
 * WebStorm 2019.3.2 as IDE recommended
 
-### Django
+## Django
 
 1. Generate virtualenv
 
@@ -46,7 +46,7 @@ Get the latest release from [here](https://github.com/sweiland/HabitRabbit/relea
 
       `python3 manage.py runserver`
 
-### Angular
+## Angular
 
  1. Install all required packages using package.json
 
