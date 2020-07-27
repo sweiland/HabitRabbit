@@ -34,7 +34,7 @@
     "moment": "^2.27.0",
     "ngx-bar-rating-odilo": "^1.1.0",
     "npm": "^6.14.7",
-    "pdfmake": "^0.1.66",
+    "pdfmake": "^0.1.67",
     "quill": "^1.3.7",
     "rxjs": "^6.6.0",
     "sass": "^1.26.10",
